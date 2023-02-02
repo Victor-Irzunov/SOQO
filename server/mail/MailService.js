@@ -28,5 +28,21 @@ class MailService {
 			`
 		})
 	}
+
+	async sendActivationLogin(to, link) {
+		await this.transporter.sendMail({
+			from: process.env.SMTP_USER,
+			to,
+			subject: 'Активация' + ' ' + process.env.API_URL,
+			text: '',
+			html: `
+			<div>
+			<h1>Подтвердите смену пароля</h1>
+			<h5>перейдите по ссылке</h5>
+			<a href="${link}">${link}</a>
+			</div>
+			`
+		})
+	}
 }
 export const mailService = new MailService()

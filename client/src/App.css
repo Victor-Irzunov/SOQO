@@ -1,4 +1,4 @@
-/* @import '~antd/dist/antd.css'; */
+
 .app{
 	overflow: hidden;
 	display: flex;
@@ -12,53 +12,31 @@
  div.ant-typography, .ant-typography p{
 	margin-bottom: 0;
  }
- .ant-menu-horizontal > .ant-menu-item a{
-	color: rgb(255, 255, 255);
- }
 
- .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:nth-child(1){
-	padding-left: 0;
-	padding-right: 2em;
- }
- .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:nth-child(2){
-	padding-right: 10px;
- }
- .ant-menu-horizontal > .ant-menu-item:nth-child(1):after{
-	left: 0;
- }
- .ant-form-inline .ant-form-item{
-	margin-right: 0;
- }
- .ant-menu-horizontal{
-	border-bottom: 1px solid #fff;
- }
-
- .ant-carousel .slick-dots li button{
-	background: #ff0084;
- }
- .ant-carousel .slick-dots li.slick-active button{
-	background: #ff0084;
- }
- .react-multi-carousel-list{
-	overflow: visible !important;
- }
- .ant-btn-primary{
-	background-color:  #ff0084;
- }
 
  .ant-card-body {
-	padding: 0px;
+	padding: 0px !important;
 }
-
+.react-multi-carousel-list {
+overflow: visible !important;
+}
 img{
 	display: inline-block;
 }
-
 .active{
 	color: #00FF26 !important;
 }
 
+p{
+	margin-bottom: 0 !important;
+}
 
+a { 
+	text-decoration: none;
+  }
+  a:hover { 
+	text-decoration: none;
+  }
 
 
 .icon-card{
@@ -67,10 +45,6 @@ img{
 	height: 2.4em;
 }
 
-
-.ant-drawer-top>.ant-drawer-content-wrapper{
-	top: 130px;
-}
 
 .radio{
 	margin-right: 2em;
@@ -87,77 +61,29 @@ img{
 
 
 
+.ant-carousel .slick-prev,
+.ant-carousel .slick-next,
+.ant-carousel .slick-prev:hover,
+.ant-carousel .slick-next:hover {
+  font-size: inherit;
+  color: #fff;
+  font-size: 3em;
+}
 
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu:hover, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-active, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-active, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-open, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-open, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected {
-	color: #00FF26;
+.ant-carousel .slick-prev,
+.ant-carousel .slick-prev:hover {
+  left: 20px;
+  z-index: 2;
+  color: #ccc;
 }
-.ant-menu-horizontal:not(.ant-menu-dark){
-	border: none;
+
+.ant-carousel .slick-next,
+.ant-carousel .slick-next:hover {
+  right: 35px;
+  z-index: 2;
+  color: #ccc;
 }
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu:hover::after, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-active::after, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-active::after, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-open::after, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-open::after, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected::after{
-	color: #00FF26;
-}
-.ant-menu-light .ant-menu-item:hover, .ant-menu-light .ant-menu-item-active, .ant-menu-light .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, .ant-menu-light .ant-menu-submenu-active, .ant-menu-light .ant-menu-submenu-title:hover{
-	color: #00FF26;
-}
-/* .ant-menu-horizontal > .ant-menu-item a{
-	color: #fff;
+/* :where(.css-dev-only-do-not-override-19jv4gs) a{
+	color:#fff;
 } */
-/* .ant-menu-horizontal > .ant-menu-item a:focus{
-	color: #f45e1e;
-} */
-.ant-menu-horizontal > .ant-menu-item a:hover{
-	color: #00FF26;
-}
-/* .ant-menu-horizontal > .ant-menu-submenu a{
-	color: #00FF26;
-} */
-/* .ant-menu-horizontal > .ant-menu-submenu a:focus{
-	color: #00FF26;
-} */
-
-.ant-menu-horizontal > .ant-menu-submenu a:hover{
-	color: #00FF26;
-}
-
-
-.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
-	color: #00FF26;
-}
-.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn::after{
-	content: '';
-	position: absolute;
-	right: 0;
-	left: 0;
-	top: 44px;
-	border-bottom: 1px solid #00FF26;
-	z-index: 100;
-
-}
-.ant-tabs-tab:hover{
-	color: #00FF26;
-}
-
-
-.ant-collapse-content > .ant-collapse-content-box{
-padding-left: 0;
-}
-
-.ant-menu-submenu-inline > .ant-menu-inline{
-	background: transparent;
-	color: #fff;
-}
-.ant-menu-inline .ant-menu-title-content a{
-	color: #fff;
-}
-.ant-menu-submenu-arrow{
-	color: #fff;
-}
-.ant-menu-submenu:hover>.ant-menu-submenu-title>.ant-menu-submenu-arrow, .ant-menu-submenu:hover>.ant-menu-submenu-title>.ant-menu-submenu-expand-icon{
-	color: #fff;
-}
-.ant-menu-inline{
-border-right: none;
-}
-
 

@@ -15,9 +15,12 @@ export default class DataStore {
 		this._isBtnFormQuestion = false
 		this._isBuyProd = false
 		this._infoPages = []
-
+		this._isSendSearchForm = false
 
 		makeAutoObservable(this)
+	}
+	setIsSendSearchForm(data) {
+		this._isSendSearchForm = data
 	}
 	setData(data) {
 		this._data = data
@@ -57,6 +60,9 @@ export default class DataStore {
 	}
 
 
+	get isSendSearchForm() {
+		return this._isSendSearchForm
+	}
 	get data() {
 		return this._data
 	}

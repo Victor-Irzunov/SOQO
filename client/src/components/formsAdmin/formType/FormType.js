@@ -17,7 +17,7 @@ const FormType = () => {
 
 	return (
 		<div>
-			<p className='mb-4'>Добавить / Удалить тип боксов</p>
+			<p className='mb-4'>Добавить / Удалить тип товара (подкатегорию)</p>
 			<FormComp
 				setIsLoad={setIsLoad}
 				data={data}

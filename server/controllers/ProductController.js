@@ -21,7 +21,10 @@ class ProductController {
 				type,
 				newProd,
 				groupCreate,
-				group
+				group,
+				ucenka,
+				stock,
+				hit,
 			} = req.body
 
 			// console.log('💊💊💊req.body: ', req.body)
@@ -75,6 +78,9 @@ class ProductController {
 				imgMini: JSON.stringify(fileNameMini),
 				typeId: type,
 				new: newProd,
+				ucenka,
+				stock,
+				hit,
 				categoryId: category,
 				groupId: groupData || +group || null
 			})
@@ -353,6 +359,57 @@ class ProductController {
 		}
 		catch (e) {
 			next(ApiError.internal(e.message))
+		}
+	}
+	async getHitProduct(req, res, next) {
+		try {
+			const data = await models.Product.findAll(
+				{
+					where: {
+						hit: true
+					},
+					include: [
+						{
+							model: models.Category,
+						},
+						{
+							model: models.Type
+						},
+					]
+				}
+			)
+			// console.log('💊💊💊💊💊💊data:', data)
+			return res.json(data)
+		}
+		catch (e) {
+			next(ApiError.internal(e.message))
+		}
+	}
+	async getAllProductsOneType(req, res, next) {
+		try {
+			const { id } = req.params
+			// console.log('💊💊💊💊💊💊id:', id)
+
+			const data = await models.Product.findAll(
+				{
+					where: {
+						typeId: id
+					},
+					include: [
+						{
+							model: models.Category,
+						},
+						{
+							model: models.Type
+						},
+					]
+				}
+			)
+			return res.json(data)
+		}
+		catch (e) {
+			next(ApiError.internal(e.message))
+			console.log('💊💊💊💊e', e)
 		}
 	}
 

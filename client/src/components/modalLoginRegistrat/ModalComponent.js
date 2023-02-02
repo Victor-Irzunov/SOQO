@@ -34,7 +34,6 @@ const ModalComponent = ({ open, setOpen, fromPage }) => {
 			{
 				isAccount &&
 				<>
-
 					<p className='font-extralight mb-3'>Для доступа в Ваш личный кабинет введите e-mail.</p>
 					<FormRegistration handleCancel={handleCancel} />
 					<span>Есть аккаунт?</span>
@@ -43,8 +42,6 @@ const ModalComponent = ({ open, setOpen, fromPage }) => {
 						handleCancel()
 						setTimeout(() => { setOpen(true) }, 0.7)
 					}}>Вход</Button>
-
-
 				</>
 			}
 		</Modal>

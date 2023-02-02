@@ -41,7 +41,7 @@ const BtnAndFormOtzyvy = observer(({ product, isBuyProd, isOtzyvUserProd, setIsO
 					:
 					<p>Отзывы смогут оставить только зарегистрированные пользователи.</p>
 			}
-			<hr className='mt-5 pb-3' />
+			<hr className='' />
 			<Otzyvy product={product} />
 		</>
 	)
@@ -61,7 +61,7 @@ const BtnAndFormQuestion = observer(({ product,dataQuestRes }) => {
 						Задать вопрос
 					</Button>
 			}
-			<hr className='mt-5 pb-3' />
+			<hr className='mt-6' />
 			<VoprosOtvet dataQuestRes={dataQuestRes} />
 		</>
 	)

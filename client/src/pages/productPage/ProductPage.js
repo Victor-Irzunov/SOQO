@@ -1,35 +1,32 @@
 import React, { useState, useContext, useEffect } from 'react'
 import CourouselComp from '../../components/react-image-gallery/CurouselComp'
-import { Typography, Row, Col, Rate, Badge, Button, BackTop, message, Empty } from 'antd'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { Typography, Row, Col, Rate, Badge, Button, BackTop, message, Empty, Divider, Image } from 'antd'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { Context } from "../../App"
 import { CarOutlined, ArrowLeftOutlined, CheckOutlined, DownCircleOutlined } from '@ant-design/icons'
 import { Helmet } from "react-helmet"
 import BadgeIconHeard from '../../components/badgeIcon/badgeIconHeard/BadgeIconHeard'
 import BadgeIconVesy from '../../components/badgeIcon/badgeIconVesy/BadgeIconVesy'
-import { ReactComponent as CardSvg } from '../../images/footer/bank_card.svg'
 import TabsPtoduct from '../../components/tabsProduct/TabsPtoduct'
 import PohozhieTovary from '../../components/pohozhieTovary/PohozhieTovary'
 import Content from '../../components/content/Content'
 import { useCookieList } from '../../hooks/useCookieList'
 import { observer } from "mobx-react-lite"
-import { fetchOneProduct } from '../../http/productsAPI'
+import { fetchOneProduct, fetchProductsPohozhie } from '../../http/productsAPI'
 import { addBasketUserOneProduct } from '../../http/basketAPI'
-
-
+import delivery from '../../images/productPage/delivery.svg'
+import CyrillicToTranslit from 'cyrillic-to-translit-js'
 
 
 const ProductPage = observer(() => {
 	const { dataApp, dataProducts, user } = useContext(Context)
+	const cyrillicToTranslit = new CyrillicToTranslit()
 	let location = useLocation()
-	const localPath = location.pathname.split('/').join(' ')
+	// const localPath = location.pathname.split('/').join(' ')
 	const arrLocalPath = location.pathname.split('/').filter(function (el) {
 		return (el != null && el != "" || el === 0)
 	})
-console.log('location:', location)
-// console.log('localPath:', localPath)
-	console.log('arrLocalPath:', arrLocalPath)
-	console.log('dataApp:', dataApp.dataMenu)
+
 
 	const navigate = useNavigate()
 	const [editH1, setEditH1] = useState('')
@@ -39,6 +36,10 @@ console.log('location:', location)
 	const { addList } = useCookieList(null)
 	const id = location.state?.id
 	const loca = location.state?.location
+	const [productData, setProductData] = useState([])
+	// const [isUpload, setIsUpload] = useState(false)
+
+
 	useEffect(() => {
 		fetchOneProduct(id)
 			.then(data => {
@@ -48,9 +49,24 @@ console.log('location:', location)
 					dataProducts.setDataOneProduct(data)
 					declOfNum(data.feedbacks.length, ['отзывов', 'отзыва', 'отзыв'])
 					setImgArr(fuImg(data))
+					
 				}
 			})
 	}, [id, dataProducts])
+
+	useEffect(() => {
+		if (Object.keys(product).length) {
+			if (product.groupId) {
+				fetchProductsPohozhie({ groupId: product.groupId, id: product.id })
+				.then(data => {
+					setProductData(data)
+				})
+			} else {
+				setProductData([])
+			}
+		}
+	}, [product, id])
+
 	const addBasket = id => {
 		if (!user.isAuth) {
 			addList('BasketProduct', id)
@@ -64,6 +80,8 @@ console.log('location:', location)
 				})
 		}
 	}
+
+
 	function fuImg(data) {
 		const img = JSON.parse(data.img)
 		const imgMini = JSON.parse(data.imgMini)
@@ -122,13 +140,11 @@ console.log('location:', location)
 					?
 					<>
 						<div className='flex w-1/4 sm:w-full xs:w-full xx:w-full xy:w-full justify-start'>
-							<div className='flex'>
+							<div className='flex items-center'>
 								<Rate allowHalf value={product.rating} disabled />
-								<span className="mt-1.5 ml-3">
+								<span className="ml-3 mr-3">
 									<Badge style={{ backgroundColor: '#52c41aa8', }} count={product.rating} />
 								</span>
-							</div>
-							<div>
 								<p
 									className='text-slate-400 mt-1.5 underline cursor-pointer'
 									onClick={() => clickScroll(1500)}
@@ -136,24 +152,23 @@ console.log('location:', location)
 									{product.feedbacks && product.feedbacks.length} {review}
 								</p>
 							</div>
+
 						</div>
 						<Row gutter={[56, 56]}>
 							<Col xl={14} className='mt-10'>
 								<CourouselComp imgArr={imgArr} />
 
-
 								<Button
 									type='text'
-									className='mt-3 text-pink-600'
+									className='mt-3'
 									onClick={() => clickScroll(900)}
 								>
-									похожие боксы <DownCircleOutlined className="animate-bounce" />
+									похожие товары<DownCircleOutlined className="animate-bounce" />
 								</Button>
-
 
 							</Col>
 							<Col xl={10} className='p-2 mt-10'>
-								<div className='border-b pb-6'>
+								<div className=''>
 									<div className='flex justify-between'>
 										<div>
 											<p className='font-thin text-sm'>Артикул: {product.id}GR{product.groupId}</p>
@@ -175,6 +190,26 @@ console.log('location:', location)
 										<p>{product.description}</p>
 									</div>
 								</div>
+								<Divider className='mt-3 mb-3' />
+
+								<div className='flex mb-5'>
+									{productData.map(el => {
+										return (
+											<Link to={{
+												pathname: `/${el.categories[0].link}/${el.types[0].link}/${cyrillicToTranslit.transform(el.name.split(' ').join('-'))}`,
+											}}
+												state={{ id: el.id, location: location.pathname }}
+												className='mr-3'
+											>
+												<Image src={process.env.REACT_APP_API_URL + JSON.parse(el.imgMini)[0].image}
+													width='45px' preview={false}
+												/>
+											</Link>
+										)
+									})}
+								</div>
+
+								{/* <Divider className='mt-3' /> */}
 								<div className='border-b pb-6 pt-6'>
 									<p className='text-base text-slate-700 font-light pb-2'>Цена:</p>
 									<div className='flex justify-between'>
@@ -204,7 +239,8 @@ console.log('location:', location)
 										</Button>
 									</div>
 								</div>
-								<div className='border-b pb-4 pt-2'>
+								<Divider className='mt-2 mb-2' />
+								<div className='pb-4 pt-2'>
 									<div>
 										<Button type="link" size='small'>
 											Доставка
@@ -213,13 +249,14 @@ console.log('location:', location)
 									</div>
 									<Button type='text' size='small'>Гарантия: 6 месяцев</Button>
 								</div>
+								<Divider className='mt-3 mb-2' />
 								<div className='flex pt-2 justify-evenly'>
-									<div className='flex'>
-										<CardSvg className='icon-card' />
-										<Button type='link'>Рассрочка и кредит</Button>
-									</div>
-									<div className='flex'>
+									<div className='flex items-center'>
 										<CarOutlined style={{ fontSize: '1.7em', color: 'gray' }} className='mt-1' />
+										<Button type='link'>Доставка по Минске</Button>
+									</div>
+									<div className='flex items-center'>
+										<Image src={delivery} width="1.8em" />
 										<Button type='link'>Доставка по Беларуси</Button>
 									</div>
 								</div>
@@ -232,7 +269,7 @@ console.log('location:', location)
 				<div className='mt-28' id='box' />
 				{Object.keys(product).length ?
 					<>
-						<PohozhieTovary product={product} />
+						<PohozhieTovary product={product}  />
 						<TabsPtoduct product={product} />
 					</>
 					:

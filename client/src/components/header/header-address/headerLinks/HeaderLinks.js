@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Divider, Space } from 'antd'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { Context } from '../../../../App'
 
 function HeaderLinks() {
@@ -10,13 +10,13 @@ function HeaderLinks() {
 			{dataApp.infoPages.length ?
 				dataApp.infoPages.map(el => {
 					return (
-						<Link to={{
+						<NavLink to={{
 							pathname: `/info/${el.link}`
 						}}
 							state={{ id: el.id }}
 						>
 							{el.name}
-						</Link>
+						</NavLink>
 					)
 				})
 				:

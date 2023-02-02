@@ -7,7 +7,7 @@ import {
 	Checkbox,
 	Empty,
 	Divider, Alert,
-	Affix, Popconfirm, Typography
+	Affix, Popconfirm
 } from 'antd'
 import DragableComp from '../../upload/DragableComp'
 import {
@@ -15,7 +15,7 @@ import {
 	fetchType,
 	fetchInfo,
 } from '../../../http/productsAPI'
-import { InfoCircleOutlined, CopyOutlined, DragOutlined} from '@ant-design/icons'
+import { InfoCircleOutlined, CopyOutlined } from '@ant-design/icons'
 import { createProduct } from '../../../http/adminAPI'
 import Resizer from "react-image-file-resizer"
 
@@ -88,6 +88,9 @@ const FormProduct = () => {
 		formData.append('newProd', values.newProd)
 		formData.append('groupCreate', values.groupCreate)
 		formData.append('group', values.group)
+		formData.append('ucenka', values.ucenka)
+		formData.append('stock', values.stock)
+		formData.append('hit', values.hit)
 		for (let k in fileList) {
 			const pic = await resizeFile(fileList[k].originFileObj, 2800, 1200, values.quality)
 			formData.append('img', pic)
@@ -142,6 +145,9 @@ const FormProduct = () => {
 				}}
 				initialValues={{
 					newProd: true,
+					ucenka: false,
+					stock: false,
+					hit: false
 				}}
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
@@ -313,19 +319,6 @@ const FormProduct = () => {
 				<Divider />
 
 				<Form.Item
-					label="Размер картинки"
-					tooltip="Рекомендуется для оптимального качества банера. Можно использовать online-photoshop.org. Есть готовые шаблоны для редактирования."
-				>
-					
-							<Typography.Text className="ant-form-text" type="success">
-								( <DragOutlined className='text-base' /> 2800x1200px )
-							</Typography.Text>
-				
-				</Form.Item>
-
-
-
-				<Form.Item
 					label="Картинки"
 					name="img"
 					valuePropName='img'
@@ -350,6 +343,7 @@ const FormProduct = () => {
 					/>
 				</Form.Item>
 
+				<Divider />
 
 				<Form.Item
 					label="Описание"
@@ -407,6 +401,37 @@ const FormProduct = () => {
 					}}
 				>
 					<Checkbox>Новый товар</Checkbox>
+				</Form.Item>
+				<Form.Item
+					name="ucenka"
+					valuePropName="checked"
+					wrapperCol={{
+						offset: 4,
+						span: 8,
+					}}
+				>
+					<Checkbox>Уценка</Checkbox>
+				</Form.Item>
+				<Form.Item
+					name="hit"
+					valuePropName="checked"
+					wrapperCol={{
+						offset: 4,
+						span: 8,
+					}}
+				>
+					<Checkbox>Хит продаж</Checkbox>
+				</Form.Item>
+
+				<Form.Item
+					name="stock"
+					valuePropName="checked"
+					wrapperCol={{
+						offset: 4,
+						span: 8,
+					}}
+				>
+					<Checkbox>Акция</Checkbox>
 				</Form.Item>
 				<Form.Item
 					wrapperCol={{

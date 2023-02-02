@@ -7,7 +7,8 @@ import {
 	BarsOutlined, ProfileOutlined,
 	PartitionOutlined, ApartmentOutlined,
 	CloseSquareOutlined, InfoCircleOutlined,
-	EditOutlined,CloseOutlined,
+	EditOutlined, CloseOutlined, PercentageOutlined,
+	FileImageOutlined,
 } from '@ant-design/icons'
 import FormType from '../../components/formsAdmin/formType/FormType'
 import FormCategory from '../../components/formsAdmin/formCategory/FormCategory'
@@ -25,6 +26,9 @@ import FormInfoPages from '../../components/formsAdmin/formInfoPages/FormInfoPag
 import FomrGetOneInfoPage from '../../components/formsAdmin/formInfoPages/changeInfoPage/FomrGetOneInfoPage'
 import { Helmet } from "react-helmet"
 import FormDeleteGroup from '../../components/formsAdmin/formDeleteGroup/FormDeleteGroup'
+import FormStocksPages from '../../components/formsAdmin/formStocksPages/FormStocksPages'
+import FomrGetOneStocksPage from '../../components/formsAdmin/formStocksPages/changeStocksPage/FomrGetOneStocksPage'
+import FormBannerImgPage from '../../components/formsAdmin/formBannerImgPage/FormBannerImgPage'
 const { Panel } = Collapse
 const AdminPage = () => {
 	const [dataOrder, setDataOrder] = useState([])
@@ -38,11 +42,11 @@ const AdminPage = () => {
 				<BackTop />
 				<p className='text-2xl mt-8 mb-8'>Страница администратора</p>
 				<Collapse accordion bordered={false}>
-					<Panel header="Добавить / Удалить категорию боксов" extra={<ApartmentOutlined className='text-xl text-rose-600 ml-1' />} key="1" className='p-2'>
+					<Panel header="Добавить / Удалить категорию товара" extra={<ApartmentOutlined className='text-xl text-rose-600 ml-1' />} key="1" className='p-2'>
 						<FormCategory />
 					</Panel>
 
-					<Panel header="Добавить / Удалить тип боксов" extra={<PartitionOutlined className='text-xl text-fuchsia-700 ml-1' />} key="2" className='p-2'>
+					<Panel header="Добавить / Удалить тип товара" extra={<PartitionOutlined className='text-xl text-fuchsia-700 ml-1' />} key="2" className='p-2'>
 						<FormType />
 					</Panel>
 
@@ -93,6 +97,15 @@ const AdminPage = () => {
 					</Panel>
 					<Panel header='Изменить / удалить страницу с информацией' extra={<EditOutlined className='text-xl text-lime-500 ml-1' />} key="14" className='p-2'>
 						<FomrGetOneInfoPage />
+					</Panel>
+					<Panel header='Добавить акцию' extra={<PercentageOutlined className='text-xl text-blue-800 ml-1' />} key="15" className='p-2'>
+						<FormStocksPages />
+					</Panel>
+					<Panel header='Изменить / удалить акцию' extra={<DeleteOutlined className='text-xl text-pink-700 ml-1' />} key="16" className='p-2'>
+						<FomrGetOneStocksPage />
+					</Panel>
+					<Panel header='Добавить банер на страницу категории' extra={<FileImageOutlined className='text-xl text-orange-500 ml-1' />} key="17" className='p-2'>
+						<FormBannerImgPage />
 					</Panel>
 				</Collapse>
 			</div>

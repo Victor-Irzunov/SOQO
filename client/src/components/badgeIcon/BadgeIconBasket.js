@@ -1,9 +1,10 @@
-import { Badge } from 'antd'
+import { Badge, Image } from 'antd'
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Svg from '../../images/menuIcon/Svg.js'
 import { Context } from '../../App.js'
 import { observer } from "mobx-react-lite"
+import cart from '../../images/carouselCard/cart4.svg'
 
 const BadgeIconBasked = observer(({ mobil }) => {
 	const { dataApp } = useContext(Context)
@@ -15,18 +16,16 @@ const BadgeIconBasked = observer(({ mobil }) => {
 			>
 				<Badge count={dataApp.basketLength} size="small" showZero>
 					<Link to='/korzina'>
-						<Svg />
+						<Image src={cart} preview={false} width='30px' />
 					</Link>
 				</Badge>
 
 			</div>
 			:
-			<div
-				className='absolute top-5 right-36 md:right-24 sm:right-12 cursor-pointer'
-			>
+			<div className='cursor-pointer'>
 				<Badge count={dataApp.basketLength} size="small" showZero>
 					<Link to='/korzina'>
-						<Svg />
+						<Image src={cart} preview={false} width='30px' />
 					</Link>
 				</Badge>
 

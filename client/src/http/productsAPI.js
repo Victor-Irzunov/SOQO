@@ -1,10 +1,10 @@
 import { $host } from "./index"
 
 
-// export const fetchProducts = async () => {
-//     const { data } = await $host.get('products?limit=100')
-//     return data
-// }
+export const searchProducts = async (query = '') => {
+	const { data } = await $host.get('api/poisk?q=' + query)
+	return data
+}
 
 export const fetchProducts = async (page, limit = 10, categoryId, typeId, priceFrom, priceBefore) => {
 	const { data } = await $host.get('api/product', {
@@ -34,6 +34,11 @@ export const fetchProductNoUser = async (arrId) => {
 
 export const getNewProduct = async () => {
 	const { data } = await $host.get('api/product/new')
+	return data
+}
+
+export const getHitProduct = async () => {
+	const { data } = await $host.get('api/product/hit')
 	return data
 }
 
@@ -70,6 +75,10 @@ export const fetchInfoTitle = async () => {
 
 export const categoryType = async () => {
 	const { data } = await $host.get('api/categorytype',)
+	return data
+}
+export const getAllProductOneType = async (id) => {
+	const { data } = await $host.get('api/product/one/type/'+ id)
 	return data
 }
 

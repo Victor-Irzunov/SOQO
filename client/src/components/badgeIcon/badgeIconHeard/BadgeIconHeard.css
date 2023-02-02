@@ -1,13 +1,13 @@
 .icon-heart{
 	fill:#ccc !important;
 	width: 25px !important;
-	height: 25px !important;
+	heigth: 25px !important;
 	transition: .5s;
 }
 .icon-heart:hover{
-	fill: #f80759 !important;
+	fill: #292D51 !important;
 	transform: scale(1.1)!important;
 }
 .icon-heart.activeliked{
-	fill: #f80759 !important;
+	fill: #292D51 !important;
 }

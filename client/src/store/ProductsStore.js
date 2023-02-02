@@ -2,16 +2,19 @@ import { makeAutoObservable } from 'mobx'
 
 export default class ProductsStore {
 	constructor() {
-		this._data = {}
+		this._data = []
 		this._dataOne = {}
 		this._isSpin = false
 		this._sendData = []
 		this._dataBasket = []
-
-
+		// this._dataNewProducts = []
 
 		makeAutoObservable(this)
 	}
+
+	// setDataNewProducts(data) {
+	// 	this._dataNewProducts = data
+	// }
 	setDataSearchProducts(data) {
 		this._data = data
 	}
@@ -29,8 +32,9 @@ export default class ProductsStore {
 	}
 
 
-
-
+	// get dataNewProducts() {
+	// 	return this._dataNewProducts
+	// }
 	get dataSearchProducts() {
 		return this._data
 	}

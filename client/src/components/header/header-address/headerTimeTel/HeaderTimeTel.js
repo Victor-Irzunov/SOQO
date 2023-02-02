@@ -1,15 +1,20 @@
 import React, { useContext, useState } from 'react'
-import { Button, Typography, Popover } from 'antd'
+import { Button, Typography, Popover, Badge } from 'antd'
 import {
 	HistoryOutlined,
 	PhoneOutlined,
 	UserOutlined,
+	ReadOutlined,
+	ExportOutlined,
 } from '@ant-design/icons'
 import { Context } from '../../../../App'
 import ModalComponent from '../../../modalLoginRegistrat/ModalComponent'
 import { Link } from 'react-router-dom'
 import { observer } from "mobx-react-lite"
-import { useScreens } from '../../../../Constants/constants'
+// import { useScreens } from '../../../../Constants/constants'
+import heart from '../../../../images/menuIcon/heart6.svg'
+import vesy from '../../../../images/menuIcon/scale2.svg'
+
 export const ContentAdmin = () => {
 	const { user } = useContext(Context)
 	const exit = () => {
@@ -57,37 +62,67 @@ export const ContentCourier = () => {
 	)
 }
 export const Content = () => {
-	const { user } = useContext(Context)
+	const { user, dataApp } = useContext(Context)
 	const exit = () => {
 		localStorage.removeItem('token')
 		user.setIsAuth(false)
 		user.setUser(false)
 	}
 	return (
-		<div>
-			<p className='mb-2'>
-				<Link to='/moi-dannye'>Мой профиль</Link>
+		<div className='h-auto w-52'>
+			<div className='text-center mb-3'>
+				<p className='text-lg font-semibold'>Аккаунт</p>
+				<p className='text-gray-500'>{user.userData.login ? user.userData.login : ''}</p>
+			</div>
+			<p className='text-base py-1'>
+				<UserOutlined />
+				<Link to='/moi-dannye' className='ml-1.5'>Мои данные</Link>
 			</p>
-			<p className='mb-2'>
-				<Link to='/istoriya-zakazov'>История заказов</Link>
+			<p className='text-base py-1'>
+				<ReadOutlined />
+				<Link to='/istoriya-zakazov' className='ml-1.5'>История заказов</Link>
 			</p>
-			<p className='mb-2'>
-				<Link to='/cpisok-sravneniya'>Список сравнения</Link>
-			</p>
-			<p className='mb-2'>
-				<Link to='/spisok-ponravivshikhsya'>Избранные</Link>
-			</p>
+			<div className='flex justify-start items-center'>
+				<img
+					src={vesy}
+					className='w-4 hover:scale-110 duration-500 mr-1.5'
+					alt='список избранных'
+				/>
+				<p className='text-base py-1 mr-2'>
+					<Link to='/cpisok-sravneniya'>Список сравнения</Link>
+				</p>
+				<Badge count={dataApp.vesyLength} color='#292D51' />
+			</div>
+			<div className='flex justify-start items-center'>
+				<img
+					src={heart}
+					className='w-4 hover:scale-110 duration-500 mr-1.5'
+					alt='список избранных'
+				/>
+				<p className='text-base py-1 mr-2'>
+					<Link to='/spisok-ponravivshikhsya'>Избранные</Link>
+				</p>
+				<Badge count={dataApp.likedLength} color='#292D51' />
+			</div>
+
+
 			<hr />
-			<p className='mt-2'>
-				<Button
-					type='text'
-					className='p-0'
-					onClick={exit}
-				>Выход</Button>
-			</p>
+			<div className='flex items-center'>
+				<ExportOutlined />
+				<p className='ml-1.5'>
+					<Button
+						type='text'
+						className='p-0 text-base'
+						onClick={exit}
+					>Выход</Button>
+				</p>
+			</div>
 		</div>
 	)
 }
+
+
+
 const { Paragraph } = Typography
 const HeaderTimeTel = observer(() => {
 	const { user } = useContext(Context)
@@ -107,14 +142,14 @@ const HeaderTimeTel = observer(() => {
 							triggerType: 'text'
 						}}
 					>
-						08:30-20:00 пн-пт
+						вт-вс: 10:00-20:00
 					</Paragraph>
 					<Paragraph
 						editable={{
 							triggerType: 'text'
 						}}
 					>
-						10:00-19:00 сб-вс
+						пн: Выходной
 					</Paragraph>
 				</div>
 			</div>
@@ -122,9 +157,9 @@ const HeaderTimeTel = observer(() => {
 				className='ml-5 mr-5'
 			>
 				<Button type='link'
-					className=''
-					icon={<PhoneOutlined className='text-base' />} href='tel:80290000000'>
-					+375 29 000-00-00
+					className='text-base'
+					icon={<PhoneOutlined className='text-base rotate-90' />} href='tel:80445842068'>
+					+375 (44) 584 20 68
 				</Button>
 			</div>
 			<div>

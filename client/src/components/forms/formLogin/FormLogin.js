@@ -11,6 +11,7 @@ import React, { useState, useContext } from 'react'
 import { login } from '../../../http/userAPI'
 import { useNavigate } from 'react-router-dom'
 import { Context } from '../../../App'
+import ModalComp from '../../modal/ModalComp'
 
 
 
@@ -20,6 +21,7 @@ const FormLogin = ({ handleCancel, fromPage }) => {
 	const [isCheck, setIsCheck] = useState(false)
 	const navigate = useNavigate()
 	// const [tel, setTel] = useState('')
+	const [isModalOpen, setIsModalOpen] = useState(false)
 	const [autoCompleteResult, setAutoCompleteResult] = useState([]);
 
 	const onWebsiteChange = (value) => {
@@ -55,8 +57,10 @@ const FormLogin = ({ handleCancel, fromPage }) => {
 		count++
 	}
 
+	const showModal = () => {
+		setIsModalOpen(true)
+	}
 	const onFinishFailed = (errorInfo) => message.error('Ошибка')
-
 	const onChange = (e) => {
 		setIsCheck(e.target.checked)
 	}
@@ -77,8 +81,6 @@ const FormLogin = ({ handleCancel, fromPage }) => {
 	// 		selection
 	// 	}
 	// }
-
-
 	return (
 		<>
 			<Form
@@ -89,7 +91,6 @@ const FormLogin = ({ handleCancel, fromPage }) => {
 				onFinishFailed={onFinishFailed}
 				style={{ overflowX: 'hidden' }}
 			>
-
 				<Form.Item
 					label="Логин"
 					name="login"
@@ -118,6 +119,7 @@ const FormLogin = ({ handleCancel, fromPage }) => {
 					name="password"
 					tooltip="Обязательное поле"
 					hasFeedback
+					size='large'
 					rules={[
 						{
 							required: true,
@@ -127,32 +129,6 @@ const FormLogin = ({ handleCancel, fromPage }) => {
 				>
 					<Input.Password />
 				</Form.Item>
-
-
-
-				{/* <Form.Item
-					name="tel"
-					label="Телефон"
-					tooltip="Обязательное поле"
-					hasFeedback
-					rules={[
-						{
-							required: true,
-							message: 'Пожалуйста введите телефон!',
-						},
-					]}
-				>
-					<InputMask
-						placeholder="29 333-33-33"
-						mask="+3\7\5 99 999 99 99"
-						maskChar={'-'}
-						className='ant-input'
-						beforeMaskedValueChange={beforeMaskedValueChange}
-						value={tel}
-						onChange={(e) => setTel(e.target.value)}
-					/>
-				</Form.Item> */}
-
 
 				<Form.Item
 					name="soglasen"
@@ -171,24 +147,34 @@ const FormLogin = ({ handleCancel, fromPage }) => {
 					</Checkbox>
 				</Form.Item>
 
-
-
-
-				<Form.Item
-				>
-					<Button
-						type="primary"
-						htmlType="submit"
-						onClick={onFinish}
-						// disabled={!isCheck}
-						size='large'
+				<div className='flex justify-between'>
+					<Form.Item
 					>
-						Войти
+						<Button
+							type="primary"
+							htmlType="submit"
+							onClick={onFinish}
+							// disabled={!isCheck}
+							size='large'
+						>
+							Войти
+						</Button>
+					</Form.Item>
+					<Button
+						type='text'
+						className='text-xs font-light text-gray-700'
+						onClick={() => {
+							showModal()
+							handleCancel()
+						}
+						}
+					>
+						Забыли пароль?
 					</Button>
-				</Form.Item>
+				</div>
 
 			</Form>
-
+			<ModalComp setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} title="Сброс пароля" formReset={true} />
 		</>
 	)
 }

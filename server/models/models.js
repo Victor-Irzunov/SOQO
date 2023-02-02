@@ -52,6 +52,15 @@ const Product = sequelize.define('product', {
 	new: {
 		type: DataTypes.BOOLEAN, defaultValue: false
 	},
+	ucenka: {
+		type: DataTypes.BOOLEAN, defaultValue: false
+	},
+	stock: {
+		type: DataTypes.BOOLEAN, defaultValue: false
+	},
+	hit: {
+		type: DataTypes.BOOLEAN, defaultValue: false
+	},
 	typeId: {
 		type: DataTypes.INTEGER, allowNull: false
 	},
@@ -221,8 +230,39 @@ const ContentPage = sequelize.define('content_page', {
 	},
 })
 
+//-----------------
+const StocksPage = sequelize.define('stock_page', {
+	id: {
+		type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true
+	},
+	date1: {
+		type: DataTypes.STRING
+	},
+	date2: {
+		type: DataTypes.STRING
+	},
+	title: {
+		type: DataTypes.STRING
+	},
+	img: {
+		type: DataTypes.JSON
+	},
+	text: {
+		type: DataTypes.STRING
+	},
+	status: {
+		type: DataTypes.BOOLEAN, defaultValue: false
+	},
+})
+
 //----------------------
 const SliderImg = sequelize.define('sliderImg', {
+	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+	img: { type: DataTypes.STRING, allowNull: false },
+})
+
+
+const BannerImgPage = sequelize.define('banner_img_page', {
 	id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
 	img: { type: DataTypes.STRING, allowNull: false },
 })
@@ -389,8 +429,18 @@ Product.hasMany(QuestionResponse)
 QuestionResponse.belongsTo(Product)
 
 
+Category.hasOne(BannerImgPage)
+BannerImgPage.belongsTo(Category)
+Type.hasOne(BannerImgPage)
+BannerImgPage.belongsTo(Type)
+
+
+
 User.hasMany(Rating)
 Rating.belongsTo(User)
+
+
+
 
 User.hasMany(Feedback)
 Feedback.belongsTo(User)
@@ -446,5 +496,7 @@ export const models = {
 	InfoPages,
 	QuestionResponse,
 	ContentPage,
+	StocksPage,
+	BannerImgPage,
 }
 

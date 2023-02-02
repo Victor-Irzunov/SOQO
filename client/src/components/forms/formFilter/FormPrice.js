@@ -1,5 +1,5 @@
 import { Col, InputNumber, Row, Slider, Form, Button, message } from 'antd'
-import React, { useState } from 'react'
+import React from 'react'
 import { CloseCircleOutlined } from '@ant-design/icons'
 const style = {
 	display: 'inline-block',
@@ -7,7 +7,7 @@ const style = {
 	marginBottom: 20,
 }
 const marks = {
-	15: '15',
+	5: '5',
 	50: '50',
 	100: '100',
 	150: '150',
@@ -59,7 +59,7 @@ const FormPrice = (
 										<Slider
 											vertical
 											marks={marks}
-											min={15}
+											min={5}
 											max={400}
 											step={0.1}
 											onChange={onChangeFrom}
@@ -70,7 +70,7 @@ const FormPrice = (
 							</Col>
 							<Col span={24}>
 								<InputNumber
-									min={15}
+									min={5}
 									max={400}
 									step={0.1}
 									style={{

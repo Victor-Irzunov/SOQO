@@ -63,6 +63,7 @@ class UserController {
 		} catch (err) {
 			console.log('🚀-error: ', err)
 			console.log(chalk.red('🚀-error: ', err))
+			next(ApiError.internal(err.message))
 		}
 
 	}
@@ -83,8 +84,7 @@ class UserController {
 			const token = generateJwt(user.id, user.login, user.role, user.isActivation)
 			return res.json({ token })
 		} catch (err) {
-			console.log('🚀🚀-error: ', err)
-			console.log(chalk.red('🚀-error: ', err))
+			console.log('🚀login🚀-error: ', err)
 		}
 	}
 
@@ -114,9 +114,11 @@ class UserController {
 			console.log('🚀🚀🚀🚀-error: ', e)
 		}
 	}
+
+	
 	async myAccount(req, res, next) {
 		try {
-			
+
 			const userId = req.user.id
 			// console.log('💊userId:', userId)
 			const userData = await models.UserData.findOne({ where: { userId } })
@@ -126,6 +128,63 @@ class UserController {
 		} catch (e) {
 			cconsole.log('🦺-------err: ', e.message)
 			console.log('🦺-------e: ', e)
+		}
+	}
+	async reset(req, res, next) {
+		try {
+
+			const { login } = req.query
+			// console.log('🚀login:', login)
+			const user = await models.User.findOne({ where: { login } })
+			const activationLink = uuidv4()
+			if (user) {
+				user.activationLink = activationLink
+				await user.save()
+				await mailService.sendActivationLogin(login, `${process.env.API_URL}/api/user/activate/reset/${activationLink}`)
+			} else {
+				return next(ApiError.badRequest('Пользователь с таким email не существует'))
+			}
+			return res.status(201).json({ user })
+
+		} catch (e) {
+			console.log('🦺-------err: ', e.message)
+			console.log('🦺-------e: ', e)
+
+		}
+	}
+
+	async activateReset(req, res, next) {
+		try {
+			const activationLink = req.params.link
+			const user = await models.User.findOne({ where: { activationLink } })
+			if (!user) {
+				throw new Error('Неккоректная ссылка активации')
+			}
+			return res.redirect(process.env.CLIENT_RESET_URL) //edit CLIENT_URL (react 3000)
+
+		} catch (e) {
+			console.log('🚀🚀🚀🚀-error: ', e)
+		}
+	}
+
+	async newPassword(req, res, next) {
+		try {
+			const { login, password } = req.body
+			const user = await models.User.findOne({ where: { login } })
+			if (!user) {
+				throw new Error('Неккоректная почта')
+			}
+			const hashPassword = await bcrypt.hash(password, 5)
+			user.password = hashPassword
+			user.save()
+			const token = generateJwt(user.id, user.login, user.role, user.isActivation)
+
+			return res.json({ token })
+
+		} catch (e) {
+			console.log('🚀🚀🚀🚀-error: ', e)
+			next(ApiError.internal(e.message))
+
 		}
 	}
 }

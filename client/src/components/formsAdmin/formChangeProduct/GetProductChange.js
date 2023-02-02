@@ -32,7 +32,8 @@ function GetProductChange() {
 				<Space>
 					<Form.Item
 						name="id"
-						label='Введите id бокса'
+						label='Введите id товара'
+						tooltip='Первая цифра артикула товара, например 50 (50GR23)'
 						rules={[{
 							required: true,
 							message: 'Выберите!',

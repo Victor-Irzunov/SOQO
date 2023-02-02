@@ -1,12 +1,13 @@
 .icon-vesy{
 	fill: #ccc !important;
-	width: 25px;
+	width: 25px !important;
+	heigth: 25px !important;
 	transition: .5s;
 }
 .icon-vesy:hover{
-	fill: #f80759 !important;
+	fill: #292D51 !important;
 	transform: scale(1.1);
 }
 .icon-vesy.activevesy{
-	fill: #f80759 !important;
+	fill: #292D51 !important;
 }

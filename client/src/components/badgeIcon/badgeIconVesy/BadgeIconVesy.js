@@ -9,6 +9,8 @@ import { Context } from '../../../App'
 import { Tooltip } from 'antd'
 import { Link } from 'react-router-dom'
 import CyrillicToTranslit from 'cyrillic-to-translit-js'
+
+
 const BadgeIconVesy = observer(({ cardComp, header, productPage, addToComparisonList, id, mobil }) => {
 	const { dataApp } = useContext(Context)
 	const cyrillicToTranslit = new CyrillicToTranslit()
@@ -36,7 +38,7 @@ const BadgeIconVesy = observer(({ cardComp, header, productPage, addToComparison
 			}
 			{
 				header &&
-				<div className={`absolute top-5 right-60 md:right-48 sm:right-28 cursor-pointer`}>
+				<div className={`cursor-pointer mr-5`}>
 					<Link to={`/${cyrillicToTranslit.transform(('cписок сравнения').split(' ').join('-'))}`}>
 						<Badge count={dataApp.vesyLength} size="small">
 							<img

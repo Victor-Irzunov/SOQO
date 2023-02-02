@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react'
 import './App.css'
-import { Spin, ConfigProvider, Affix, } from 'antd'
+import { Spin, ConfigProvider, Affix,theme } from 'antd'
 import { MailOutlined } from '@ant-design/icons'
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import UserStore from './store/UserStore'
@@ -32,13 +32,18 @@ import ResultFalseLogin from './components/result/ResultFalseLogin'
 import RequireAuth from '../src/hoc/RequireAuth'
 import { getAllQuestionResponseAdmin } from './http/questionAPI'
 import { DrawerNewQuestions } from './components/drawerNewQuestions/DrawerNewQuestions'
+import 'antd/dist/reset.css'
+import { SearchPage } from './pages/search/SearchPage'
+import { ViewAllPage } from './pages/viewAll/ViewAllPage'
+import { StoksPage } from './pages/stocks/StoksPage'
+import { ResetPasswordPage } from './pages/resetPasswordPage/ResetPasswordPage'
 
 
-ConfigProvider.config({
-  theme: {
-    primaryColor: '#ff0084',
-  },
-})
+// ConfigProvider.config({
+//   theme: {
+//     primaryColor: '#292D51',
+//   },
+// })
 
 export const Context = createContext(null)
 
@@ -107,6 +112,18 @@ const App = observer(() => {
 
   return (
     <ConfigProvider
+     
+      theme={{
+        token: {
+          colorPrimary: '#292D51',
+          colorLink:'#292D51',
+        },
+        // components: {
+        //   Radio: {
+        //     colorPrimary: '#00b96b',
+        //   },
+        // },
+      }}
       locale={locale}
     >
       <Context.Provider value={{
@@ -128,7 +145,7 @@ const App = observer(() => {
                 :
                 undefined
             }
-            <main className='bg-gray-50 relative xs:pt-14 xx:pt-14 xy:pt-14 lg:pt-0'>
+            <main className='bg-[#F0F0F2] relative xs:pt-14 xx:pt-14 xy:pt-14 lg:pt-20'>
               <BreadCrumbComp />
               <Routes>
                 <Route path='/' element={<MainPage />} />
@@ -149,6 +166,10 @@ const App = observer(() => {
                 <Route path='/info/:link' element={<InfoUniversalPage />} />
                 <Route path='/false/auth' element={<ResultFalseLogin />} />
                 <Route path='/:category/:type/:title' element={<ProductPage />} />
+                <Route path='/poisk' element={<SearchPage />} />
+                <Route path='/assortiment/:title' element={<ViewAllPage />} />
+                <Route path='/aktsii' element={<StoksPage />} />
+                <Route path='/sbros-parolya' element={<ResetPasswordPage />} />
                 <Route path='*' element={<ErrorPage />} />
               </Routes>
             </main>

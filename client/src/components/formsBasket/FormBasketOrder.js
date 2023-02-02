@@ -26,20 +26,23 @@ const disabledDate = (current) => {
 }
 const FormBasketOrder = ({ next }) => {
 	const screens = useScreens()
+
 	const { dataProducts, user, dataApp } = useContext(Context)
 	const [autoCompleteResult, setAutoCompleteResult] = useState([])
 	const [tel, setTel] = useState('')
-	const [value, setValue] = useState('kurer_minsk')
+	const [value, setValue] = useState('')
 	const [isCheck, setIsCheck] = useState(false)
 	const { deleteAllList } = useCookieList(null)
 	const [form] = Form.useForm()
+
+
 	const onFinish = (values) => {
 		console.log('Success:', values)
 		const formData = new FormData()
 		formData.append('city', values.address_city)
 		formData.append('street', values.address_street)
 		formData.append('comment', values.comment)
-		formData.append('date', values.date._d.toLocaleDateString("ru-RU"))
+		formData.append('date', values.date.$d.toLocaleDateString("ru-RU"))
 		formData.append('dostavka', values.dostavka)
 		formData.append('login', values.login)
 		formData.append('oplata', values.oplata)
@@ -98,13 +101,15 @@ const FormBasketOrder = ({ next }) => {
 		}
 	}
 	const onChange = e => {
-		if (value === 'kurer_minsk') {
-			form.setFieldsValue({ address_city: '' })
-		} else {
+		if (e.target.value === 'Самовывоз из магазина' || e.target.value === 'Курьером в пределах МКАД') {
 			form.setFieldsValue({ address_city: 'Минск' })
+		} else {
+			form.setFieldsValue({ address_city: '' })
 		}
 		setValue(e.target.value)
 	}
+
+
 
 	const onChangeCheck = (e) => {
 		setIsCheck(e.target.checked)
@@ -121,14 +126,13 @@ const FormBasketOrder = ({ next }) => {
 			}}
 			initialValues={{
 				address_city: 'Минск',
-				dostavka: "kurer_minsk",
+				dostavka: "Самовывоз из магазина",
 				login: user.isAuth && user.userData.login
 			}}
 			onFinish={onFinish}
 			onFinishFailed={onFinishFailed}
 			autoComplete="off"
 		>
-
 			<Divider
 				orientation="left"
 				className='mb-5 text-base'
@@ -163,7 +167,6 @@ const FormBasketOrder = ({ next }) => {
 					className='ant-input'
 					value={tel}
 					onChange={(e) => setTel(e.target.value)}
-					// placeholder="-- --- -- --"
 					mask="+3\7\5 99 999 99 99"
 					maskChar={'-'}
 					beforeMaskedValueChange={beforeMaskedValueChange}
@@ -198,7 +201,6 @@ const FormBasketOrder = ({ next }) => {
 				/>
 			</Form.Item>
 
-
 			<Divider
 				orientation="left"
 				className='mb-5 text-base'
@@ -208,15 +210,18 @@ const FormBasketOrder = ({ next }) => {
 
 			<Form.Item
 				name="dostavka"
-				rules={[{ required: true, message: 'Выберите регион для доставки!' }]}
+				rules={[{ required: true, message: 'Выберите самовывоз или доставка!' }]}
 				wrapperCol={{
 					offset: 2,
 					span: 16,
 				}}
 			>
 				<Radio.Group onChange={onChange} >
-					<Radio value="kurer_minsk" className='mb-3'>Курьером в пределах Минска (бесплатно от 50 BYN)</Radio>
-					<Radio value="kurer_belarus">Курьером по Беларуси (+15 BYN)</Radio>
+					<Radio value="Самовывоз из магазина" className='mb-3'>Самовывоз из магазина</Radio>
+					<Radio value="Курьером в пределах МКАД" className='mb-3'>Курьером в пределах МКАД (5,00 руб)</Radio>
+					<Radio value="Курьером 15 км от МКАД">Курьером 15 км от МКАД (15,00 руб)</Radio>
+					<Radio value="Белпочта" className='mt-3'>Белпочта <span className='text-xs font-light text-gray-500'>(стоимость доставки оплачивает покупатель согласно тарифам РУП "Белпочта")</span></Radio>
+					<Radio value="Европочта" className='mt-3'>Европочта <span className='text-xs font-light text-gray-500'>(стоимость доставки оплачивает покупатель согласно тарифам "Европочта")</span></Radio>
 				</Radio.Group>
 			</Form.Item>
 
@@ -246,7 +251,7 @@ const FormBasketOrder = ({ next }) => {
 				<Input />
 			</Form.Item>
 
-			{value === 'kurer_belarus' &&
+			{(value === 'Белпочта') || (value === 'Европочта') ?
 				<>
 					<Form.Item
 						label="Фамилия"
@@ -273,6 +278,8 @@ const FormBasketOrder = ({ next }) => {
 						<Input />
 					</Form.Item>
 				</>
+				:
+				undefined
 			}
 
 			<Form.Item
@@ -320,13 +327,14 @@ const FormBasketOrder = ({ next }) => {
 				}}
 			>
 				<Radio.Group
-					onChange={onChange}
-					value={value}
+					// onChange={onChange}
+					// value={value}
 				>
 					<Space direction="vertical" className='mb-10'>
-						<Radio value={'Онлайн оплата картой Visa/MasterCard'}>Онлайн оплата картой Visa/MasterCard</Radio>
-						<Radio value={'Онлайн оплата через ЕРИП'}>Онлайн оплата через ЕРИП</Radio>
-						<Radio value={'Оплата курьеру наличными/картой'}>Оплата курьеру наличными/картой</Radio>
+						<Radio value={'Наличными при получении'}>Наличными при получении</Radio>
+						<Radio value={'Банковской картой при получении'}>Банковской картой при получении</Radio>
+						<Radio value={'Оплата картой онлайн'}>Оплата картой онлайн</Radio>
+						<Radio value={'Оплата через ЕРИП'}>Оплата через ЕРИП</Radio>
 					</Space>
 				</Radio.Group>
 			</Form.Item>
@@ -334,6 +342,12 @@ const FormBasketOrder = ({ next }) => {
 			<Form.Item
 				label="Комментарий к заказу"
 				name="comment"
+				wrapperCol={{
+					span: 24,
+				}}
+				labelCol={{
+					span: 24,
+				}}
 			>
 				<TextArea
 					autoSize allowClear
@@ -343,8 +357,10 @@ const FormBasketOrder = ({ next }) => {
 			<Form.Item
 				name="check"
 				wrapperCol={{
-					offset: 2,
-					span: 16,
+					span: 24,
+				}}
+				labelCol={{
+					span: 24,
 				}}
 			>
 				<Checkbox onChange={onChangeCheck}>Я согласен на обработку персональных данных</Checkbox>
@@ -352,14 +368,14 @@ const FormBasketOrder = ({ next }) => {
 
 			<Form.Item
 				wrapperCol={{
-					offset: 14,
-					// span: 8,
+					offset: 8
 				}}
+
 				className='mt-8'
 			>
 				<Button
 					type="primary"
-					size={screens.xs ? 'middle': 'large'}
+					size={screens.xs ? 'middle' : 'large'}
 					htmlType="submit"
 					disabled={!isCheck}
 				>

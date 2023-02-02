@@ -1,16 +1,20 @@
 import { Rate, Card, Row, Col, Button, Tooltip, Badge, Image, message } from 'antd'
 import React, { useContext, useState } from 'react'
-import Svg from '../../images/menuIcon/Svg'
+// import Svg from '../../images/menuIcon/Svg'
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import BadgeIconVesy from '../badgeIcon/badgeIconVesy/BadgeIconVesy'
 import BadgeIconHeard from '../badgeIcon/badgeIconHeard/BadgeIconHeard'
+
 // import { observer } from "mobx-react-lite"
 import { Context } from '../../App'
 import { useCookieList } from '../../hooks/useCookieList'
 import CyrillicToTranslit from 'cyrillic-to-translit-js'
 import ModalCookies from '../modalCookies/ModalCookies'
 import { addBasketUserOneProduct } from '../../http/basketAPI'
+import basket from '../../images/carouselCard/cart4.svg'
+
+
 const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 	const { dataApp, user, dataProducts } = useContext(Context)
 	const [visible, setVisible] = useState(false)
@@ -19,6 +23,8 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 	const { addList } = useCookieList(null)
 	const [dataModal, setDataModal] = useState({})
 	const [isModalOpen, setIsModalOpen] = useState(false)
+
+
 	const addBasket = el => {
 		if (!user.isAuth) {
 			addList('BasketProduct', el.id)
@@ -45,7 +51,7 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 							md={12}
 						>
 							<Card
-								className='hover:border-[#ff0084] relative'
+								className='hover:border-[#292D51] relative'
 								key={el.id}
 							>
 
@@ -67,6 +73,7 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 										style={{
 											display: 'none',
 										}}
+
 									>
 										<Image.PreviewGroup
 											preview={{
@@ -91,13 +98,16 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 										pathname: `/${el.categories[0].link}/${el.types[0].link}/${cyrillicToTranslit.transform(el.name.split(' ').join('-'))}`,
 									}}
 										state={{ page: page, id: el.id, location: location.pathname }}
+										className='text-[#292D51]'
 									>
 										<div className='flex flex-col justify-between'>
-											<p className='font-bold text-lg'>{el.name}</p>
+											<div className='min-h-[4em]'>
+												<p className='font-bold text-lg'>{el.name}</p>
+											</div>
 											<p className='text-sm mb-1'>
 												{el.description}
 											</p>
-											<p className='font-thin text-xs'>Aртикул:
+											<p className='font-thin text-xs mb-1'>Aртикул:
 												{el.id}GR{el.groupId}
 											</p>
 											<div>
@@ -120,7 +130,7 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 												{
 													el.discountPercentage ?
 														<>
-															<p className='uppercase text-xl font-extralight line-through decoration-from-font'>{(el.price).toFixed(2)} BYN</p>
+															<p className='uppercase text-xl font-extralight line-through decoration-from-font mb-0'>{(el.price).toFixed(2)} BYN</p>
 															<p className='font-extralight text-xs'>скидка {el.discountPercentage}%</p>
 														</>
 														:
@@ -130,14 +140,15 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 											</div>
 										</div>
 
-										<div className='flex justify-between items-center'>
-											<div className='flex pt-4'>
+										<div className='flex justify-between items-center mt-2'>
+											<div className='flex justify-center items-center'>
 												<BadgeIconVesy
 													cardComp={true}
 													addToComparisonList={addList}
 													id={el.id}
 												/>
-												{location.pathname !== "/spisok-ponravivshikhsya" ?
+												{location.pathname !== "/spisok-ponravivshikhsya"
+													?
 													<BadgeIconHeard
 														cardComp={true}
 														addToLiked={addList}
@@ -157,7 +168,7 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 													</div>
 												}
 											</div>
-											<div className='mt-5 text-right'>
+											<div className=' text-right'>
 												{(user.isAuth ? dataProducts.dataBasket.some(elem => elem.productId === el.id) : dataApp.basketArr.some(elem => elem.id === el.id)) ?
 													<Link to='/korzina'>
 														<Tooltip title="Товар в корзине">
@@ -166,18 +177,26 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 																shape="round"
 																size="large"
 																icon={<CheckOutlined />}
+																style={{boxShadow:'none'}}
 															/>
 														</Tooltip>
 													</Link>
 													:
 													<Tooltip title="Добавить в корзину">
-														<Button
+														{/* <Button
 															type="primary"
 															shape="round"
 															size="large"
 															onClick={() => addBasket(el)}
-															icon={<Svg />}
-														/>
+															icon={<Svg/>}
+														/> */}
+														
+														<div
+															className='py-1 px-4 bg-[#292D51] rounded-3xl'
+															onClick={() => addBasket(el)}
+														>
+															<Image src={basket} preview={false} className='' width='32px' />
+														</div>
 													</Tooltip>
 												}
 											</div>

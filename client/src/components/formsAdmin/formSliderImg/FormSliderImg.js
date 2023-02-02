@@ -1,7 +1,6 @@
-import { Button, Form, message, Upload } from 'antd'
-import { UploadOutlined } from '@ant-design/icons'
+import { Button, Form, message, Upload, Typography } from 'antd'
+import { UploadOutlined,DragOutlined } from '@ant-design/icons'
 import React from 'react'
-
 import Resizer from "react-image-file-resizer"
 import { createSliderImg } from '../../../http/adminAPI'
 
@@ -58,6 +57,18 @@ const FormSliderImg = () => {
 			onFinishFailed={onFinishFailed}
 			autoComplete="off"
 		>
+
+			<Form.Item
+				label="Размер картинки"
+				tooltip="Рекомендуется для оптимального качества банера. Можно использовать online-photoshop.org. Есть готовые шаблоны для редактирования."
+			>
+
+				<Typography.Text className="ant-form-text" type="success">
+					( <DragOutlined className='text-base' /> 2800x1200px )
+				</Typography.Text>
+
+			</Form.Item>
+
 			<Form.Item
 				label="Загрузите картинку для слайдера"
 				name="img"

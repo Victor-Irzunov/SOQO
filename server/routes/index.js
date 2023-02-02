@@ -15,6 +15,8 @@ import infoPagesRouter from "./infoPagesRouter.js"
 import groupRouter from "./groupRouter.js"
 import questionRouter from "./questionRouter.js"
 import contentRouter from "./contentRouter.js"
+import searchRouter from './searchRouter.js'
+import stocksRouter from './stocksRouter.js'
 
 
 
@@ -39,7 +41,8 @@ router.use('/group', groupRouter)
 router.use('/question', questionRouter)
 router.use('/content', contentRouter)
 
-
+router.use('/poisk', searchRouter)
+router.use('/stocks', stocksRouter)
 
 
 

@@ -1,4 +1,5 @@
 import { $authHost } from "./index"
+
 export const createProduct = async (product) => {
 	const { data } = await $authHost.post('api/product', product)
 	return data
@@ -89,7 +90,6 @@ export const createSliderImg = async (obj) => {
 	return data
 }
 export const deleteSliderImg = async ( obj ) => {
-	console.log('obj: ', obj)
 	const { data } = await $authHost.put('api/img', obj)
 	return data
 }
@@ -106,4 +106,24 @@ export const deleteOneInfoPage = async ( id ) => {
 	return data
 }
 
+export const createStocks = async (obj) => {
+	const { data } = await $authHost.post('api/stocks', obj)
+	return data
+}
+export const getOneStock = async ({id}) => {
+	const { data } = await $authHost.get('api/stocks/'+ id)
+	return data
+}
+export const changeStock = async (obj) => {
+	const { data } = await $authHost.put('api/stocks', obj)
+	return data
+}
+export const deleteOneStock = async (id) => {
+	const { data } = await $authHost.delete('api/stocks/'+ id)
+	return data
+}
 
+export const addImgBannerPage = async (obj) => {
+	const { data } = await $authHost.post('api/img/banner', obj)
+	return data
+}

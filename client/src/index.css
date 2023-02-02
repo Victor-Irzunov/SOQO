@@ -1,13 +1,17 @@
-/* @import '~antd/dist/antd.css'; */
-/* @import 'antd/dist/antd.variable.min.css'; */
-@import 'antd/dist/antd.variable.min.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @import "~react-image-gallery/styles/css/image-gallery.css";
 
-/* img, */
+body{
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+  Helvetica, Arial, sans-serif,
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+
+  
+
 svg,
 video,
 canvas,
@@ -16,6 +20,5 @@ iframe,
 embed,
 object {
   display: block !important;
-  /* vertical-align: middle !important; */
 }
 

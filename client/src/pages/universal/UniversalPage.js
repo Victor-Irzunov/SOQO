@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { Helmet } from "react-helmet"
 import {
 	Typography, Layout, Space, Button,
-	 BackTop, Empty, Drawer, 
+	BackTop, Empty, Drawer, Image,
 } from 'antd'
 import {
 	UpCircleOutlined,
@@ -21,16 +21,14 @@ import {
 import { fetchProducts } from '../../http/productsAPI'
 import { useScreens } from '../../Constants/constants'
 import { ContentUniversalPage } from '../../components/contentUniversalPage/ContentUniversalPage'
+import { getImgBannerPage } from '../../http/imgAPI'
 
 const { Sider, Content } = Layout
-
-
-
 
 const UniversalPage = observer(() => {
 	const { dataApp } = useContext(Context)
 	const [editH1, setEditH1] = useState('')
-	
+
 	const screens = useScreens()
 	let [searchParams, setSearchParams] = useSearchParams()
 	const [open, setOpen] = useState(false);
@@ -39,10 +37,6 @@ const UniversalPage = observer(() => {
 	const arrLocalPath = location.pathname.split('/').filter(function (el) {
 		return (el != null && el != "" || el === 0)
 	})
-	// console.log('location:', location)
-	// console.log('localPath:', localPath)
-	// console.log('arrLocalPath:', arrLocalPath)
-
 
 	const [itemCard, setItemCard] = useState([])
 	const [totalItem, setTotalItem] = useState(1)
@@ -55,41 +49,35 @@ const UniversalPage = observer(() => {
 	const [isReset, setIsReset] = useState(false)
 	const [isBtnSortRatng, setIsBtnSortRatng] = useState(false)
 	const [isBtnSortPrice, setIsBtnSortPrice] = useState(false)
-	const [inputValueFrom, setInputValueFrom] = useState(15)
+	const [inputValueFrom, setInputValueFrom] = useState(5)
 	const [inputValueBefore, setInputValueBefore] = useState(null)
+	const [dataImg, setDataImg] = useState({})
 	const params = searchParams.get('page')
-
-
-
-
 
 	useEffect(() => {
 		if (!params) setPage(1)
 		if (params && page !== params) setPage(+params)
 		if (dataApp.dataMenu) {
-		
+
 			dataApp.dataMenu.forEach(el => {
 				if (el.link === arrLocalPath[0]) {
 					setCategoryId(el.id)
 					setEditH1(el.name)
 					setTypeId(null)
 					setType(el.types)
-			
 				}
 				if (arrLocalPath.length === 2) {
 					el.types.forEach(elem => {
 						if (elem.link === arrLocalPath[1]) {
 							setTypeId(elem.id)
 							setTypeTitle(elem.name)
-					
+							setEditH1(elem.name)
 						}
 					})
 				} else {
 					setTypeTitle('')
 				}
 			})
-		
-
 		}
 	}, [arrLocalPath])
 
@@ -109,10 +97,25 @@ const UniversalPage = observer(() => {
 		typeId,
 		isReset
 	])
-
-
-
-
+	useEffect(() => {
+		if (categoryId && !typeId) {
+			getImgBannerPage({ categoryId, typeId: null })
+				.then(data => {
+					if (data) {
+						setDataImg(data)
+					}
+				})
+		}
+		if (categoryId && typeId) {
+			getImgBannerPage({ categoryId, typeId })
+				.then(data => {
+					if (data) {
+						setDataImg(data)
+					}
+					
+				})
+		}
+	}, [categoryId, typeId])
 
 	const sendFormFilter = () => {
 		fetchProducts(page, pageSize, categoryId, typeId, inputValueFrom, inputValueBefore)
@@ -154,9 +157,6 @@ const UniversalPage = observer(() => {
 		setOpen(false)
 	}
 
-
-
-
 	return (
 		<>
 			<Helmet>
@@ -165,7 +165,7 @@ const UniversalPage = observer(() => {
 			</Helmet>
 			<BackTop />
 			<section className='container'>
-				<Space align='center' className='mt-6'>
+				<div className='mt-6 mb-3 flex justify-between items-center flex-wrap'>
 					<Typography.Title
 						level={1}
 						className=''
@@ -175,8 +175,23 @@ const UniversalPage = observer(() => {
 					>
 						{editH1}
 					</Typography.Title>
-					<span className='text-slate-400'>{totalItem} товаров</span>
-				</Space>
+					<span className='text-slate-400 pl-2 font-light text-xs'>количество товаров: {totalItem} шт</span>
+				</div>
+
+				{Object.keys(dataImg).length ?
+					(<div
+						className='w-full mb-6 rounded-2xl overflow-hidden'
+					>
+						<img
+							src={process.env.REACT_APP_API_URL + JSON.parse(dataImg.img)[0].img}
+							className='bg-center bg-cover w-full'
+							
+						/>
+					</div>)
+					:
+					undefined
+				}
+
 				<br />
 				<Space className='mt-6 mb-6'>
 					<span className='text-slate-400'>Ещё категории:
@@ -289,7 +304,7 @@ const UniversalPage = observer(() => {
 
 
 
-						<ContentUniversalPage categoryId={ categoryId} typeId={typeId} />
+						<ContentUniversalPage categoryId={categoryId} typeId={typeId} />
 					</Content>
 				</Layout>
 			</section>

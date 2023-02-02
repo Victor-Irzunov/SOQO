@@ -1,29 +1,12 @@
-import { Comment, List, Tooltip, Avatar, Spin, Empty } from 'antd'
-import { UserOutlined } from '@ant-design/icons'
+import { List, Tooltip, Avatar, Spin, Empty } from 'antd'
+import { UserSwitchOutlined } from '@ant-design/icons'
 import moment from 'moment'
 import React from 'react'
 import 'moment/locale/ru'
 moment.locale('ru')
 
 
-// const data = [
-// 	{
-// 		actions: ['Да, Стас, натуральная.'],
-// 		author: 'Стас Борецкий',
-// 		avatar: (<Avatar icon={<UserOutlined />} />),
-// 		content: 'Косметика в боксах натуральная?',
-// 		datetime: '2022-07-12 09:31:33',
-// 	},
-// 	{
-// 		actions: ['Такие пожилания рассматриваются индивидуально.'],
-// 		author: 'Надежда Зык',
-// 		avatar: (<Avatar icon={<UserOutlined />} />),
-// 		content: 'Можно ли доложить в бокс еще придметы?',
-// 		datetime: '2022-06-22 11:22:33',
-// 	},
-// ];
 const VoprosOtvet = ({ dataQuestRes = null }) => {
-
 
 
 	if (!dataQuestRes) {
@@ -32,27 +15,31 @@ const VoprosOtvet = ({ dataQuestRes = null }) => {
 
 
 	return (
-
-		dataQuestRes.length ?
-
+		dataQuestRes ?
 			<List
 				className="comment-list"
 				header={`Количество диалогов: ${dataQuestRes.length}`}
 				itemLayout="horizontal"
 				dataSource={dataQuestRes}
 				renderItem={(item) => (
-					<li>
-						<Comment
-							actions={[item.response]}
-							author={item.name}
-							avatar={<Avatar icon={<UserOutlined />} />}
-							content={item.question}
-							datetime={
-								<Tooltip title={item.createdAt}>
-									<span>{moment(item.createdAt).fromNow()}</span>
-								</Tooltip>
-							}
-						/>
+					<li className='mt-4'>
+						<div className='flex justify-start items-center'>
+							<Avatar>{item.name.slice(0,1)}</Avatar>
+							<p className='ml-2 mr-2 text-base'>{item.name}</p>
+							<Tooltip title={item.createdAt}>
+								<span className='text-xs text-gray-400'>{moment(item.createdAt).fromNow()}</span>
+							</Tooltip>
+						</div>
+						<div className='pl-10 mt-3'>
+							<p className=''>{item.question}</p>
+							<div className='flex items-center mt-3'>
+								<Avatar icon={<UserSwitchOutlined />} size='small' />
+								<p className='text-gray-500 text-xs ml-2'>Администратор</p>
+							</div>
+							<p className='text-gray-500 ml-8 mt-2'>{item.response}</p>
+						</div>
+
+
 					</li>
 				)}
 			/>

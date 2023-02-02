@@ -11,7 +11,7 @@ import { Context } from '../../App'
 import {
 	Link, useLocation
 } from 'react-router-dom'
-import Svg from '../../images/menuIcon/Svg'
+// import Svg from '../../images/menuIcon/Svg'
 import { useCookieList } from '../../hooks/useCookieList'
 import ModalCookies from '../modalCookies/ModalCookies'
 import { observer } from "mobx-react-lite"
@@ -23,6 +23,10 @@ import {
 import { addBasketUserOneProduct } from '../../http/basketAPI'
 import { useScreens } from '../../Constants/constants'
 import CyrillicToTranslit from 'cyrillic-to-translit-js'
+import basket from '../../images/carouselCard/cart4.svg'
+
+
+
 const { Paragraph } = Typography
 
 const BtnComp = observer(({ el }) => {
@@ -30,6 +34,7 @@ const BtnComp = observer(({ el }) => {
 	const [dataModal, setDataModal] = useState({})
 	const { addList } = useCookieList(null)
 	const [isModalOpen, setIsModalOpen] = useState(false)
+	const screens = useScreens()
 	function addBasket(el) {
 		if (!user.isAuth) {
 			addList('BasketProduct', el.id)
@@ -52,22 +57,20 @@ const BtnComp = observer(({ el }) => {
 						<Button
 							type="primary"
 							shape="round"
-							size='small'
+							// size="small"
 							icon={<CheckOutlined />}
-							className=''
+							style={{ boxShadow: 'none' }}
 						/>
 					</Tooltip>
 				</Link>
 				:
 				<Tooltip title="Добавить в корзину">
-					<Button
-						type="primary"
-						shape="round"
-						size='small'
+					<div
+						className='py-1 px-4 bg-[#292D51] rounded-3xl'
 						onClick={() => addBasket(el)}
-						icon={<Svg />}
-						className=''
-					/>
+					>
+						<Image src={basket} preview={false} style={screens.xs ? { width: '22px' } : { width: '26px' }} />
+					</div>
 				</Tooltip>
 			}
 			<ModalCookies isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} data={dataModal} btnText={"продолжить"} />
@@ -99,7 +102,10 @@ const ComparisonList = observer(() => {
 						data.forEach((el, idx) => {
 							col.push(
 								{
-									title: <div className='relative'>
+									title: <div
+										className={`
+										 relative 
+										`} >
 										<Image
 											src={process.env.REACT_APP_API_URL + JSON.parse(el.img)[0].image}
 											className=''
@@ -117,7 +123,9 @@ const ComparisonList = observer(() => {
 									</div>,
 									render: () => {
 										return (
-											<div key={el.id} className='block'>
+											<div key={el.id}
+												className={`block`}
+											>
 												<div className=''>
 													<Link to={{
 														pathname: `/${el.categories[0].link}/${el.types[0].link}/${cyrillicToTranslit.transform(el.name.split(' ').join('-'))}`,
@@ -131,16 +139,19 @@ const ComparisonList = observer(() => {
 															{el.name}
 														</Paragraph>
 													</Link>
-													<div className='flex justify-between'>
-														<p>{el.price} BYN</p>
+													<div className='flex justify-between items-center mt-2 mb-2'>
+														<p className='text-base'>{el.price} BYN</p>
+
 														<BtnComp el={el} />
+
+
 													</div>
 													<Rate allowHalf defaultValue={4.5} disabled />
 												</div>
-												<p className='text-center mt-2 text-base'>Характеристики</p>
+												<p className='text-center mt-2 text-base xs:text-sm'>Характеристики</p>
 												{dataTitleInfo && dataTitleInfo.map((elem) => {
 													return (
-														<div className={`mb-3 mt-2 border-b h-[120px]`} key={elem.id}>
+														<div className={`mb-3 mt-2 border-b xy:min-h-[120px] xs:min-h-[120px] xx:min-h-[120px] xm:h-auto ss:h-auto`} key={elem.id}>
 															<p className='font-semibold text-sm mb-2'>
 																{elem.name}
 															</p>
@@ -149,9 +160,9 @@ const ComparisonList = observer(() => {
 																	return (
 																		<div key={item.id}>
 																			<div className='flex justify-between mb-2'>
-																				<p className='xs:text-xs xx:text-xs xy:text-xs sm:text-base w-1/2'>{item.title}:</p>
+																				<p className='xs:text-xs xx:text-[11px] xy:text-xs sm:text-xs w-1/2'>{item.title}:</p>
 
-																				<p className='xs:text-xs xx:text-xs xy:text-xs sm:text-base text-right'>{item.description}</p>
+																				<p className='xs:text-xs xx:text-[11px] xy:text-xs sm:text-xs text-right'>{item.description}</p>
 
 																			</div>
 																		</div>
@@ -164,9 +175,15 @@ const ComparisonList = observer(() => {
 											</div>
 										)
 									},
-
 								})
 						})
+						if (col.length === 1 && !screens.xs) {
+							col.push({})
+							col.push({})
+						}
+						if (col.length === 2 && !screens.xs) {
+							col.push({})
+						}
 						setColomns(col)
 						setIsLoading(false)
 					} else {
@@ -230,7 +247,7 @@ const ComparisonList = observer(() => {
 	return (
 		<div>
 			{dataApp.vesyLength ?
-				<div className='w-full flex justify-end mb-3'>
+				<div className='flex justify-end mb-3'>
 					<Button
 						type='text' danger
 						onClick={() => clearAllList()}
@@ -267,9 +284,10 @@ const ComparisonList = observer(() => {
 				pagination={false}
 				size='small'
 				scroll={{
-					x: 600,
-					y: 300,
-				}}
+					x: 200 * colomns.length,
+					y: screens.sd ? 300 : 600,
+				}
+				}
 			/>
 		</div>
 	)

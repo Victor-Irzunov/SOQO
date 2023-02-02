@@ -1,13 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Image, Row, Col, Space, Empty } from 'antd'
-import sneaker_1 from '../../images/footer/shop.webp'
-import visa from '../../images/footer/visa.svg'
-import master from '../../images/footer/Master-Card.svg'
-import bank from '../../images/footer/bank_card.svg'
-import TabsFooter from './tabsFooter/TabsFooter'
-import FooterList from './listFooter/FooterList'
+import {
+  Image,
+  // Row, Col, Space,
+  Empty
+} from 'antd'
+// import FooterList from './listFooter/FooterList'
 import { Context } from '../../App'
 import { NavLink, Link } from 'react-router-dom'
+import { PhoneOutlined, MailOutlined } from '@ant-design/icons'
+import telegram from '../../images/social-icon/telegram.svg'
+import viber from '../../images/social-icon/viber.svg'
+import instagram from '../../images/social-icon/instagram.svg'
+import img from '../../images/footer/1.webp'
+import img1 from '../../images/footer/2.webp'
 
 
 function Footer() {
@@ -62,48 +67,115 @@ function Footer() {
     setMenuItems(items)
   }, [dataApp.dataMenu])
 
-  return (
-    <footer className='mt-auto pt-12' style={{ background: '#ff0084' }}>
-      <div className='container'>
-        <Row justify='space-between'>
-          <Col xl={7} xs={24}>
-            <TabsFooter />
-          </Col>
-          <Col xl={6} xs={24}>
 
-            {menuInfoPages.length ?
-              <FooterList data={menuInfoPages}
-                linkInfo={true}
-              />
-              :
-              <Empty />
-            }
-          </Col>
-          <Col xl={6} className='ss:hidden lg:block xx:hidden'>
-            {menuItems.length ?
-              <FooterList data={menuItems} />
-              :
-              <Empty />
-            }
-          </Col>
-          <Col xl={{ span: 5 }}
-          >
-            <div className='h-full lg:flex flex-col justify-between align-middle'>
-              <Image src={sneaker_1} className='z-10 w-8/12 xx:w-24 xy:w-16 mt-4 ml-5' />
-              <Space className='pl-16'>
-                <Image src={bank} className='w-10' />
-                <Image src={visa} className='w-10' />
-                <Image src={master} className='w-10' />
-              </Space>
+
+
+  return (
+    <footer className='mt-auto pt-12 bg-[#3E3E44]' id='contact'>
+      <div className='container'>
+
+        <div className='flex justify-between items-start text-white flex-wrap'>
+          
+            <div className='font-light text-base xs:mb-4'>
+              <p className='border-b border-t-transparent border-l-transparent border-r-transparent border-white/60 border-solid font-light text-lg'>
+                Информация
+              </p>
+              <ul className='no-underline list-none pl-0'>
+                {menuInfoPages.length ?
+                  menuInfoPages.map(el => {
+                    return (
+                      <li key={el.id} className='no-underline list-none'>
+                        {el.label}
+                      </li>
+                    )
+                  })
+                  :
+                  <Empty />
+                }
+              </ul>
             </div>
-          </Col>
-        </Row>
+
+            <div className='font-light text-base xs:mb-4 xx:mb-4 xy:mb-4 xm:mb-0'>
+              <p className='border-b border-t-transparent border-l-transparent border-r-transparent border-white/60 border-solid text-lg'>
+                Контакты
+              </p>
+              <p>
+                <PhoneOutlined className='mr-3 rotate-90 text-lg' />
+                +375 (44) 584 20 68
+              </p>
+              <p>
+                <MailOutlined className='mr-3 text-lg' />
+                soqo.by@gmail.com
+              </p>
+            </div>
+
+            <div className='font-light text-base xs:mb-4 xx:mb-4 xy:mb-4 xm:mb-0'>
+              <p className='border-b border-t-transparent border-l-transparent border-r-transparent border-white/60 border-solid font-light text-lg'>
+                Адрес
+              </p>
+              <p>
+                Магазин: г.Минск, ул. Кульман, 5Б. Павильон 195
+              </p>
+            </div>
+            <div className='font-light text-base xs:mb-4 xx:mb-4 xy:mb-4 xm:mb-0'>
+              <p className='border-b border-t-transparent border-l-transparent border-r-transparent border-white/60 border-solid font-light text-lg'>
+                График работы
+              </p>
+              <p>
+                Вт-Вс - 10:00 - 20:00
+              </p>
+              <p>
+                Пн - выходной
+              </p>
+            </div>
+
+          <div className='font-light text-base xs:mb-4 xx:mb-4 xy:mb-4 xm:mb-0'>
+            <p className='border-b border-t-transparent border-l-transparent border-r-transparent border-white/60 border-solid font-light text-lg'>
+              Мы в соц. сетях
+            </p>
+            <div className='flex justify-evenly items-center pt-3'>
+              <a href='https://www.instagram.com/psy_ir/' target='_blank' >
+                <Image src={instagram} width='25px' />
+              </a>
+              <a href='https://t.me/ps' target='_blank' >
+                <Image src={telegram} width='25px' />
+              </a>
+              <a href='viber://add?number=375445842068' target='_blank' >
+                <Image src={viber} width='25px' />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className='flex justify-between mt-10' id='about'>
+          <div className='mr-1'>
+            <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A7e323f30bc6aed08c1350f3e11e1b044fec4886e2ab6604d88ce6cae20edca48&amp;source=constructor" width="1050" height="406" frameborder="0"></iframe>
+          </div>
+
+          <div className='flex flex-col justify-between items-center'>
+            <div className='w-32'>
+              <Image src={img} className='' />
+            </div>
+            <div className='w-32'>
+              <Image src={img1} />
+            </div>
+          </div>
+        </div>
+
+        <div className='mt-6 text-sm text-white font-light border-b'>
+          <p>ООО “Чайна Сантехника”</p>
+          <p>Юр.адрес: 223021, Минская обл., Минский р-н, Щомыслицкий с/с, район агрогородка Озерцо, тракт Меньковский, 2. Пом. 781. Зарегистрирован в торговом реестре 29 июля 2022 года в администрации Советского района города Минска № 538673. Свидетельство о регистрации выдано 27 января 2022 года УНП 693159769</p>
+          <p className='mt-3'>
+            Указанные контакты также являются контактами для связи по вопросам покупателей о нарушении их прав. Номер телефона работников местных исполнительных и распорядительных органов по месту государственной регистрации ООО “Чайна Сантехника”, уполномоченных рассматривать обращения покупателей: +375 17 500 41 25.
+          </p>
+        </div>
+
+
         <div
-          className='mt-3'
-          style={{ borderTop: '1px solid #fff' }}
+          className='mt-6'
         >
-          <p className='text-slate-50 opacity-80 text-xs' >Copyright © 2022 | Created & Designed By
-            <a href='https://vi-tech.by' target='_blank' rel="noreferrer" className='text-sky-800'> VI:TECH</a>
+          <p className='text-slate-50/50 text-xs ' >Copyright © 2023 | Created & Designed By
+            <a href='https://vi-tech.by' target='_blank' rel="noreferrer" className='text-blue-500/100 no-underline'> VI:TECH</a>
           </p>
         </div>
       </div>
