@@ -48,11 +48,15 @@ const responsive = {
 		items: 4
 	},
 	tablet: {
-		breakpoint: { max: 1024, min: 464 },
+		breakpoint: { max: 1024, min: 768 },
 		items: 3
 	},
 	mobile: {
-		breakpoint: { max: 620, min: 0 },
+		breakpoint: { max: 768, min: 575 },
+		items: 2
+	},
+	miniMobile: {
+		breakpoint: { max: 575, min: 0 },
 		items: 1
 	}
 }
@@ -181,24 +185,13 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 															{(user.isAuth ? dataProducts.dataBasket.some(elem => elem.productId === el.id) : dataApp.basketArr.some(elem => elem.id === el.id)) ?
 																<Link to='/korzina'>
 																	<Tooltip title="Товар в корзине">
-																		{/* <Button
-																			type="primary"
-																			shape="round"
-																			size="large"
-																			icon={<CheckOutlined />}
-																		/> */}
+
 																		<CheckOutlined className='text-[#292D51] text-3xl pb-1' />
 																	</Tooltip>
 																</Link>
 																:
 																<Tooltip title="Добавить в корзину">
-																	{/* <Button
-																		type="primary"
-																		shape="round"
-																		size="large"
-																		onClick={() => addBasket(el)}
-																		icon={<Svg />}
-																	/> */}
+
 																	<Image src={basket}
 																		preview={false}
 																		width='36px'
@@ -208,7 +201,6 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 															}
 														</div>
 													</div>
-
 												</>
 												:
 												undefined
@@ -241,11 +233,9 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 								>
 									<div className=''>
 										{/* <div className='w-full min-h-[180px]'>
-											
 											<Image src={process.env.REACT_APP_API_URL + JSON.parse(el.img)[0].image}
 											/>
 										</div> */}
-
 										<div className='p-4'>
 											{el.categories.length
 												?
@@ -259,6 +249,9 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 															<p className='font-semibold text-lg xm:text-base mb-2'>{el.name}</p>
 														</div>
 														<p className='text-xs xm:text-xs mb-2'>{el.description}</p>
+														<p className='font-thin text-[11px] mb-1 mt-1'>Aртикул:
+															{el.id}GR{el.groupId}
+														</p>
 														<div className='flex'>
 															<Rate allowHalf value={el.rating} disabled />
 															<span className="mt-1.5 ml-3">
@@ -292,24 +285,13 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 															{(user.isAuth ? dataProducts.dataBasket.some(elem => elem.productId === el.id) : dataApp.basketArr.some(elem => elem.id === el.id)) ?
 																<Link to='/korzina'>
 																	<Tooltip title="Товар в корзине">
-																		{/* <Button
-																			type="primary"
-																			shape="round"
-																			size="large"
-																			icon={<CheckOutlined />}
-																		/> */}
+
 																		<CheckOutlined className='text-[#292D51] text-3xl pb-1' />
 																	</Tooltip>
 																</Link>
 																:
 																<Tooltip title="Добавить в корзину">
-																	{/* <Button
-																		type="primary"
-																		shape="round"
-																		size="large"
-																		onClick={() => addBasket(el)}
-																		icon={<Svg />}
-																	/> */}
+
 																	<Image src={basket}
 																		preview={false}
 																		width='36px'

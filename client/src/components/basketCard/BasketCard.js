@@ -17,12 +17,21 @@ const ButtonGroup = Button.Group
 const { Text } = Typography
 
 
-const BasketCard = observer(({ data, isActive, setData }) => {
+const BasketCard = observer((
+	{
+		data,
+		isActive,
+		setData,
+		priceDostavki,
+
+	}
+) => {
 	const { dataApp, dataProducts, user } = useContext(Context)
 	const { addList, minusList, deleteOneList } = useCookieList(null)
 	const [totalWithoutDiscount, setTotalWithoutDiscount] = useState(0)
 	const [totalDiscount, setTotalDiscount] = useState(0)
 	const [total, setTotal] = useState(0)
+	const [totalPlusDostavka, setTotalPlusDostavka] = useState(0)
 	const cyrillicToTranslit = new CyrillicToTranslit()
 	const [isUpload, setUpload] = useState(false)
 	const location = useLocation()
@@ -53,15 +62,24 @@ const BasketCard = observer(({ data, isActive, setData }) => {
 				})
 			}
 			let total = totalCost - discount
+			let totalWithDostavka = totalCost - discount + priceDostavki
+			setTotalPlusDostavka(totalWithDostavka)
 			setTotalWithoutDiscount((totalCost.toFixed(2)))
 			setTotalDiscount((discount).toFixed(2))
 			setTotal((total).toFixed(2))
 			dataProducts.setSendData(sendData)
+
+			if (priceDostavki) {
+				dataApp.setTotalOrder(totalWithDostavka)
+			} else {
+				dataApp.setTotalOrder(total)
+			}
 		}
 	}, [
 		data.length,
 		isUpload,
-		data
+		data,
+		priceDostavki
 	])
 
 	const plusBasket = id => {
@@ -192,14 +210,36 @@ const BasketCard = observer(({ data, isActive, setData }) => {
 				</div>
 			}
 			<div className={`mb-6 w-full flex flex-col items-end mt-20 ${!data.length && 'hidden'}`}>
-				<p className='text-base'>Общая стоимость:</p>
-				<span className='text-lg font-light mb-3'>{totalWithoutDiscount} <span className='text-base font-light'>BYN</span></span>
-				<Text>Cумма скидки:</Text>
-				<Text>{totalDiscount} BYN</Text>
-				<p className='text-xl xs:text-lg xx:text-base mt-5'>Итоговая стоимость:</p>
-				<span className='text-2xl xs:text-xl xx:text-lg font-light'>{total}
-					<span className='text-xl xs:text-lg font-light'>BYN</span>
-				</span>
+				<p className='text-lg font-semibold'>
+					Ваш заказ:
+				</p>
+				<p className='text-sm'>Общая стоимость:</p>
+				<span className='text-lg font-light mb-2'>{totalWithoutDiscount} <span className='text-base font-light'>BYN</span></span>
+				<p className='text-sm'>Скидка:</p>
+				<p className=''>{totalDiscount} BYN</p>
+
+				{
+					priceDostavki ?
+						<>
+							<p className='mt-2 text-sm'>Стоимость со скидкой</p>
+							<p className=''>{total} BYN</p>
+							<br />
+							<p className='text-sm'>Доставка:</p>
+							<p className=''>{(priceDostavki).toFixed(2)} BYN</p>
+							<p className='text-xl xs:text-lg xx:text-base mt-5 uppercase'>Итоговая стоимость:</p>
+							<span className='text-2xl xs:text-xl xx:text-lg font-light'>{(totalPlusDostavka).toFixed(2)}
+								<span className='text-xl xs:text-lg font-light'>&nbsp;BYN</span>
+							</span>
+						</>
+						:
+						<>
+							<p className='text-lg xs:text-base xx:text-sm mt-5 uppercase'>Итоговая стоимость:</p>
+							<span className='text-2xl xs:text-xl xx:text-lg font-light'>{total}
+								<span className='text-xl xs:text-lg font-light'>&nbsp;BYN</span>
+							</span>
+						</>
+				}
+
 			</div>
 		</div>
 

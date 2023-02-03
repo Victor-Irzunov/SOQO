@@ -1,10 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import {
   Image,
-  // Row, Col, Space,
   Empty
 } from 'antd'
-// import FooterList from './listFooter/FooterList'
 import { Context } from '../../App'
 import { NavLink, Link } from 'react-router-dom'
 import { PhoneOutlined, MailOutlined } from '@ant-design/icons'
@@ -13,13 +11,15 @@ import viber from '../../images/social-icon/viber.svg'
 import instagram from '../../images/social-icon/instagram.svg'
 import img from '../../images/footer/1.webp'
 import img1 from '../../images/footer/2.webp'
+import { useScreens } from '../../Constants/constants'
 
 
 function Footer() {
   const { dataApp } = useContext(Context)
   const [menuItems, setMenuItems] = useState([])
   const [menuInfoPages, setMenuInfoPages] = useState([])
-
+  const screens = useScreens()
+  
   useEffect(() => {
     const itemsInfo = []
     if (dataApp.infoPages.length) {
@@ -75,59 +75,59 @@ function Footer() {
       <div className='container'>
 
         <div className='flex justify-between items-start text-white flex-wrap'>
-          
-            <div className='font-light text-base xs:mb-4'>
-              <p className='border-b border-t-transparent border-l-transparent border-r-transparent border-white/60 border-solid font-light text-lg'>
-                Информация
-              </p>
-              <ul className='no-underline list-none pl-0'>
-                {menuInfoPages.length ?
-                  menuInfoPages.map(el => {
-                    return (
-                      <li key={el.id} className='no-underline list-none'>
-                        {el.label}
-                      </li>
-                    )
-                  })
-                  :
-                  <Empty />
-                }
-              </ul>
-            </div>
 
-            <div className='font-light text-base xs:mb-4 xx:mb-4 xy:mb-4 xm:mb-0'>
-              <p className='border-b border-t-transparent border-l-transparent border-r-transparent border-white/60 border-solid text-lg'>
-                Контакты
-              </p>
-              <p>
-                <PhoneOutlined className='mr-3 rotate-90 text-lg' />
-                +375 (44) 584 20 68
-              </p>
-              <p>
-                <MailOutlined className='mr-3 text-lg' />
-                soqo.by@gmail.com
-              </p>
-            </div>
+          <div className='font-light text-base xs:mb-4'>
+            <p className='border-b border-t-transparent border-l-transparent border-r-transparent border-white/60 border-solid font-light text-lg'>
+              Информация
+            </p>
+            <ul className='no-underline list-none pl-0'>
+              {menuInfoPages.length ?
+                menuInfoPages.map(el => {
+                  return (
+                    <li key={el.id} className='no-underline list-none'>
+                      {el.label}
+                    </li>
+                  )
+                })
+                :
+                <Empty />
+              }
+            </ul>
+          </div>
 
-            <div className='font-light text-base xs:mb-4 xx:mb-4 xy:mb-4 xm:mb-0'>
-              <p className='border-b border-t-transparent border-l-transparent border-r-transparent border-white/60 border-solid font-light text-lg'>
-                Адрес
-              </p>
-              <p>
-                Магазин: г.Минск, ул. Кульман, 5Б. Павильон 195
-              </p>
-            </div>
-            <div className='font-light text-base xs:mb-4 xx:mb-4 xy:mb-4 xm:mb-0'>
-              <p className='border-b border-t-transparent border-l-transparent border-r-transparent border-white/60 border-solid font-light text-lg'>
-                График работы
-              </p>
-              <p>
-                Вт-Вс - 10:00 - 20:00
-              </p>
-              <p>
-                Пн - выходной
-              </p>
-            </div>
+          <div className='font-light text-base xs:mb-4 xx:mb-4 xy:mb-4 xm:mb-0'>
+            <p className='border-b border-t-transparent border-l-transparent border-r-transparent border-white/60 border-solid text-lg'>
+              Контакты
+            </p>
+            <p>
+              <PhoneOutlined className='mr-3 rotate-90 text-lg' />
+              +375 (44) 584 20 68
+            </p>
+            <p>
+              <MailOutlined className='mr-3 text-lg' />
+              soqo.by@gmail.com
+            </p>
+          </div>
+
+          <div className='font-light text-base xs:mb-4 xx:mb-4 xy:mb-4 xm:mb-0'>
+            <p className='border-b border-t-transparent border-l-transparent border-r-transparent border-white/60 border-solid font-light text-lg'>
+              Адрес
+            </p>
+            <p>
+              Магазин: г.Минск, ул. Кульман, 5Б. Павильон 195
+            </p>
+          </div>
+          <div className='font-light text-base xs:mb-4 xx:mb-4 xy:mb-4 xm:mb-0'>
+            <p className='border-b border-t-transparent border-l-transparent border-r-transparent border-white/60 border-solid font-light text-lg'>
+              График работы
+            </p>
+            <p>
+              Вт-Вс - 10:00 - 20:00
+            </p>
+            <p>
+              Пн - выходной
+            </p>
+          </div>
 
           <div className='font-light text-base xs:mb-4 xx:mb-4 xy:mb-4 xm:mb-0'>
             <p className='border-b border-t-transparent border-l-transparent border-r-transparent border-white/60 border-solid font-light text-lg'>
@@ -147,16 +147,22 @@ function Footer() {
           </div>
         </div>
 
-        <div className='flex justify-between mt-10' id='about'>
-          <div className='mr-1'>
-            <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A7e323f30bc6aed08c1350f3e11e1b044fec4886e2ab6604d88ce6cae20edca48&amp;source=constructor" width="1050" height="406" frameborder="0"></iframe>
+        <div className='flex justify-between items-center mt-10 xs:flex-col xx:flex-col xy:flex-col xm:flex-row' id='about'>
+          <div className='mr-1 w-full'>
+            <iframe
+              src="https://yandex.ru/map-widget/v1/?um=constructor%3A7e323f30bc6aed08c1350f3e11e1b044fec4886e2ab6604d88ce6cae20edca48&amp;source=constructor"
+              width={(screens.xl && '1050px') || (screens.lg && '840px') || (screens.md && '610px') || (screens.sm && '425px') || (screens.xs && '100%')}
+              height="406"
+              // frameborder="0"
+            >
+            </iframe>
           </div>
 
-          <div className='flex flex-col justify-between items-center'>
-            <div className='w-32'>
+          <div className='h-[406px] xm:mt-0 flex xm:flex-col justify-between items-center xs:flex-row xs:mt-7 xx:mt-7 xy:mt-7'>
+            <div className='xm:w-32 xs:w-[45%] xx:w-[45%] xy:w-[45%]'>
               <Image src={img} className='' />
             </div>
-            <div className='w-32'>
+            <div className='xm:w-32 xs:w-[45%] xx:w-[45%] xy:w-[45%]'>
               <Image src={img1} />
             </div>
           </div>

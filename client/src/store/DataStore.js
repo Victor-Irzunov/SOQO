@@ -18,10 +18,18 @@ export default class DataStore {
 		this._isBuyProd = false
 		this._infoPages = []
 		this._isSendSearchForm = false
+		this._totalDostavki = 0
+		this._totalOrder = 0
 
 		makeAutoObservable(this)
 	}
 
+	setTotalOrder(data) {
+		this._totalOrder = data
+	}
+	setTotalDostavki(data) {
+		this._totalDostavki = data
+	}
 	setViewLength(data) {
 		this._viewlength = data
 	}
@@ -69,6 +77,12 @@ export default class DataStore {
 	}
 
 
+	get totalDostavki() {
+		return this._totalDostavki
+	}
+	get totalOrder() {
+		return this._totalOrder
+	}
 	get viewLength() {
 		return this._viewlength
 	}

@@ -37,7 +37,7 @@ export const ViewAllPage = () => {
 						{location.state.title}
 					</h1>
 				</div>
-				<div className='mt-24'>
+				<div className='mt-24 bg-white rounded-xl py-6 px-10'>
 
 					<CardComp itemCard={itemCard} location={location} />
 				</div>

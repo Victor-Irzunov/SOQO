@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {
 	Button, InputNumber,
 	Form, Input, Radio,
-	message, 
+	message,
 	Tooltip,
 	Image,
 	Checkbox,
@@ -102,6 +102,9 @@ const FormChangeProduct = ({ product, setProduct }) => {
 		formData.append('newProd', values.newProd)
 		formData.append('groupCreate', values.groupCreate)
 		formData.append('group', values.group)
+		formData.append('ucenka', values.ucenka)
+		formData.append('stock', values.stock)
+		formData.append('hit', values.hit)
 
 		for (let k in fileList) {
 			const pic = await resizeFile(fileList[k].originFileObj, 1000, 600)
@@ -166,7 +169,10 @@ const FormChangeProduct = ({ product, setProduct }) => {
 					price: product.price,
 					count: product.count,
 					discountPercentage: product.discountPercentage,
-					info: obj
+					info: obj,
+					ucenka: product.ucenka,
+					stock: product.stock,
+					hit: product.hit,
 				}}
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
@@ -423,6 +429,37 @@ const FormChangeProduct = ({ product, setProduct }) => {
 					}}
 				>
 					<Checkbox>Новый товар</Checkbox>
+				</Form.Item>
+				<Form.Item
+					name="ucenka"
+					valuePropName="checked"
+					wrapperCol={{
+						offset: 4,
+						span: 8,
+					}}
+				>
+					<Checkbox>Уценка</Checkbox>
+				</Form.Item>
+				<Form.Item
+					name="hit"
+					valuePropName="checked"
+					wrapperCol={{
+						offset: 4,
+						span: 8,
+					}}
+				>
+					<Checkbox>Хит продаж</Checkbox>
+				</Form.Item>
+
+				<Form.Item
+					name="stock"
+					valuePropName="checked"
+					wrapperCol={{
+						offset: 4,
+						span: 8,
+					}}
+				>
+					<Checkbox>Акция</Checkbox>
 				</Form.Item>
 
 

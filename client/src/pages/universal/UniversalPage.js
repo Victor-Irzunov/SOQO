@@ -25,7 +25,7 @@ import { getImgBannerPage } from '../../http/imgAPI'
 
 const { Sider, Content } = Layout
 
-const UniversalPage = observer(() => {
+const UniversalPage = observer(({ assortiment }) => {
 	const { dataApp } = useContext(Context)
 	const [editH1, setEditH1] = useState('')
 
@@ -82,13 +82,25 @@ const UniversalPage = observer(() => {
 	}, [arrLocalPath])
 
 	useEffect(() => {
-		if (categoryId) {
-			fetchProducts(page, pageSize, categoryId, typeId)
-				.then(data => {
-					setItemCard(data.rows)
-					setTotalItem(data.count)
-				})
+
+		if (assortiment) {
+			fetchProducts(page, pageSize)
+			.then(data => {
+				setItemCard(data.rows)
+				setTotalItem(data.count)
+			})
+		} else {
+			if (categoryId) {
+				fetchProducts(page, pageSize, categoryId, typeId)
+					.then(data => {
+						setItemCard(data.rows)
+						setTotalItem(data.count)
+					})
+			}
 		}
+
+
+
 	}, [
 		page,
 		pageSize,
@@ -112,7 +124,7 @@ const UniversalPage = observer(() => {
 					if (data) {
 						setDataImg(data)
 					}
-					
+
 				})
 		}
 	}, [categoryId, typeId])
@@ -185,7 +197,7 @@ const UniversalPage = observer(() => {
 						<img
 							src={process.env.REACT_APP_API_URL + JSON.parse(dataImg.img)[0].img}
 							className='bg-center bg-cover w-full'
-							
+
 						/>
 					</div>)
 					:

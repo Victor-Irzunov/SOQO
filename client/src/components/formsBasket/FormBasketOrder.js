@@ -10,6 +10,7 @@ import {
 	Checkbox,
 	Space,
 } from 'antd'
+import { Link } from 'react-router-dom'
 import React, { useState, useContext } from 'react'
 import InputMask from 'react-input-mask'
 import { useCookieList } from '../../hooks/useCookieList'
@@ -19,18 +20,20 @@ import { orderUser } from '../../http/orderAPI'
 import { deleteAllProductBasketUser } from '../../http/basketAPI'
 import { useScreens } from '../../Constants/constants'
 import { sendOrderTelegram } from '../../http/telegramAPI'
+import { observer } from 'mobx-react-lite'
 const { TextArea } = Input
 const dateFormat = 'DD.MM.YYYY'
 const disabledDate = (current) => {
 	return current && current < moment()
 }
-const FormBasketOrder = ({ next }) => {
+const FormBasketOrder = observer(({ next, setPriceDostavki, }) => {
 	const screens = useScreens()
 
 	const { dataProducts, user, dataApp } = useContext(Context)
 	const [autoCompleteResult, setAutoCompleteResult] = useState([])
 	const [tel, setTel] = useState('')
 	const [value, setValue] = useState('')
+	const [textBtn, setTextBtn] = useState('Подтвердите заказ')
 	const [isCheck, setIsCheck] = useState(false)
 	const { deleteAllList } = useCookieList(null)
 	const [form] = Form.useForm()
@@ -101,15 +104,32 @@ const FormBasketOrder = ({ next }) => {
 		}
 	}
 	const onChange = e => {
-		if (e.target.value === 'Самовывоз из магазина' || e.target.value === 'Курьером в пределах МКАД') {
+		if ((e.target.value === 'Самовывоз из магазина') || (e.target.value === 'Курьером в пределах МКАД')) {
 			form.setFieldsValue({ address_city: 'Минск' })
 		} else {
 			form.setFieldsValue({ address_city: '' })
 		}
 		setValue(e.target.value)
+
+		if (e.target.value === 'Курьером в пределах МКАД') {
+			setPriceDostavki(5)
+			dataApp.setTotalDostavki(5)
+		} else if (e.target.value === 'Курьером 15 км от МКАД') {
+			setPriceDostavki(15)
+			dataApp.setTotalDostavki(15)
+		} else {
+			setPriceDostavki(0)
+			dataApp.setTotalDostavki(0)
+		}
 	}
 
-
+	const onChangeTextBtn = e => {
+		if (e.target.value === 'Оплата картой онлайн' || e.target.value === 'Оплата через ЕРИП') {
+			setTextBtn('Перейти к оплате')
+		} else {
+			setTextBtn('Подтвердите заказ')
+		}
+	}
 
 	const onChangeCheck = (e) => {
 		setIsCheck(e.target.checked)
@@ -327,8 +347,8 @@ const FormBasketOrder = ({ next }) => {
 				}}
 			>
 				<Radio.Group
-					// onChange={onChange}
-					// value={value}
+					onChange={onChangeTextBtn}
+				// value={value}
 				>
 					<Space direction="vertical" className='mb-10'>
 						<Radio value={'Наличными при получении'}>Наличными при получении</Radio>
@@ -338,6 +358,9 @@ const FormBasketOrder = ({ next }) => {
 					</Space>
 				</Radio.Group>
 			</Form.Item>
+
+
+
 
 			<Form.Item
 				label="Комментарий к заказу"
@@ -354,6 +377,25 @@ const FormBasketOrder = ({ next }) => {
 				/>
 			</Form.Item>
 
+
+			<div className={`mb-6 w-full flex flex-col items-end mt-20`}>
+				{
+					dataApp.totalDostavki ?
+						<>
+							<p className='text-sm'>Доставка:</p>
+							<p className=''>{(dataApp.totalDostavki).toFixed(2)} BYN</p>
+						</>
+						:
+						undefined
+				}
+
+				<p className='text-xl xs:text-lg xx:text-base mt-5 uppercase'>Итоговая стоимость:</p>
+				<span className='text-2xl xs:text-xl xx:text-lg font-light'>{(dataApp.totalOrder).toFixed(2)}
+					<span className='text-xl xs:text-lg font-light'>&nbsp;BYN</span>
+				</span>
+			</div>
+
+
 			<Form.Item
 				name="check"
 				wrapperCol={{
@@ -363,7 +405,9 @@ const FormBasketOrder = ({ next }) => {
 					span: 24,
 				}}
 			>
-				<Checkbox onChange={onChangeCheck}>Я согласен на обработку персональных данных</Checkbox>
+				<Checkbox onChange={onChangeCheck}>
+					Я прочитал(-а) <Link to='/dogovor' className='text-blue-800'>Договор публичной оферты</Link> и согласен(-на) с условиями
+				</Checkbox>
 			</Form.Item>
 
 			<Form.Item
@@ -379,10 +423,10 @@ const FormBasketOrder = ({ next }) => {
 					htmlType="submit"
 					disabled={!isCheck}
 				>
-					Перейти к оплате
+					{textBtn}
 				</Button>
 			</Form.Item>
 		</Form>
 	)
-}
+})
 export default FormBasketOrder

@@ -37,6 +37,7 @@ import { SearchPage } from './pages/search/SearchPage'
 import { ViewAllPage } from './pages/viewAll/ViewAllPage'
 import { StoksPage } from './pages/stocks/StoksPage'
 import { ResetPasswordPage } from './pages/resetPasswordPage/ResetPasswordPage'
+import { DogovorPage } from './pages/dogovor/DogovorPage'
 
 
 // ConfigProvider.config({
@@ -151,6 +152,7 @@ const App = observer(() => {
                 <Route path='/' element={<MainPage />} />
                 <Route path='/:category' element={<UniversalPage />} />
                 <Route path='/:category/:type' element={<UniversalPage />} />
+                <Route path='/assortiment' element={<UniversalPage assortiment={true} />} />
                 <Route path='/uspeshno' element={<ResultComp />} />
                 <Route path='/super-adminka' element={
                   <RequireAuth>
@@ -169,6 +171,8 @@ const App = observer(() => {
                 <Route path='/:category/:type/:title' element={<ProductPage />} />
                 <Route path='/poisk' element={<SearchPage />} />
                 <Route path='/assortiment/:title' element={<ViewAllPage />} />
+                <Route path='/dogovor' element={<DogovorPage />} />
+               
                 <Route path='/aktsii' element={<StoksPage />} />
                 <Route path='/sbros-parolya' element={<ResetPasswordPage />} />
                 <Route path='*' element={<ErrorPage />} />
@@ -178,10 +182,7 @@ const App = observer(() => {
           </div>
         </BrowserRouter>
 
-
         <DrawerNewQuestions setOpen={setOpen} open={open} question={question} setIsReq={setIsReq} />
-
-
       </Context.Provider>
     </ConfigProvider>
   )

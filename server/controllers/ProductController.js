@@ -116,8 +116,24 @@ class ProductController {
 			limit = Number(limit) || 10
 			let offset = page * limit - limit
 			let data
+
+			if (!categoryId && !typeId && !priceFrom && !priceBefore) {
+				data = await models.Product.findAndCountAll({
+					limit, offset, where: {
+						count: {
+							[Op.gt]: 0
+						}
+					},
+					include: [{ model: models.Category }, { model: models.Type }],
+				})
+			}
+
+
+
+
+
+
 			if (categoryId && !typeId && !priceFrom && !priceBefore) {
-				// console.log('💊💊💊-💊💊💊💊-categoryId && !typeId && !priceFrom && !priceBefore-💊💊💊💊-💊💊💊')
 				data = await models.Product.findAndCountAll({
 					limit, offset, where: {
 						categoryId,
@@ -226,8 +242,6 @@ class ProductController {
 		}
 	}
 
-
-
 	async getOne(req, res, next) {
 		try {
 			const { id } = req.params
@@ -258,7 +272,6 @@ class ProductController {
 			next(ApiError.internal(e.message))
 		}
 	}
-
 
 	async getAllProductInBasketNoUser(req, res, next) {
 		try {
@@ -427,9 +440,12 @@ class ProductController {
 				type,
 				newProd,
 				groupCreate,
-				group
+				group,
+				ucenka,
+				stock,
+				hit,
 			} = req.body
-			// console.log('💊req.files.img:', req.files.img)
+			console.log('💊req.body:', req.body)
 
 			let img, imgMini
 			if (req.files) {
@@ -441,7 +457,6 @@ class ProductController {
 					imgMini = [req.files.imgMini]
 				}
 			}
-
 
 			let groupData = null
 			if (groupCreate === "1") {
@@ -485,7 +500,10 @@ class ProductController {
 					typeId: type,
 					new: newProd,
 					categoryId: category,
-					groupId: groupData || +group || null
+					groupId: groupData || +group || null,
+					ucenka,
+					stock,
+					hit,
 				})
 			} else {
 				newProduct.set({
@@ -497,7 +515,10 @@ class ProductController {
 					typeId: type,
 					new: newProd,
 					categoryId: category,
-					groupId: groupData || +group || null
+					groupId: groupData || +group || null,
+					ucenka: ucenka,
+					stock: stock,
+					hit: hit,
 				})
 			}
 
