@@ -11,6 +11,9 @@ router.put('/', checkRole('ADMIN'), imgController.deleteImg)
 router.post('/banner', checkRole('ADMIN'), imgController.addImg)
 router.get('/banner', imgController.getImg)
 
+router.get('/banner/all', imgController.getAllImg)
+router.put('/banner', checkRole('ADMIN'), imgController.deleteOneImg)
+
 
 
 export default router

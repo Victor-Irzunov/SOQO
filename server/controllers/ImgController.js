@@ -144,6 +144,38 @@ class ImgController {
 	}
 
 
+	async getAllImg(req, res, next) {
+		try {
+			const data = await models.BannerImgPage.findAll()
+			return res.status(201).json(data)
+		}
+		catch (e) {
+			console.log('🦺-------err: ', e.message)
+			console.log('🦺-------e: ', e)
+			next(ApiError.badRequest(e.message))
+		}
+	}
+
+	async deleteOneImg(req, res, next) {
+		try {
+			const { dataId } = req.body
+			const id = JSON.parse(dataId)
+			await models.BannerImgPage.destroy({
+				where: {
+					id: id
+				}
+			})
+
+			return res.status(201).json({ message: 'Банер удалён' })
+		}
+		catch (e) {
+			console.log('🦺-------err: ', e.message)
+			console.log('🦺-------e: ', e)
+			next(ApiError.badRequest(e.message))
+		}
+	}
+
+
 }
 
 export const imgController = new ImgController()

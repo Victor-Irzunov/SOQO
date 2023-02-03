@@ -180,7 +180,7 @@ const UniversalPage = observer(() => {
 
 				{Object.keys(dataImg).length ?
 					(<div
-						className='w-full mb-6 rounded-2xl overflow-hidden'
+						className='w-full mb-6 rounded-xl overflow-hidden'
 					>
 						<img
 							src={process.env.REACT_APP_API_URL + JSON.parse(dataImg.img)[0].img}
@@ -258,8 +258,8 @@ const UniversalPage = observer(() => {
 						</span>
 					</div>
 				</Space>
-				<Layout className='mt-2'>
-					<Sider theme='light' className='xs:hidden xx:hidden xy:hidden sm:block'>
+				<Layout className='mt-2 mb-10'>
+					<Sider theme='light' className='xs:hidden xx:hidden xy:hidden sm:block rounded-xl'>
 						<FilterAll
 							sendFormFilter={sendFormFilter}
 							inputValueFrom={inputValueFrom}
@@ -281,12 +281,13 @@ const UniversalPage = observer(() => {
 							onClose={onClose}
 						/>
 					</Drawer>
-					<Content className='pb-20 bg-white'>
+					<Content className='p-2 xs:px-16 xx:px-11 xy:px-7 xm:px-2 bg-white rounded-xl'>
 						{
 							totalItem
 								?
 								<>
 									<CardComp itemCard={itemCard} page={page} location={location} />
+									<br />
 									<br />
 									<br />
 									<PaginationComp totalItem={totalItem} onChange={onChangePage} current={page} />

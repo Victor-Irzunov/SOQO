@@ -16,8 +16,8 @@ import MenuMobil from './menuMobil/MenuMobil'
 import MenuLinkMobil from './menuLinkMobil/MenuLinkMobil'
 import { Link, NavLink } from 'react-router-dom'
 import ModalComponent from '../modalLoginRegistrat/ModalComponent'
-import { Content, ContentAdmin, ContentCourier } from './header-address/headerTimeTel/HeaderTimeTel'
-
+import { ContentAdmin, ContentCourier } from './header-address/headerTimeTel/HeaderTimeTel'
+import { Content } from '../../content/Content'
 const { Paragraph } = Typography
 
 const Header = observer(() => {
@@ -27,7 +27,7 @@ const Header = observer(() => {
   const screens = useScreens()
   const [hover, setHover] = useState();
   // console.log('screens:', screens)
-
+  // console.log('dataApp: ',dataApp.viewLength)
   const [open, setOpen] = useState(false)
   const showModal = () => {
     setOpen(true)
@@ -45,6 +45,19 @@ const Header = observer(() => {
       dataApp.setVesyArr(arr)
     }
   }, [dataApp.vesyLength])
+
+  useEffect(() => {
+    let cookie = {}
+    decodeURIComponent(document.cookie).split(';').forEach(el => {
+      let [k, v] = el.split('=')
+      cookie[k.trim()] = v
+    })
+    if (cookie['view_product']) {
+      let arr = JSON.parse(cookie['view_product'])
+      dataApp.setViewLength(arr.length)
+      dataApp.setViewArr(arr)
+    }
+  }, [dataApp.viewLength])
 
   useEffect(() => {
     let cookie = {}
@@ -182,7 +195,7 @@ const Header = observer(() => {
           className='z-10'
         >
           <div className={`duration-500 ${isActiveMenu ? 'h-screen' : 'h-12'}
-         bg-[#3E3E44] pt-2 pb-2 px-3
+         bg-[#3E3E44] opacity-90 pt-2 pb-2 px-3
          absolute left-0 right-0 top-0
          overflow-y-auto
          `}>
@@ -207,15 +220,15 @@ const Header = observer(() => {
                 </Link>
               </div>
               <div className='flex justify-between items-center z-50'>
-                <Button type='link' href='tel:80290000000' className='pr-2'>
-                  <PhoneOutlined className='text-white text-2xl' />
+                <Button type='link' href='tel:80445842068' className='pr-2'>
+                  <PhoneOutlined className='text-white text-2xl rotate-90' />
                 </Button>
 
                 {user.isAuth
                   ?
                   <Popover
                     placement="bottomRight"
-                    content={user.userData.role === 'ADMIN' && ContentAdmin || user.userData.role === 'COURIER' && ContentCourier || user.userData.role === 'USER' && Content}
+                    content={user.userData.role === 'ADMIN' && ContentAdmin || user.userData.role === 'COURIER' && ContentCourier || user.userData.role === 'USER' && <Content />}
                     trigger="click"
                   >
                     <UserOutlined className='text-white text-2xl mr-3' />
@@ -226,7 +239,6 @@ const Header = observer(() => {
                     onClick={showModal}
                   />
                 }
-
                 <BadgeIconVesy mobil={true} />
                 <BadgeIconHeard mobil={true} />
                 <BadgeIconBasked mobil={true} />
@@ -240,20 +252,28 @@ const Header = observer(() => {
                 <MenuLinkMobil setIsActiveMenu={setIsActiveMenu} />
               </div>
               <div className={`flex justify-center items-center mt-10`}>
-                <HistoryOutlined className='text-base mr-1 text-white' />
-                <Paragraph
-                  className='text-white ml-2'
-                >
-                  08:30-20:00 пн-пт
-                </Paragraph>
-                <Paragraph
-                  className='text-white ml-2'
-                >
-                  10:00-19:00 сб-вс
-                </Paragraph>
+                <Button type='link'
+                  className='text-base text-white'
+                  icon={<PhoneOutlined className='text-base rotate-90' />} href='tel:80445842068'>
+                  +375 (44) 584 20 68
+                </Button>
               </div>
             </div>
+            <div className={`flex justify-center items-center mt-4`}>
+              <HistoryOutlined className='text-base mr-1 text-white' />
+              <Paragraph
+                className='text-white ml-2'
+              >
+                08:30-20:00 пн-пт
+              </Paragraph>
+              <Paragraph
+                className='text-white ml-2'
+              >
+                10:00-19:00 сб-вс
+              </Paragraph>
+            </div>
           </div>
+
         </Affix>
       }
       <ModalComponent open={open} setOpen={setOpen} />

@@ -21,7 +21,7 @@ import { categoryType } from './http/productsAPI'
 import UniversalPage from './pages/universal/UniversalPage'
 import BasketPage from './pages/basket/BasketPage'
 import ProductComparison from './pages/comparison/ProductComparison'
-import LikedList from './pages/likedList/LikedList'
+import UniversalList from './pages/universalList/UniversalList'
 import OrderHistory from './pages/orderHistory/OrderHistory'
 import MyProfile from './pages/myProfile/MyProfile'
 import CourierPage from './pages/kurer/CourierPage'
@@ -159,7 +159,8 @@ const App = observer(() => {
                 } />
                 <Route path='/korzina' element={<BasketPage />} />
                 <Route path='/cpisok-sravneniya' element={<ProductComparison />} />
-                <Route path='/spisok-ponravivshikhsya' element={<LikedList />} />
+                <Route path='/spisok-ponravivshikhsya' element={<UniversalList like={true} />} />
+                <Route path='/prosmotrennye-tovari' element={<UniversalList view={true} />} />
                 <Route path='/istoriya-zakazov' element={<OrderHistory />} />
                 <Route path='/moi-dannye' element={<MyProfile />} />
                 <Route path='/dlya-voditelya' element={<CourierPage />} />

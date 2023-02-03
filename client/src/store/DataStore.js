@@ -8,6 +8,8 @@ export default class DataStore {
 		this._vesyarr = []
 		this._dataMenu = []
 		this._likedlength = 0
+		this._viewlength = 0
+		this._viewArr = []
 		this._likedarr = []
 		this._basketlength = 0
 		this._basketArr = []
@@ -18,6 +20,13 @@ export default class DataStore {
 		this._isSendSearchForm = false
 
 		makeAutoObservable(this)
+	}
+
+	setViewLength(data) {
+		this._viewlength = data
+	}
+	setViewArr(data) {
+		this._viewArr = data
 	}
 	setIsSendSearchForm(data) {
 		this._isSendSearchForm = data
@@ -60,8 +69,11 @@ export default class DataStore {
 	}
 
 
-	get isSendSearchForm() {
-		return this._isSendSearchForm
+	get viewLength() {
+		return this._viewlength
+	}
+	get viewArr() {
+		return this._viewArr
 	}
 	get data() {
 		return this._data

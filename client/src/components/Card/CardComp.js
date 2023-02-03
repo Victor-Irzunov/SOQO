@@ -1,12 +1,9 @@
 import { Rate, Card, Row, Col, Button, Tooltip, Badge, Image, message } from 'antd'
 import React, { useContext, useState } from 'react'
-// import Svg from '../../images/menuIcon/Svg'
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import BadgeIconVesy from '../badgeIcon/badgeIconVesy/BadgeIconVesy'
 import BadgeIconHeard from '../badgeIcon/badgeIconHeard/BadgeIconHeard'
-
-// import { observer } from "mobx-react-lite"
 import { Context } from '../../App'
 import { useCookieList } from '../../hooks/useCookieList'
 import CyrillicToTranslit from 'cyrillic-to-translit-js'
@@ -20,7 +17,7 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 	const [visible, setVisible] = useState(false)
 	const [idPreviewGroup, setIdPreviewGroup] = useState(null)
 	const cyrillicToTranslit = new CyrillicToTranslit()
-	const { addList } = useCookieList(null)
+	const { addList, addViewedProduct} = useCookieList(null)
 	const [dataModal, setDataModal] = useState({})
 	const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -47,6 +44,8 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 					<React.Fragment key={el.id}>
 						<Col
 							xl={8}
+							sm={12}
+							xs={24}
 							key={el.id}
 							md={12}
 						>
@@ -54,12 +53,8 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 								className='hover:border-[#292D51] relative'
 								key={el.id}
 							>
-
-								<div className='overflow-hidden min-h-[250px]'>
-									<Image
-										preview={{
-											visible: false,
-										}}
+								<div className='overflow-hidden h-[360px] flex justify-center items-center'>
+									<img
 										src={process.env.REACT_APP_API_URL + img[0].image}
 										onClick={
 											() => {
@@ -67,7 +62,7 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 												setIdPreviewGroup(el.id)
 											}
 										}
-										className='object-cover bg-center'
+										className='h-auto w-full'
 									/>
 									<div
 										style={{
@@ -99,6 +94,7 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 									}}
 										state={{ page: page, id: el.id, location: location.pathname }}
 										className='text-[#292D51]'
+										onClick={()=>addViewedProduct('view_product',el.id)}
 									>
 										<div className='flex flex-col justify-between'>
 											<div className='min-h-[4em]'>
@@ -183,13 +179,6 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 													</Link>
 													:
 													<Tooltip title="Добавить в корзину">
-														{/* <Button
-															type="primary"
-															shape="round"
-															size="large"
-															onClick={() => addBasket(el)}
-															icon={<Svg/>}
-														/> */}
 														
 														<div
 															className='py-1 px-4 bg-[#292D51] rounded-3xl'

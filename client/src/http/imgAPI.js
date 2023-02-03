@@ -1,4 +1,4 @@
-import { $host } from "./index"
+import { $host, $authHost } from "./index"
 
 export const getSliderImg = async () => {
 	const { data } = await $host.get('api/img')
@@ -10,5 +10,13 @@ export const getImgBannerPage = async ({ categoryId, typeId }) => {
 			categoryId, typeId
 		}
 	})
+	return data
+}
+export const getAllBannerPage = async () => {
+	const { data } = await $host.get('api/img/banner/all')
+	return data
+}
+export const deleteOneBannerPage = async (obj) => {
+	const { data } = await $authHost.put('api/img/banner', obj)
 	return data
 }

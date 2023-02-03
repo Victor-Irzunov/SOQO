@@ -29,6 +29,7 @@ import FormDeleteGroup from '../../components/formsAdmin/formDeleteGroup/FormDel
 import FormStocksPages from '../../components/formsAdmin/formStocksPages/FormStocksPages'
 import FomrGetOneStocksPage from '../../components/formsAdmin/formStocksPages/changeStocksPage/FomrGetOneStocksPage'
 import FormBannerImgPage from '../../components/formsAdmin/formBannerImgPage/FormBannerImgPage'
+import FormDeleteBannerPage from '../../components/formsAdmin/formBannerImgPage/formDeleteBannerPage/FormDeleteBannerPage'
 const { Panel } = Collapse
 const AdminPage = () => {
 	const [dataOrder, setDataOrder] = useState([])
@@ -106,6 +107,9 @@ const AdminPage = () => {
 					</Panel>
 					<Panel header='Добавить банер на страницу категории' extra={<FileImageOutlined className='text-xl text-orange-500 ml-1' />} key="17" className='p-2'>
 						<FormBannerImgPage />
+					</Panel>
+					<Panel header='Удалить банер категории или подкатегории' extra={<CloseSquareOutlined className='text-xl text-orange-500 ml-1' />} key="18" className='p-2'>
+						<FormDeleteBannerPage />
 					</Panel>
 				</Collapse>
 			</div>

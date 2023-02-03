@@ -8,7 +8,11 @@ import { Link } from 'react-router-dom'
 import { Context } from '../../../App'
 import { observer } from "mobx-react-lite"
 import CyrillicToTranslit from 'cyrillic-to-translit-js'
-const BadgeIconHeard = observer(({ cardComp, header, productPage, addToLiked, id, mobil }) => {
+
+const BadgeIconHeard = observer((
+	{ cardComp, header, productPage, addToLiked, id, mobil }
+) => {
+	
 	const { dataApp } = useContext(Context)
 	const cyrillicToTranslit = new CyrillicToTranslit()
 	return (

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { Context } from '../App'
 
 function getCookie(name) {
@@ -100,7 +100,6 @@ const useCookieList = value => {
 			document.cookie = encodeURIComponent(key) + '=' + encodeURIComponent(json_str) + '; expires=' + date.toUTCString() + ';path' + '=' + '/'
 			dataApp.setBasketLength(newArr.length)
 			dataApp.setBasketArr(newArr)
-
 		} else {
 			const newArr = value_cookie.filter(el => el !== id)
 			let date = new Date()
@@ -110,9 +109,14 @@ const useCookieList = value => {
 			if (key === 'ComparisonList') {
 				dataApp.setVesyLength(newArr.length)
 				dataApp.setVesyArr(newArr)
-			} else {
+			}
+			if (key === 'LikedList') {
 				dataApp.setLikedLength(newArr.length)
 				dataApp.setLikedArr(newArr)
+			}
+			if (key === 'view_product') {
+				dataApp.setViewLength(newArr.length)
+				dataApp.setViewArr(newArr)
 			}
 		}
 	}
@@ -137,10 +141,38 @@ const useCookieList = value => {
 			dataApp.setLikedLength(value_cookie.length)
 			dataApp.setLikedArr(value_cookie)
 		}
-
+		if (key === 'view_product') {
+			dataApp.setViewLength(value_cookie.length)
+			dataApp.setViewArr(value_cookie)
+		}
 	}
 
-	return { addList, minusList, deleteOneList, deleteAllList }
+	const addViewedProduct = (key, id) => {
+
+		let value_cookie = getCookie(key)
+		if (value_cookie === undefined) {
+			let date = new Date()
+			date.setYear(date.getFullYear() + 1)
+			document.cookie = encodeURIComponent(key) + '=' + encodeURIComponent(JSON.stringify([])) + '; expires=' + date.toUTCString() + ';path' + '=' + '/'
+		}
+		let cookie = {}
+		decodeURIComponent(document.cookie).split(';').forEach(el => {
+			let [k, v] = el.split('=')
+			cookie[k.trim()] = v
+		})
+		let arr = JSON.parse(cookie[key])
+		if (!arr.includes(id)) {
+			arr.push(id)
+			if(arr.length > 30) arr.shift()
+			let date = new Date()
+			date.setYear(date.getFullYear() + 1)
+			let json_str = JSON.stringify(arr)
+			document.cookie = encodeURIComponent(key) + '=' + encodeURIComponent(json_str) + '; expires=' + date.toUTCString() + ';path' + '=' + '/'
+		}
+		dataApp.setViewLength(arr.length)
+	}
+
+	return { addList, minusList, deleteOneList, deleteAllList, addViewedProduct }
 }
 export { useCookieList }
 

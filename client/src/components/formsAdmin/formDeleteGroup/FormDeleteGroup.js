@@ -21,6 +21,7 @@ function FormDeleteGroup() {
 						await deleteOneList('BasketProduct', el)
 						await deleteOneList('ComparisonList', el)
 						await deleteOneList('LikedList', el)
+						await deleteOneList('view_product', el)
 					})
 				}
 			})
