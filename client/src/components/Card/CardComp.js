@@ -138,9 +138,7 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 										<div className='flex justify-between items-center mt-2'>
 											<div className='flex justify-center items-center'>
 												<BadgeIconVesy
-													cardComp={true}
-													addToComparisonList={addList}
-													deleteOneList={deleteOneList}
+													cardComp={true}		
 													id={el.id}
 												/>
 												{location.pathname !== "/spisok-ponravivshikhsya"

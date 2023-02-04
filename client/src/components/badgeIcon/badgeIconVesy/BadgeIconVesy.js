@@ -9,9 +9,11 @@ import { Context } from '../../../App'
 import { Tooltip } from 'antd'
 import { Link } from 'react-router-dom'
 import CyrillicToTranslit from 'cyrillic-to-translit-js'
+import { useCookieList } from '../../../hooks/useCookieList'
 
 
-const BadgeIconVesy = observer(({ cardComp, header, productPage, addToComparisonList, id, mobil, deleteOneList }) => {
+const BadgeIconVesy = observer(({ cardComp, header, productPage, id, mobil }) => {
+	const { addList, deleteOneList } = useCookieList(null)
 	const { dataApp } = useContext(Context)
 	const cyrillicToTranslit = new CyrillicToTranslit()
 	return (
@@ -20,24 +22,21 @@ const BadgeIconVesy = observer(({ cardComp, header, productPage, addToComparison
 				cardComp &&
 				<div
 					className='cursor-pointer'
-					// onClick={() => addToComparisonList('ComparisonList', id)}
 				>
 					{
 						dataApp.vesyArr.includes(id) ?
 							<Tooltip title='Товар в сравнении'>
-								{/* <Link to={`/${cyrillicToTranslit.transform(('cписок сравнения').split(' ').join('-'))}`}> */}
-									<Vesy
-										className={dataApp.vesyArr.includes(id) ? 'icon-vesy activevesy' : 'icon-vesy'}
-										onClick={()=> deleteOneList('ComparisonList', id)}
-									/>
-								{/* </Link> */}
+								<Vesy
+									className={dataApp.vesyArr.includes(id) ? 'icon-vesy activevesy' : 'icon-vesy'}
+									onClick={() => deleteOneList('ComparisonList', id)}
+								/>
 							</Tooltip>
 							:
 							<Tooltip title="Добавить в сравнение">
-									<Vesy
-										className={dataApp.vesyArr.includes(id) ? 'icon-vesy activevesy' : 'icon-vesy'}
-										onClick={() => addToComparisonList('ComparisonList', id)}
-									/>
+								<Vesy
+									className={dataApp.vesyArr.includes(id) ? 'icon-vesy activevesy' : 'icon-vesy'}
+									onClick={() => addList('ComparisonList', id)}
+								/>
 							</Tooltip>
 					}
 				</div>
@@ -49,8 +48,8 @@ const BadgeIconVesy = observer(({ cardComp, header, productPage, addToComparison
 						<Badge count={dataApp.vesyLength} size="small">
 							<img
 								src={vesy}
-									className='w-6 hover:scale-110 duration-500'
-									alt='список сравнения'
+								className='w-6 hover:scale-110 duration-500'
+								alt='список сравнения'
 							/>
 						</Badge>
 					</Link>
@@ -60,18 +59,21 @@ const BadgeIconVesy = observer(({ cardComp, header, productPage, addToComparison
 				productPage &&
 				<div
 					className='cursor-pointer'
-					onClick={() => addToComparisonList('ComparisonList', id)}
 				>
 					{
 						dataApp.vesyArr.includes(id) ?
 							<Tooltip title='Товар в сравнении'>
-								<Link to={`/${cyrillicToTranslit.transform(('cписок сравнения').split(' ').join('-'))}`}>
-									<Vesy className={dataApp.vesyArr.includes(id) ? 'icon-vesy activevesy' : 'icon-vesy'} />
-								</Link>
+								<Vesy
+									className={dataApp.vesyArr.includes(id) ? 'icon-vesy activevesy' : 'icon-vesy'}
+									onClick={() => deleteOneList('ComparisonList', id)}
+								/>
 							</Tooltip>
 							:
 							<Tooltip title="Добавить в сравнение">
-								<Vesy className={dataApp.vesyArr.includes(id) ? 'icon-vesy activevesy' : 'icon-vesy'} />
+								<Vesy
+									className={dataApp.vesyArr.includes(id) ? 'icon-vesy activevesy' : 'icon-vesy'}
+									onClick={() => addList('ComparisonList', id)}
+								/>
 							</Tooltip>
 					}
 				</div>
@@ -83,16 +85,14 @@ const BadgeIconVesy = observer(({ cardComp, header, productPage, addToComparison
 						<Badge count={dataApp.vesyLength} size="small">
 							<img
 								src={vesy}
-									className='w-6 hover:scale-110 duration-500'
-									alt='список сравнения'
+								className='w-6 hover:scale-110 duration-500'
+								alt='список сравнения'
 							/>
 						</Badge>
 					</Link>
 				</div>
 			}
-
 		</>
-
 	)
 })
 export default BadgeIconVesy

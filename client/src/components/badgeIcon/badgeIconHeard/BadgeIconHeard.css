@@ -6,7 +6,7 @@
 }
 .icon-heart:hover{
 	fill: #292D51 !important;
-	transform: scale(1.1)!important;
+	transform: scale(1.2)!important;
 }
 .icon-heart.activeliked{
 	/* fill: #1cac32 !important; */

@@ -27,17 +27,15 @@ const ProductPage = observer(() => {
 		return (el != null && el != "" || el === 0)
 	})
 
-
 	const navigate = useNavigate()
 	const [editH1, setEditH1] = useState('')
 	const [product, setProduct] = useState({})
 	const [imgArr, setImgArr] = useState([])
 	const [review, setReview] = useState('')
-	const { addList } = useCookieList(null)
+	const { addList,deleteOneList } = useCookieList(null)
 	const id = location.state?.id
 	const loca = location.state?.location
 	const [productData, setProductData] = useState([])
-	// const [isUpload, setIsUpload] = useState(false)
 
 
 	useEffect(() => {
@@ -209,7 +207,6 @@ const ProductPage = observer(() => {
 									})}
 								</div>
 
-								{/* <Divider className='mt-3' /> */}
 								<div className='border-b pb-6 pt-6'>
 									<p className='text-base text-slate-700 font-light pb-2'>Цена:</p>
 									<div className='flex justify-between'>

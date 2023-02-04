@@ -9,11 +9,12 @@ import { Link } from 'react-router-dom'
 import { Context } from '../../../App'
 import { observer } from "mobx-react-lite"
 import CyrillicToTranslit from 'cyrillic-to-translit-js'
+import { useCookieList } from '../../../hooks/useCookieList'
 
 const BadgeIconHeard = observer((
-	{ cardComp, header, productPage, addToLiked, id, mobil, deleteOneList }
+	{ cardComp, header, productPage, id, mobil }
 ) => {
-
+	const { addList, deleteOneList } = useCookieList(null)
 	const { dataApp } = useContext(Context)
 	const cyrillicToTranslit = new CyrillicToTranslit()
 	return (
@@ -21,23 +22,20 @@ const BadgeIconHeard = observer((
 			{cardComp &&
 				<div
 					className='cursor-pointer ml-5'
-					
 				>
 					{
 						dataApp.likedArr.includes(id) ?
 							<Tooltip title="Товар уже Вам нравится">
-								{/* <Link to={`/${cyrillicToTranslit.transform(('список понравившихся').split(' ').join('-'))}`}> */}
 								<Heart2
 									className={dataApp.likedArr.includes(id) ? 'icon-heart activeliked' : 'icon-heart'}
 									onClick={() => deleteOneList('LikedList', id)}
 								/>
-								{/* </Link> */}
 							</Tooltip>
 							:
 							<Tooltip title="Нравится">
 								<Heart
 									className={dataApp.likedArr.includes(id) ? 'icon-heart activeliked' : 'icon-heart'}
-									onClick={() => addToLiked('LikedList', id)}
+									onClick={() => addList('LikedList', id)}
 								/>
 							</Tooltip>
 					}
@@ -61,18 +59,21 @@ const BadgeIconHeard = observer((
 			{productPage &&
 				<div
 					className='cursor-pointer'
-					onClick={() => addToLiked('LikedList', id)}
 				>
 					{
 						dataApp.likedArr.includes(id) ?
-							<Tooltip title='Товар Вам нравится'>
-								<Link to={`/${cyrillicToTranslit.transform(('список понравившихся').split(' ').join('-'))}`}>
-									<Heart className={dataApp.likedArr.includes(id) ? 'icon-heart activeliked' : 'icon-heart'} />
-								</Link>
+							<Tooltip title="Товар уже Вам нравится">
+								<Heart2
+									className={dataApp.likedArr.includes(id) ? 'icon-heart activeliked' : 'icon-heart'}
+									onClick={() => deleteOneList('LikedList', id)}
+								/>
 							</Tooltip>
 							:
 							<Tooltip title="Нравится">
-								<Heart className={dataApp.likedArr.includes(id) ? 'icon-heart activeliked' : 'icon-heart'} />
+								<Heart
+									className={dataApp.likedArr.includes(id) ? 'icon-heart activeliked' : 'icon-heart'}
+									onClick={() => addList('LikedList', id)}
+								/>
 							</Tooltip>
 					}
 				</div>
