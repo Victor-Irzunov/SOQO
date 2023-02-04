@@ -11,7 +11,7 @@ import { Link } from 'react-router-dom'
 import CyrillicToTranslit from 'cyrillic-to-translit-js'
 
 
-const BadgeIconVesy = observer(({ cardComp, header, productPage, addToComparisonList, id, mobil }) => {
+const BadgeIconVesy = observer(({ cardComp, header, productPage, addToComparisonList, id, mobil, deleteOneList }) => {
 	const { dataApp } = useContext(Context)
 	const cyrillicToTranslit = new CyrillicToTranslit()
 	return (
@@ -20,18 +20,24 @@ const BadgeIconVesy = observer(({ cardComp, header, productPage, addToComparison
 				cardComp &&
 				<div
 					className='cursor-pointer'
-					onClick={() => addToComparisonList('ComparisonList', id)}
+					// onClick={() => addToComparisonList('ComparisonList', id)}
 				>
 					{
 						dataApp.vesyArr.includes(id) ?
 							<Tooltip title='Товар в сравнении'>
-								<Link to={`/${cyrillicToTranslit.transform(('cписок сравнения').split(' ').join('-'))}`}>
-									<Vesy className={dataApp.vesyArr.includes(id) ? 'icon-vesy activevesy' : 'icon-vesy'} />
-								</Link>
+								{/* <Link to={`/${cyrillicToTranslit.transform(('cписок сравнения').split(' ').join('-'))}`}> */}
+									<Vesy
+										className={dataApp.vesyArr.includes(id) ? 'icon-vesy activevesy' : 'icon-vesy'}
+										onClick={()=> deleteOneList('ComparisonList', id)}
+									/>
+								{/* </Link> */}
 							</Tooltip>
 							:
 							<Tooltip title="Добавить в сравнение">
-								<Vesy className={dataApp.vesyArr.includes(id) ? 'icon-vesy activevesy' : 'icon-vesy'} />
+									<Vesy
+										className={dataApp.vesyArr.includes(id) ? 'icon-vesy activevesy' : 'icon-vesy'}
+										onClick={() => addToComparisonList('ComparisonList', id)}
+									/>
 							</Tooltip>
 					}
 				</div>

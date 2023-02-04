@@ -17,7 +17,7 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 	const [visible, setVisible] = useState(false)
 	const [idPreviewGroup, setIdPreviewGroup] = useState(null)
 	const cyrillicToTranslit = new CyrillicToTranslit()
-	const { addList, addViewedProduct} = useCookieList(null)
+	const { addList, addViewedProduct, deleteOneList} = useCookieList(null)
 	const [dataModal, setDataModal] = useState({})
 	const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -132,7 +132,6 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 														:
 														undefined
 												}
-
 											</div>
 										</div>
 
@@ -141,6 +140,7 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 												<BadgeIconVesy
 													cardComp={true}
 													addToComparisonList={addList}
+													deleteOneList={deleteOneList}
 													id={el.id}
 												/>
 												{location.pathname !== "/spisok-ponravivshikhsya"
@@ -148,6 +148,7 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 													<BadgeIconHeard
 														cardComp={true}
 														addToLiked={addList}
+														deleteOneList={deleteOneList}
 														id={el.id}
 													/>
 													:
@@ -190,15 +191,11 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 												}
 											</div>
 										</div>
-
-
-
 									</div>
 								</div>
 
 							</Card>
 						</Col>
-
 					</React.Fragment>
 				)
 			})}

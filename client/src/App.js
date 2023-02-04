@@ -146,7 +146,7 @@ const App = observer(() => {
                 :
                 undefined
             }
-            <main className='bg-[#F0F0F2] relative xs:pt-14 xx:pt-14 xy:pt-14 lg:pt-20'>
+            <main className='bg-[#F0F0F2] relative xs:pt-14 xx:pt-14 xy:pt-14 xz:pt-14 lg:pt-20'>
               <BreadCrumbComp />
               <Routes>
                 <Route path='/' element={<MainPage />} />

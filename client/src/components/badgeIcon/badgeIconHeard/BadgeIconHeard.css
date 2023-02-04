@@ -9,5 +9,6 @@
 	transform: scale(1.1)!important;
 }
 .icon-heart.activeliked{
-	fill: #292D51 !important;
+	/* fill: #1cac32 !important; */
+	transform: scale(1.2)!important;
 }

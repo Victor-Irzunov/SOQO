@@ -31,8 +31,11 @@ const FormStocksPages = () => {
 		console.log('Success:', values)
 
 		const formData = new FormData()
-		formData.append('date1', values.date[0].$d.toLocaleDateString("ru-RU"))
-		formData.append('date2', values.date[1].$d.toLocaleDateString("ru-RU"))
+		if (values.date) {
+			formData.append('date1', values.date[0].$d.toLocaleDateString("ru-RU"))
+			formData.append('date2', values.date[1].$d.toLocaleDateString("ru-RU"))
+		}
+
 		formData.append('title', values.title)
 		formData.append('text', values.text)
 		formData.append('status', values.status)
@@ -81,12 +84,12 @@ const FormStocksPages = () => {
 				<Form.Item
 					label="Выберите дату проведения акции"
 					name="date"
-					rules={[
-						{
-							required: true,
-							message: 'Выберите дату!',
-						},
-					]}
+				// rules={[
+				// 	{
+				// 		required: true,
+				// 		message: 'Выберите дату!',
+				// 	},
+				// ]}
 				>
 					<RangePicker />
 				</Form.Item>

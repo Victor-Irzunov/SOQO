@@ -95,7 +95,7 @@ function Footer() {
             </ul>
           </div>
 
-          <div className='font-light text-base xs:mb-4 xx:mb-4 xy:mb-4 xm:mb-0'>
+          <div className='font-light text-base xs:mb-4 xx:mb-4 xy:mb-4 xz:mb-4 xm:mb-0'>
             <p className='border-b border-t-transparent border-l-transparent border-r-transparent border-white/60 border-solid text-lg'>
               Контакты
             </p>
@@ -109,7 +109,7 @@ function Footer() {
             </p>
           </div>
 
-          <div className='font-light text-base xs:mb-4 xx:mb-4 xy:mb-4 xm:mb-0'>
+          <div className='font-light text-base xs:mb-4 xx:mb-4 xy:mb-4 xz:mb-4 xm:mb-0'>
             <p className='border-b border-t-transparent border-l-transparent border-r-transparent border-white/60 border-solid font-light text-lg'>
               Адрес
             </p>
@@ -117,7 +117,7 @@ function Footer() {
               Магазин: г.Минск, ул. Кульман, 5Б. Павильон 195
             </p>
           </div>
-          <div className='font-light text-base xs:mb-4 xx:mb-4 xy:mb-4 xm:mb-0'>
+          <div className='font-light text-base xs:mb-4 xx:mb-4 xy:mb-4 xz:mb-4 xm:mb-0'>
             <p className='border-b border-t-transparent border-l-transparent border-r-transparent border-white/60 border-solid font-light text-lg'>
               График работы
             </p>
@@ -129,7 +129,7 @@ function Footer() {
             </p>
           </div>
 
-          <div className='font-light text-base xs:mb-4 xx:mb-4 xy:mb-4 xm:mb-0'>
+          <div className='font-light text-base xs:mb-4 xx:mb-4 xy:mb-4 xz:mb-4 xm:mb-0'>
             <p className='border-b border-t-transparent border-l-transparent border-r-transparent border-white/60 border-solid font-light text-lg'>
               Мы в соц. сетях
             </p>
@@ -147,7 +147,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className='flex justify-between items-center mt-10 xs:flex-col xx:flex-col xy:flex-col xm:flex-row' id='about'>
+        <div className='flex justify-between items-center mt-10 xs:flex-col xx:flex-col xy:flex-col xz:flex-col xm:flex-row' id='about'>
           <div className='mr-1 w-full'>
             <iframe
               src="https://yandex.ru/map-widget/v1/?um=constructor%3A7e323f30bc6aed08c1350f3e11e1b044fec4886e2ab6604d88ce6cae20edca48&amp;source=constructor"
@@ -158,11 +158,11 @@ function Footer() {
             </iframe>
           </div>
 
-          <div className='h-[406px] xm:mt-0 flex xm:flex-col justify-between items-center xs:flex-row xs:mt-7 xx:mt-7 xy:mt-7'>
-            <div className='xm:w-32 xs:w-[45%] xx:w-[45%] xy:w-[45%]'>
+          <div className='h-[406px] xm:mt-0 flex xm:flex-col justify-between items-center xs:flex-row xs:mt-7 xx:mt-7 xy:mt-7 xz:mt-7'>
+            <div className='xm:w-32 xs:w-[45%] xx:w-[45%] xy:w-[45%] xz:w-[45%]'>
               <Image src={img} className='' />
             </div>
-            <div className='xm:w-32 xs:w-[45%] xx:w-[45%] xy:w-[45%]'>
+            <div className='xm:w-32 xs:w-[45%] xx:w-[45%] xy:w-[45%] xz:w-[45%]'>
               <Image src={img1} />
             </div>
           </div>
@@ -176,11 +176,10 @@ function Footer() {
           </p>
         </div>
 
-
         <div
           className='mt-6'
         >
-          <p className='text-slate-50/50 text-xs ' >Copyright © 2023 | Created & Designed By
+          <p className='text-slate-50/50 text-xs' >Copyright © 2023 | Created & Designed By
             <a href='https://vi-tech.by' target='_blank' rel="noreferrer" className='text-blue-500/100 no-underline'> VI:TECH</a>
           </p>
         </div>

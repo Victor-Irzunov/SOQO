@@ -1,6 +1,7 @@
-import { Button, Carousel, Image } from 'antd'
+import { Carousel, Image } from 'antd'
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 
 const CarouselComp = ({ imgData }) => {
@@ -17,12 +18,14 @@ const CarouselComp = ({ imgData }) => {
 				{imgData.map(el => {
 					return (
 						<div key={el.id} className='' >
-							<Image
-								src={process.env.REACT_APP_API_URL + el.img}
-								alt='изображение'
-								preview={false}
-								className='rounded-2xl'
-							/>
+							<Link to='/aktsii'>
+								<Image
+									src={process.env.REACT_APP_API_URL + el.img}
+									alt='изображение'
+									preview={false}
+									className='rounded-2xl'
+								/>
+							</Link>
 						</div>
 					)
 				})}

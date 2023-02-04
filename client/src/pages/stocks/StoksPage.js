@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { getAllStocks } from '../../http/stocksAPI'
-import { Badge, Image,FloatButton } from 'antd'
+import { Badge, Image, FloatButton } from 'antd'
 import { Context } from '../../App'
 
 export const StoksPage = () => {
@@ -33,9 +33,15 @@ export const StoksPage = () => {
 							<div key={el.id} className='mt-12'>
 
 								<div className='flex justify-between'>
-									<p className='text-gray-600'>
-										Период проведения: {el.date1} - {el.date2}
-									</p>
+									<div>
+										{
+											el.date1 &&
+											<p className='text-gray-600'>
+												Период проведения: {el.date1} - {el.date2}
+											</p>
+										}
+
+									</div>
 									{el.status ?
 										<div className='flex'>
 											<Badge status="processing" color='green' />

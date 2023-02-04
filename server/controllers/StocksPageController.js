@@ -14,7 +14,7 @@ class StocksPageController {
 				status
 			} = req.body
 			const { img } = req.files
-			// console.log('💊💊💊img: ', img)
+			console.log('💊💊💊req: ', req.body)
 			const fileName = []
 			if (img) {
 				const __dirname = decodeURI(new URL('.', import.meta.url).pathname)
@@ -22,15 +22,26 @@ class StocksPageController {
 				fileName.push({ img: name })
 				img.mv(path.resolve(__dirname, '..', 'static', name))
 			}
+			if (date1 && date2) {
+				await models.StocksPage.create(
+					{
+						date1, date2,
+						title, text,
+						status,
+						img: JSON.stringify(fileName),
+					}
+				)
+			} else {
+				await models.StocksPage.create(
+					{
+						
+						title, text,
+						status,
+						img: JSON.stringify(fileName),
+					}
+				)
+			}
 
-			await models.StocksPage.create(
-				{
-					date1, date2,
-					title, text,
-					status,
-					img: JSON.stringify(fileName),
-				}
-			)
 
 			return res.status(201).json({ message: `Акция добавлена` })
 		}

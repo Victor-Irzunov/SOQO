@@ -144,7 +144,6 @@ const Header = observer(() => {
                 </nav>
               </div>
 
-
               <AnimatePresence>
                 {
                   hover &&
@@ -177,15 +176,11 @@ const Header = observer(() => {
                             </dl>
                           )
                         })}
-
                       </div>
-
                     </div>
-
                   </motion.div>)
                 }
               </AnimatePresence>
-
             </header>
           </Affix>
         </>
@@ -216,7 +211,7 @@ const Header = observer(() => {
               </div>
               <div className='z-50'>
                 <Link to='/'>
-                  <img src={logo} className='w-28 ml-6' />
+                  <img src={logo} className='w-28 ml-6 xz:hidden xy:block' />
                 </Link>
               </div>
               <div className='flex justify-between items-center z-50'>
