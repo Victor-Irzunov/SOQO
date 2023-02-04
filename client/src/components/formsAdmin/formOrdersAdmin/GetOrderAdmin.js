@@ -4,12 +4,12 @@ import { getDateOrders, getDateOrdersCourier } from '../../../http/adminAPI'
 const GetOrderAdmin = ({ setDataOrder, courier }) => {
 	const onFinish = (values) => {
 		if (courier) {
-			getDateOrdersCourier(values.date._d.toLocaleDateString("en-EN"))
+			getDateOrdersCourier(values.date.$d.toLocaleDateString("en-EN"))
 				.then(data => {
 					setDataOrder(data)
 				})
 		} else {
-			getDateOrders(values.date._d.toLocaleDateString("en-EN"))
+			getDateOrders(values.date.$d.toLocaleDateString("en-EN"))
 				.then(data => {
 					if (data.length) {
 						setDataOrder(data)
