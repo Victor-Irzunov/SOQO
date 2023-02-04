@@ -236,7 +236,7 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 											<Image src={process.env.REACT_APP_API_URL + JSON.parse(el.img)[0].image}
 											/>
 										</div> */}
-										<div className='p-4'>
+										<div className='px-4 pb-4 pt-0'>
 											{el.categories.length
 												?
 												<>

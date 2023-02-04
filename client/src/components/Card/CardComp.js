@@ -88,7 +88,7 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 										</Image.PreviewGroup>
 									</div>
 								</div>
-								<div className='p-3 cursor-pointer'>
+								<div className='px-3 pb-3 pt-1 cursor-pointer'>
 									<Link to={{
 										pathname: `/${el.categories[0].link}/${el.types[0].link}/${cyrillicToTranslit.transform(el.name.split(' ').join('-'))}`,
 									}}
