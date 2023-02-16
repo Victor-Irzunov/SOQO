@@ -69,6 +69,14 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	// const [visible, setVisible] = useState(false)
 	let location = useLocation()
+	const [minHeigth, setMinHeigth] = useState({
+		nameLength: 0,
+		descriptionLength: 0
+	})
+	const [minHeigth2, setMinHeigth2] = useState({
+		nameLength: 0,
+		descriptionLength: 0
+	})
 
 	function scrollToTop() {
 		window.scrollTo({
@@ -92,6 +100,8 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 		setIsModalOpen(true)
 	}
 
+	console.log('product:',product)
+	console.log('minHeigth: ',minHeigth)
 
 	return (
 		<div className='relative pt-6 pb-16 px-1.5 overflow-hidden '>
@@ -119,6 +129,12 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 			>
 				{product ?
 					product.map((el) => {
+						if (el.name.length > minHeigth.nameLength) {
+							setMinHeigth({ ...minHeigth, nameLength: el.name.length })
+						}
+						if (el.description.length > minHeigth.descriptionLength) {
+							setMinHeigth({ ...minHeigth, descriptionLength: el.description.length })
+						}
 						return (
 							<Badge.Ribbon key={el.id} text={el.discountPercentage ? `скидка ${el.discountPercentage}%` : <FireOutlined />}>
 								<Card
@@ -147,10 +163,12 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 														state={{ id: el.id, location: location.pathname }}
 														onClick={scrollToTop}
 													>
-														<div className='min-h-[50px]'>
-															<p className='font-semibold text-lg xm:text-base mb-2'>{el.name}</p>
+														<div className={`${minHeigth.nameLength > 28 ? 'min-h-[50px]' : 'mb-1'}`}>
+															<p className='font-semibold text-lg xm:text-base'>{el.name}</p>
 														</div>
-														<p className='text-xs xm:text-xs mb-1'>{el.description}</p>
+														<div className={`${(minHeigth.descriptionLength > 35) || (minHeigth.descriptionLength < 70) ? 'min-h-[48px]' : 'mb-1'} ${minHeigth.descriptionLength >= 70 ? 'min-h-[4.6em]' : 'mb-1'}`}>
+															<p className='text-xs xm:text-xs'>{el.description}</p>
+														</div>
 														<div className='flex'>
 															<Rate allowHalf value={el.rating} disabled />
 															<span className="mt-1.5 ml-3">
@@ -214,6 +232,12 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 					})
 					:
 					cardItem.map(el => {
+						if (el.name.length > minHeigth2.nameLength) {
+							setMinHeigth2({ ...minHeigth2, nameLength: el.name.length })
+						}
+						if (el.description.length > minHeigth2.descriptionLength) {
+							setMinHeigth2({ ...minHeigth2, descriptionLength: el.description.length })
+						}
 						return (
 							<Badge.Ribbon
 								key={el.id} text={`${hit ? 'хит' : 'новое'}`}
@@ -245,10 +269,13 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 													}}
 														state={{ id: el.id, location: location.pathname }}
 													>
-														<div className='min-h-[50px]'>
-															<p className='font-semibold text-lg xm:text-base mb-2'>{el.name}</p>
+														<div className={`${minHeigth2.nameLength > 28 ? 'min-h-[50px]' : 'mb-1'}`}>
+															<p className='font-semibold text-lg xm:text-base'>{el.name}</p>
 														</div>
-														<p className='text-xs xm:text-xs mb-2'>{el.description}</p>
+														<div className={`${minHeigth2.descriptionLength > 40 ? 'min-h-[3em]' : 'mb-1'} ${minHeigth2.descriptionLength > 70 ? 'min-h-[4.1em]' : 'mb-1'}`}>
+															<p className='text-xs xm:text-xs'>{el.description}</p>
+														</div>
+
 														<p className='font-thin text-[11px] mb-1 mt-1'>Aртикул:
 															{el.id}GR{el.groupId}
 														</p>

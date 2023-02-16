@@ -17,12 +17,12 @@ export const ContentUniversalPage = ({ typeId, categoryId }) => {
 	const [editContentH2, setEditContentH2] = useState(textMenPage.p2)
 	const [editContentH3, setEditContentH3] = useState(textMenPage.p3)
 
-	useEffect(() => {
-		getContentPage(typeId, categoryId)
-			.then(data => {
-				console.log('data: ', data)
-			})
-	}, [])
+	// useEffect(() => {
+	// 	getContentPage(typeId, categoryId)
+	// 		.then(data => {
+	// 			console.log('data: ', data)
+	// 		})
+	// }, [])
 
 	return (
 		<div className='mt-32'>

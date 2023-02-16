@@ -1,5 +1,5 @@
 import { Rate, Card, Row, Col, Button, Tooltip, Badge, Image, message } from 'antd'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import BadgeIconVesy from '../badgeIcon/badgeIconVesy/BadgeIconVesy'
@@ -17,9 +17,13 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 	const [visible, setVisible] = useState(false)
 	const [idPreviewGroup, setIdPreviewGroup] = useState(null)
 	const cyrillicToTranslit = new CyrillicToTranslit()
-	const { addList, addViewedProduct, deleteOneList} = useCookieList(null)
+	const { addList, addViewedProduct, deleteOneList } = useCookieList(null)
 	const [dataModal, setDataModal] = useState({})
 	const [isModalOpen, setIsModalOpen] = useState(false)
+	const [minHeigth, setMinHeigth] = useState({
+		nameLength: 0,
+		descriptionLength: 0
+	})
 
 
 	const addBasket = el => {
@@ -39,6 +43,12 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 	return (
 		<Row gutter={[0, 0]}>
 			{itemCard && itemCard.map((el, idx) => {
+				if (el.name.length > minHeigth.nameLength) {
+					setMinHeigth({ ...minHeigth, nameLength: el.name.length})
+				}
+				if (el.description.length > minHeigth.descriptionLength) {
+					setMinHeigth({...minHeigth, descriptionLength: el.description.length})
+				}
 				const img = JSON.parse(el.img)
 				return (
 					<React.Fragment key={el.id}>
@@ -94,13 +104,13 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 									}}
 										state={{ page: page, id: el.id, location: location.pathname }}
 										className='text-[#292D51]'
-										onClick={()=>addViewedProduct('view_product',el.id)}
+										onClick={() => addViewedProduct('view_product', el.id)}
 									>
 										<div className='flex flex-col justify-between'>
-											<div className='min-h-[4em]'>
+											<div className={`${minHeigth.nameLength > 28 ? 'min-h-[4em]' : 'mb-1'}`}>
 												<p className='font-bold text-lg'>{el.name}</p>
 											</div>
-											<p className='text-sm mb-1'>
+											<p className={`${minHeigth.descriptionLength > 40 ? 'min-h-[3em]' : 'mb-1'} ${minHeigth.descriptionLength > 70 ? 'min-h-[4.5em]' : 'mb-1'} text-sm`}>
 												{el.description}
 											</p>
 											<p className='font-thin text-xs mb-1'>Aртикул:
@@ -138,7 +148,7 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 										<div className='flex justify-between items-center mt-2'>
 											<div className='flex justify-center items-center'>
 												<BadgeIconVesy
-													cardComp={true}		
+													cardComp={true}
 													id={el.id}
 												/>
 												{location.pathname !== "/spisok-ponravivshikhsya"
@@ -172,13 +182,13 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 																shape="round"
 																size="large"
 																icon={<CheckOutlined />}
-																style={{boxShadow:'none'}}
+																style={{ boxShadow: 'none' }}
 															/>
 														</Tooltip>
 													</Link>
 													:
 													<Tooltip title="Добавить в корзину">
-														
+
 														<div
 															className='py-1 px-4 bg-[#292D51] rounded-3xl'
 															onClick={() => addBasket(el)}

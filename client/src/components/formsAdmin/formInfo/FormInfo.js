@@ -26,6 +26,7 @@ const FormInfo = ({ setMessages }) => {
 				message.success(data.message)
 				setTimeout(() => { clearForm() }, [500])
 				setMessages(i => !i)
+				setArr({})
 			})
 			.catch(error => {
 				message.error(error)
@@ -59,6 +60,7 @@ const FormInfo = ({ setMessages }) => {
 			onFinish={onFinish}
 			autoComplete="off"
 			form={form}
+			className='mt-6'
 		>
 			<Form.Item
 				name="infoTitleId"
@@ -86,10 +88,12 @@ const FormInfo = ({ setMessages }) => {
 					}
 				</Radio.Group>
 			</Form.Item>
+
 			<Space
 				style={{
 					display: 'flex',
 					marginBottom: 8,
+					marginTop:'4em'
 				}}
 				align="baseline"
 			>
@@ -146,7 +150,7 @@ const FormInfo = ({ setMessages }) => {
 				<DeleteOutlined onClick={clearForm} />
 			</Space>
 			<Form.Item>
-				<Button type="" htmlType="submit" >
+				<Button type="primary" htmlType="submit" >
 					Сохранить описание
 				</Button>
 			</Form.Item>

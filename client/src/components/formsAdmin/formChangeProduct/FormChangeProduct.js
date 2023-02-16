@@ -379,14 +379,15 @@ const FormChangeProduct = ({ product, setProduct }) => {
 					{
 						dataInfo.length > 0 ?
 							dataInfo.map(el => {
+								console.log('el.infoTitle:', el.infoTitle)
 								return (
 									<div className='mb-3 mt-1.5' key={el.id}>
 										<Form.Item
 											name={['info', `${el.name}`, 'id']}
 											hidden={true}
-											initialValue={el.infoTitle.id}
+											initialValue={el.infoTitle ? el.infoTitle.id : ''}
 										>
-											<Input value={el.infoTitle.id} />
+											<Input value={el.infoTitle ? el.infoTitle.id : ''} />
 										</Form.Item>
 										<Form.Item
 											name={['info', `${el.name}`, 'infoId']}

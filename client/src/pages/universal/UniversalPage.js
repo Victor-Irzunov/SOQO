@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { Helmet } from "react-helmet"
 import {
 	Typography, Layout, Space, Button,
-	BackTop, Empty, Drawer, Image,
+	BackTop, Empty, Drawer,
 } from 'antd'
 import {
 	UpCircleOutlined,
@@ -85,10 +85,10 @@ const UniversalPage = observer(({ assortiment }) => {
 
 		if (assortiment) {
 			fetchProducts(page, pageSize)
-			.then(data => {
-				setItemCard(data.rows)
-				setTotalItem(data.count)
-			})
+				.then(data => {
+					setItemCard(data.rows)
+					setTotalItem(data.count)
+				})
 		} else {
 			if (categoryId) {
 				fetchProducts(page, pageSize, categoryId, typeId)
@@ -237,41 +237,45 @@ const UniversalPage = observer(({ assortiment }) => {
 							type="primary"
 							shape="round"
 							size='small'
-							className='mr-16 xs:hidden xx:hidden xy:hidden sm:block'
+							className='mr-16 xs:hidden xx:hidden xy:hidden xz:hidden sm:block'
 						>
 							Фильтр подбора
 						</Button>
 					</div>
-					<div>
-						<span className=' text-slate-400'>
-							Сортировать по:
-							<Button
-								type="text"
-								onClick={filterUpDownRating}
-							>
-								<span className='underline'>Рейтингу</span>
-								{!isBtnSortRatng ?
-									<DownCircleOutlined />
-									:
-									<UpCircleOutlined />
-								}
-							</Button>
-							<Button
-								type="text"
-								onClick={filterUpDownPrice}
-							>
-								<span className='underline'>Цене</span>
-								{!isBtnSortPrice ?
-									<DownCircleOutlined />
-									:
-									<UpCircleOutlined />
-								}
-							</Button>
-						</span>
+					<div className='mt-3'>
+						<div className='text-slate-400 flex justify-between xy:items-center xz:items-start xz:flex-col xy:flex-row'>
+							<span>
+								Сортировать по:
+							</span>
+							<div className='flex'>
+								<Button
+									type="text"
+									onClick={filterUpDownRating}
+								>
+									<span className='underline'>Рейтингу</span>
+									{!isBtnSortRatng ?
+										<DownCircleOutlined />
+										:
+										<UpCircleOutlined />
+									}
+								</Button>
+								<Button
+									type="text"
+									onClick={filterUpDownPrice}
+								>
+									<span className='underline'>Цене</span>
+									{!isBtnSortPrice ?
+										<DownCircleOutlined />
+										:
+										<UpCircleOutlined />
+									}
+								</Button>
+							</div>
+						</div>
 					</div>
 				</Space>
 				<Layout className='mt-2 mb-10'>
-					<Sider theme='light' className='xs:hidden xx:hidden xy:hidden sm:block rounded-xl'>
+					<Sider theme='light' className='xs:hidden xx:hidden xy:hidden xz:hidden sm:block rounded-xl'>
 						<FilterAll
 							sendFormFilter={sendFormFilter}
 							inputValueFrom={inputValueFrom}
