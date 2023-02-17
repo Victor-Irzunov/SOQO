@@ -1,10 +1,13 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef,useContext } from 'react'
 import { PlusOutlined } from '@ant-design/icons'
 import { Divider, Input, Select, Space, Button, message } from 'antd'
 import CyrillicToTranslit from 'cyrillic-to-translit-js'
+import { Context } from '../../App'
+
 const FormComp = ({ data, setIsLoad, fuCreate, fuDelete, text, row, color }) => {
 	const [name, setName] = useState('')
 	const inputRef = useRef(null)
+	const { dataApp } = useContext(Context)
 	const cyrillicToTranslit = new CyrillicToTranslit()
 	const onNameChange = event => {
 		setName(event.target.value)
@@ -20,6 +23,7 @@ const FormComp = ({ data, setIsLoad, fuCreate, fuDelete, text, row, color }) => 
 				.then(data => {
 					message.success(data.message)
 					setIsLoad(i => !i)
+					dataApp.setIsInfoTitle(i => !i)
 				})
 				.catch(data => {
 					message.error(data.response.data.message)
@@ -37,6 +41,7 @@ const FormComp = ({ data, setIsLoad, fuCreate, fuDelete, text, row, color }) => 
 			.then(data => {
 				message.success(data.message)
 				setIsLoad(i => !i)
+				dataApp.setIsInfoTitle(i => !i)
 			})
 			.catch(data => {
 				message.error(data.message)

@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import FormInfo from './FormInfo'
 import { Button, message } from 'antd'
 import { fetchInfo, fetchInfoTitle } from '../../../http/productsAPI'
 import ListInfo from '../../listAdminInfo/ListInfo'
+import { Context } from '../../../App'
+import { observer } from "mobx-react-lite"
 
-function Сharacteristic() {
+const Сharacteristic = observer(() => {
 	const [data, setData] = useState([])
 	const [dataTitleInfo, setDataTitleInfo] = useState([])
 	const [isActive, setIsActive] = useState(false)
 	const [messages, setMessages] = useState(false)
+	const { dataApp } = useContext(Context)
+
 
 	useEffect(() => {
 		fetchInfo()
@@ -19,7 +23,7 @@ function Сharacteristic() {
 			})
 		fetchInfoTitle()
 			.then(data=>setDataTitleInfo(data))
-	}, [messages])
+	}, [messages, dataApp.isInfoTitle])
 
 	return (
 		<div>
@@ -37,6 +41,6 @@ function Сharacteristic() {
 			</div>
 		</div>
 	)
-}
+})
 
 export default Сharacteristic

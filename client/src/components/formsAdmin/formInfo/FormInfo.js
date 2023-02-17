@@ -1,24 +1,28 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useContext } from 'react'
 import { MinusCircleOutlined, DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons'
 import { Button, Form, Input, Space, message, Radio } from 'antd'
 import { createInfo } from '../../../http/adminAPI'
 import { fetchInfoTitle } from '../../../http/productsAPI'
+import { Context } from '../../../App'
+import { observer } from "mobx-react-lite"
 
 
-
-const FormInfo = ({ setMessages }) => {
+const FormInfo = observer(({ setMessages }) => {
 	const [form] = Form.useForm()
 	const ref = useRef('')
 	const [arr, setArr] = useState({})
 	const [data, setData] = useState([{ id: 1, }])
 	const [infoTitle, setInfiTitle] = useState([])
+	const { dataApp } = useContext(Context)
 
 	useEffect(() => {
 		fetchInfoTitle()
 			.then(data => {
 				setInfiTitle(data)
 			})
-	}, [])
+	}, [dataApp.isInfoTitle])
+
+	
 	const onFinish = values => {
 		const array = [{ name: values.name, content: Object.values(arr), infoTitleId: values.infoTitleId }]
 		createInfo(array)
@@ -157,5 +161,5 @@ const FormInfo = ({ setMessages }) => {
 
 		</Form >
 	)
-}
+})
 export default FormInfo

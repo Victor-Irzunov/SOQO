@@ -363,9 +363,9 @@ const FormProduct = () => {
 										<Form.Item
 											name={['info', `${el.name}`, 'id']}
 											hidden={true}
-											initialValue={el.infoTitle.id}
+											initialValue={el.infoTitle ? el.infoTitle.id : ''}
 										>
-											<Input value={el.infoTitle.id} />
+											<Input value={el.infoTitle ? el.infoTitle.id : ''} />
 										</Form.Item>
 										<p className='font-semibold'>{el.name}</p>
 										<Form.Item

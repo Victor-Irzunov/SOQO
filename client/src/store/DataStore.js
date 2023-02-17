@@ -20,10 +20,14 @@ export default class DataStore {
 		this._isSendSearchForm = false
 		this._totalDostavki = 0
 		this._totalOrder = 0
+		this._isInfoTitle = false
 
 		makeAutoObservable(this)
 	}
 
+	setIsInfoTitle(data) {
+		this._isInfoTitle = data
+	}
 	setTotalOrder(data) {
 		this._totalOrder = data
 	}
@@ -77,6 +81,9 @@ export default class DataStore {
 	}
 
 
+	get isInfoTitle() {
+		return this._isInfoTitle
+	}
 	get totalDostavki() {
 		return this._totalDostavki
 	}

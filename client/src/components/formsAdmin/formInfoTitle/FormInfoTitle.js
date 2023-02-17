@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import FormComp from '../FormComp'
 import { fetchInfoTitle } from '../../../http/productsAPI'
 import { createInfoTitle, deleteeInfoTitle } from '../../../http/adminAPI'
-
+import { observer } from "mobx-react-lite"
 
 
 const FormInfoTitle = () => {
