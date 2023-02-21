@@ -377,7 +377,6 @@ class ProductController {
 
 
 	async getHitProduct(req, res, next) {
-		console.log('===💊💊💊💊================')
 		try {
 			const data = await models.Product.findAll(
 				{
