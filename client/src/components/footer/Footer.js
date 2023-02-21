@@ -134,7 +134,7 @@ function Footer() {
               Мы в соц. сетях
             </p>
             <div className='flex justify-evenly items-center pt-3'>
-              <a href='https://www.instagram.com/@santexnika.by/' target='_blank' >
+              <a href='https://www.instagram.com/santexnika.by' target='_blank' >
                 <Image src={instagram} preview={false} width='25px' />
               </a>
               <a href='https://t.me/@SOQO_BY' target='_blank' >
