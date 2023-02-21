@@ -32,6 +32,7 @@ const FormBasketOrder = observer(({ next, setPriceDostavki, }) => {
 	const { dataProducts, user, dataApp } = useContext(Context)
 	const [autoCompleteResult, setAutoCompleteResult] = useState([])
 	const [tel, setTel] = useState('')
+	const [isActive, setIsActive] = useState(false)
 	const [value, setValue] = useState('')
 	const [textBtn, setTextBtn] = useState('Подтвердите заказ')
 	const [isCheck, setIsCheck] = useState(false)
@@ -103,7 +104,16 @@ const FormBasketOrder = observer(({ next, setPriceDostavki, }) => {
 			selection
 		}
 	}
+
 	const onChange = e => {
+
+		if (e.target.value === 'Самовывоз из магазина') {
+			setIsActive(false)
+		} else {
+			setIsActive(true)
+		}
+
+
 		if ((e.target.value === 'Самовывоз из магазина') || (e.target.value === 'Курьером в пределах МКАД')) {
 			form.setFieldsValue({ address_city: 'Минск' })
 		} else {
@@ -121,6 +131,7 @@ const FormBasketOrder = observer(({ next, setPriceDostavki, }) => {
 			setPriceDostavki(0)
 			dataApp.setTotalDostavki(0)
 		}
+
 	}
 
 	const onChangeTextBtn = e => {
@@ -245,31 +256,40 @@ const FormBasketOrder = observer(({ next, setPriceDostavki, }) => {
 				</Radio.Group>
 			</Form.Item>
 
-			<Form.Item
-				name="address_city"
-				label="Город"
-				rules={[
-					{
-						required: true,
-						message: 'Пожалуйста введите Ваш город!',
-					},
-				]}
-			>
-				<Input />
-			</Form.Item>
 
-			<Form.Item
-				label="Адрес"
-				name="address_street"
-				rules={[
-					{
-						required: true,
-						message: 'Пожалуйста введите улицу!',
-					},
-				]}
-			>
-				<Input />
-			</Form.Item>
+			{
+				isActive ?
+					<>
+						<Form.Item
+							name="address_city"
+							label="Город"
+							rules={[
+								{
+									required: true,
+									message: 'Пожалуйста введите Ваш город!',
+								},
+							]}
+						>
+							<Input />
+						</Form.Item>
+
+						<Form.Item
+							label="Адрес"
+							name="address_street"
+							rules={[
+								{
+									required: true,
+									message: 'Пожалуйста введите улицу!',
+								},
+							]}
+						>
+							<Input />
+						</Form.Item>
+					</>
+					:
+					undefined
+			}
+
 
 			{(value === 'Белпочта') || (value === 'Европочта') ?
 				<>
