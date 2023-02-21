@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Card, Rate, Button, Image, Badge, message, Tooltip } from 'antd'
+import { Card, Rate, Button, Image, Badge, message, Tooltip, Empty } from 'antd'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css"
 import {
@@ -13,10 +13,8 @@ import CyrillicToTranslit from 'cyrillic-to-translit-js'
 import BadgeIconVesy from '../badgeIcon/badgeIconVesy/BadgeIconVesy';
 import BadgeIconHeard from '../badgeIcon/badgeIconHeard/BadgeIconHeard'
 import { useCookieList } from '../../hooks/useCookieList'
-// import ModalCookies from '../modalCookies/ModalCookies'
 import { Context } from '../../App'
 import { addBasketUserOneProduct } from '../../http/basketAPI'
-// import Svg from '../../images/menuIcon/Svg'
 import basket from '../../images/carouselCard/basket2.svg'
 import { observer } from "mobx-react-lite"
 
@@ -67,7 +65,8 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 	const { addList } = useCookieList(null)
 	const [dataModal, setDataModal] = useState({})
 	const [isModalOpen, setIsModalOpen] = useState(false)
-	// const [visible, setVisible] = useState(false)
+
+
 	let location = useLocation()
 	const [minHeigth, setMinHeigth] = useState({
 		nameLength: 0,
@@ -100,25 +99,39 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 		setIsModalOpen(true)
 	}
 
-	console.log('product:',product)
-	console.log('minHeigth: ',minHeigth)
+	console.log('product:', product)
+	console.log('hit: ', hit)
 
 	return (
 		<div className='relative pt-6 pb-16 px-1.5 overflow-hidden '>
 
-			{cardItem &&
+			{cardItem.length ?
 				(
 					<div className='flex justify-between mb-8'>
 						<h2 className='text-[#292D51] text-2xl ml-6'>{title}</h2>
-						<Link to={{
-							pathname: `/assortiment/${hit ? cyrillicToTranslit.transform('хит-продаж') : cyrillicToTranslit.transform('новое-поступление')}`,
-						}}
-							state={{ isNew: true, title: title }}
-						>
-							<p className='text-[#292D51] mt-3 mr-3'>смотреть все</p>
-						</Link>
+						{
+							hit ?
+								<Link to={{
+									pathname: `/assortiment/${cyrillicToTranslit.transform('хит-продаж')}`,
+								}}
+									state={{ isNew: false, title: title }}
+								>
+									<p className='text-[#292D51] mt-3 mr-3'>смотреть все</p>
+								</Link>
+								:
+								<Link to={{
+									pathname: `/assortiment/${cyrillicToTranslit.transform('новое-поступление')}`,
+								}}
+									state={{ isNew: true, title: title }}
+								>
+									<p className='text-[#292D51] mt-3 mr-3'>смотреть все</p>
+								</Link>
+						}
+
 					</div>
 				)
+				:
+				<Empty />
 			}
 
 			<Carousel

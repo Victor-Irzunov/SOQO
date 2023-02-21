@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState, } from 'react'
 import { Helmet } from "react-helmet"
-import { FloatButton, Divider } from 'antd'
+import { FloatButton } from 'antd'
 import CarouselComp from '../../components/carousel/CarouselComp'
 import MainCard from '../../components/mainCard/MainCard'
 import HisotyStore from '../../components/historyeStore/HisotyStore'
-import BrandMain from '../../components/brandMain/BrandMain'
-import SubscriptionMain from '../../components/subscriptionMain/SubscriptionMain'
+// import BrandMain from '../../components/brandMain/BrandMain'
+// import SubscriptionMain from '../../components/subscriptionMain/SubscriptionMain'
 import { observer } from "mobx-react-lite"
 import { Context } from '../../App'
 import { getHitProduct, getNewProduct } from '../../http/productsAPI'
@@ -25,6 +25,7 @@ const MainPage = observer(() => {
       })
     getHitProduct()
       .then(data => {
+        console.log('data: ', data)
         setCardItem2(data)
       })
     getSliderImg()
@@ -37,8 +38,9 @@ const MainPage = observer(() => {
   return (
     <>
       <Helmet>
-        <title>{dataApp.data['/'].title}</title>
-        <meta name="description" content={dataApp.data['/'].description} />
+        {/* <title>{dataApp.data['/'].title}</title> */}
+        <title>Крупный онлайн-магазин сантехники в Минске</title>
+        <meta name="description" content='Первый поставщик качественной недорогой сантехники SOQO в Беларуси.' />
       </Helmet>
       <FloatButton.BackTop />
 

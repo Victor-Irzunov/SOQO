@@ -7,19 +7,26 @@ import {
 import { FloatButton } from 'antd'
 
 import CardComp from '../../components/Card/CardComp'
-import { getNewProduct } from '../../http/productsAPI'
+import { getHitProduct, getNewProduct } from '../../http/productsAPI'
 
 export const ViewAllPage = () => {
 	let location = useLocation()
 	const { dataApp } = useContext(Context)
 	const [itemCard, setItemCard] = useState([])
+	const [title, setTitle] = useState('Новое поступление')
 
 	useEffect(() => {
-		if (location.state.isNew) {
+		if (location.pathname !== '/assortiment/khit-prodazh') {
 			getNewProduct()
 				.then(data => {
 					setItemCard(data)
-			})
+				})
+		} else {
+			setTitle('Хиты продаж')
+			getHitProduct()
+				.then(data => {
+					setItemCard(data)
+				})
 		}
 	}, [])
 
@@ -34,7 +41,7 @@ export const ViewAllPage = () => {
 			<div className='container'>
 				<div className='pt-10'>
 					<h1 className='text-4xl text-[#292D51]'>
-						{location.state.title}
+						{title}
 					</h1>
 				</div>
 				<div className='mt-24 bg-white rounded-xl py-6 px-10'>

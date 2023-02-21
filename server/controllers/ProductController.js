@@ -374,7 +374,10 @@ class ProductController {
 			next(ApiError.internal(e.message))
 		}
 	}
+
+
 	async getHitProduct(req, res, next) {
+		console.log('===💊💊💊💊================')
 		try {
 			const data = await models.Product.findAll(
 				{
@@ -398,6 +401,10 @@ class ProductController {
 			next(ApiError.internal(e.message))
 		}
 	}
+
+
+
+	
 	async getAllProductsOneType(req, res, next) {
 		try {
 			const { id } = req.params
