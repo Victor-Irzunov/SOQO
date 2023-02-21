@@ -99,14 +99,9 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 		setIsModalOpen(true)
 	}
 
-	console.log('product:', product)
-	console.log('hit: ', hit)
-
 	return (
 		<div className='relative pt-6 pb-16 px-1.5 overflow-hidden '>
-
-			{cardItem.length ?
-				(
+			{cardItem &&
 					<div className='flex justify-between mb-8'>
 						<h2 className='text-[#292D51] text-2xl ml-6'>{title}</h2>
 						{
@@ -127,13 +122,10 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 									<p className='text-[#292D51] mt-3 mr-3'>смотреть все</p>
 								</Link>
 						}
-
 					</div>
-				)
-				:
-				<Empty />
+				
+				
 			}
-
 			<Carousel
 				arrows={false}
 				customButtonGroup={<ButtonGroup product={product} />}
@@ -148,6 +140,11 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 						if (el.description.length > minHeigth.descriptionLength) {
 							setMinHeigth({ ...minHeigth, descriptionLength: el.description.length })
 						}
+
+
+						console.log('el.discountPercentage:', el.discountPercentage)
+
+
 						return (
 							<Badge.Ribbon key={el.id} text={el.discountPercentage ? `скидка ${el.discountPercentage}%` : <FireOutlined />}>
 								<Card
@@ -191,8 +188,17 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 														<div className='flex justify-between items-start mt-1'>
 															<p className='text-xl font-semibold'>{(el.price - el.price * el.discountPercentage / 100).toFixed(2)} BYN</p>
 															<div className='text-right pt-0.5'>
-																<p className='uppercase text-base font-extralight line-through decoration-from-font'>{(el.price).toFixed(2)} BYN</p>
-																<p className='font-extralight text-xs'>скидка {el.discountPercentage}%</p>
+
+
+																{
+																	el.discountPercentage ?
+																		<>
+																			<p className='uppercase text-base font-extralight line-through decoration-from-font'>{(el.price).toFixed(2)} BYN</p>
+																			<p className='font-extralight text-xs'>скидка {el.discountPercentage}%</p>
+																		</>
+																		:
+																		undefined
+																}
 															</div>
 														</div>
 
@@ -301,8 +307,15 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 														<div className='flex justify-between items-start mt-1'>
 															<p className='text-xl font-semibold'>{(el.price - el.price * el.discountPercentage / 100).toFixed(2)} BYN</p>
 															<div className='text-right pt-0.5'>
-																<p className='uppercase text-base font-extralight line-through decoration-from-font'>{(el.price).toFixed(2)} BYN</p>
-																<p className='font-extralight text-xs'>скидка {el.discountPercentage}%</p>
+																{
+																	el.discountPercentage ?
+																		<>
+																			<p className='uppercase text-base font-extralight line-through decoration-from-font'>{(el.price).toFixed(2)} BYN</p>
+																			<p className='font-extralight text-xs'>скидка {el.discountPercentage}%</p>
+																		</>
+																		:
+																		undefined
+																}
 															</div>
 														</div>
 													</Link>

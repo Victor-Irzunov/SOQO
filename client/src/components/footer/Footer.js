@@ -19,7 +19,7 @@ function Footer() {
   const [menuItems, setMenuItems] = useState([])
   const [menuInfoPages, setMenuInfoPages] = useState([])
   const screens = useScreens()
-  
+
   useEffect(() => {
     const itemsInfo = []
     if (dataApp.infoPages.length) {
@@ -134,14 +134,14 @@ function Footer() {
               Мы в соц. сетях
             </p>
             <div className='flex justify-evenly items-center pt-3'>
-              <a href='https://www.instagram.com/psy_ir/' target='_blank' >
-                <Image src={instagram} width='25px' />
+              <a href='https://www.instagram.com/@santexnika.by/' target='_blank' >
+                <Image src={instagram} preview={false} width='25px' />
               </a>
-              <a href='https://t.me/ps' target='_blank' >
-                <Image src={telegram} width='25px' />
+              <a href='https://t.me/@SOQO_BY' target='_blank' >
+                <Image src={telegram} preview={false} width='25px' />
               </a>
               <a href='viber://add?number=375445842068' target='_blank' >
-                <Image src={viber} width='25px' />
+                <Image src={viber} preview={false} width='25px' />
               </a>
             </div>
           </div>
@@ -153,7 +153,7 @@ function Footer() {
               src="https://yandex.ru/map-widget/v1/?um=constructor%3A7e323f30bc6aed08c1350f3e11e1b044fec4886e2ab6604d88ce6cae20edca48&amp;source=constructor"
               width={(screens.xl && '1050px') || (screens.lg && '840px') || (screens.md && '610px') || (screens.sm && '425px') || (screens.xs && '100%')}
               height="406"
-              // frameborder="0"
+            // frameborder="0"
             >
             </iframe>
           </div>

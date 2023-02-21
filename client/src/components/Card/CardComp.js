@@ -49,6 +49,8 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 				if (el.description.length > minHeigth.descriptionLength) {
 					setMinHeigth({...minHeigth, descriptionLength: el.description.length})
 				}
+
+				// console.log('el.discountPercentage:',el.discountPercentage)
 				const img = JSON.parse(el.img)
 				return (
 					<React.Fragment key={el.id}>

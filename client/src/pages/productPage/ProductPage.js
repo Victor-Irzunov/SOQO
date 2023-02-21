@@ -56,7 +56,8 @@ const ProductPage = observer(() => {
 		if (Object.keys(product).length) {
 			if (product.groupId) {
 				fetchProductsPohozhie({ groupId: product.groupId, id: product.id })
-				.then(data => {
+					.then(data => {
+					console.log('fetchProductsPohozhie data:',data)
 					setProductData(data)
 				})
 			} else {
@@ -78,6 +79,7 @@ const ProductPage = observer(() => {
 				})
 		}
 	}
+
 
 
 	function fuImg(data) {
