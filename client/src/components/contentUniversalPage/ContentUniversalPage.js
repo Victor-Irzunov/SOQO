@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react'
 import {
 	Typography,
 } from 'antd'
-import { getContentPage } from '../../http/contentAPI'
+// import { getContentPage } from '../../http/contentAPI'
 import { textMenPage } from '../../content/Content'
 import { Context } from '../../App'
 

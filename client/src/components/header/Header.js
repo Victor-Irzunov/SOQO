@@ -132,7 +132,6 @@ const Header = observer(() => {
           >
             <header
               className={`pt-2 pb-2 absolute top-0 left-0 right-0 z-50`}
-              // className={isAffix ? 'pt-1 pb-1' : `pt-2 pb-2`}
               style={{
                 background: '#3E3E44',
               }}

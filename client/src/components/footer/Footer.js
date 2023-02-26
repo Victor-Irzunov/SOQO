@@ -137,7 +137,7 @@ function Footer() {
               <a href='https://www.instagram.com/santexnika.by' target='_blank' >
                 <Image src={instagram} preview={false} width='25px' />
               </a>
-              <a href='https://t.me/SOQO_BY' target='_blank' >
+              <a href={`${screens.md ? 'https://t.me/SOQO_BY': 'https://t.me/@SOQO_BY'}`} target='_blank' >
                 <Image src={telegram} preview={false} width='25px' />
               </a>
               <a href='viber://chat?number=%2B375445842068' target='_blank' >
