@@ -379,7 +379,6 @@ const FormChangeProduct = ({ product, setProduct }) => {
 					{
 						dataInfo.length > 0 ?
 							dataInfo.map(el => {
-								console.log('el.infoTitle:', el.infoTitle)
 								return (
 									<div className='mb-3 mt-1.5' key={el.id}>
 										<Form.Item

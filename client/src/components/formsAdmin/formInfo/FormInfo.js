@@ -12,17 +12,17 @@ const FormInfo = observer(({ setMessages }) => {
 	const ref = useRef('')
 	const [arr, setArr] = useState({})
 	const [data, setData] = useState([{ id: 1, }])
-	const [infoTitle, setInfiTitle] = useState([])
+	const [infoTitle, setInfoTitle] = useState([])
 	const { dataApp } = useContext(Context)
 
 	useEffect(() => {
 		fetchInfoTitle()
 			.then(data => {
-				setInfiTitle(data)
+				setInfoTitle(data)
 			})
 	}, [dataApp.isInfoTitle])
 
-	
+
 	const onFinish = values => {
 		const array = [{ name: values.name, content: Object.values(arr), infoTitleId: values.infoTitleId }]
 		createInfo(array)
@@ -97,7 +97,7 @@ const FormInfo = observer(({ setMessages }) => {
 				style={{
 					display: 'flex',
 					marginBottom: 8,
-					marginTop:'4em'
+					marginTop: '4em'
 				}}
 				align="baseline"
 			>
@@ -155,7 +155,7 @@ const FormInfo = observer(({ setMessages }) => {
 			</Space>
 			<Form.Item>
 				<Button type="primary" htmlType="submit" >
-					Сохранить описание
+					Сохранить характеристики
 				</Button>
 			</Form.Item>
 

@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, message, Space, } from 'antd'
 import { deleteInfo } from '../../http/adminAPI'
-const ListInfo = ({ data, setMessages, dataTitleInfo }) => {
+import { ArrowUpOutlined } from '@ant-design/icons'
+import FormAddInfo from '../formsAdmin/formAddInfo/FormAddInfo'
+
+
+const ListInfo = ({ data, setMessages, dataTitleInfo,setIsUpdate }) => {
+	const [isActive, setIsActive] = useState(false)
+	const [isId, setIsId] = useState('')
+
+
 	const deleteFu = id => {
 		deleteInfo(id)
 			.then(data => {
@@ -20,7 +28,7 @@ const ListInfo = ({ data, setMessages, dataTitleInfo }) => {
 						{data.map(elem => {
 							if (el.id === elem.infoTitleId) {
 								return (
-									<div className='' key={elem.id}>
+									<div className='mb-5' >
 										<p className='text-sm font-semibold'>{elem.name}</p>
 										{elem.content.map((item, idx) => {
 											return (
@@ -29,16 +37,48 @@ const ListInfo = ({ data, setMessages, dataTitleInfo }) => {
 										})}
 										<Button
 											type='text'
+											className='text-green-600 font-light text-xs'
+											onClick={() => {
+												setIsActive(i => !i)
+												setIsId(el.id)
+											}}
+										>
+											добавить
+										</Button>
+										<Button
+											type='text'
 											className='text-red-600 font-light text-xs'
 											onClick={() => deleteFu(elem.id)}
 										>
 											удалить
 										</Button>
+										{
+											isActive && el.id === isId ?
+												(
+													<>
+														<FormAddInfo id={el.id} setIsActive={setIsActive} setIsId={setIsId} setIsUpdate={setIsUpdate} />
+														<Button
+															type='text'
+															className='text-blue-600 font-light text-xs'
+															onClick={() => {
+																setIsActive(i => !i)
+																setIsId('')
+															}}
+
+														>
+															скрыть форму <ArrowUpOutlined />
+														</Button>
+													</>
+												)
+												:
+												undefined
+										}
 									</div>
 								)
 							}
 						})}
 					</Space>
+
 				</React.Fragment>
 			)
 		})

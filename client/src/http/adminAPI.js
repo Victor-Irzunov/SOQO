@@ -37,6 +37,10 @@ export const deleteInfo = async id => {
 	const { data } = await $authHost.delete('api/info/' + id)
 	return data
 }
+export const addOneContentToArrInfo = async (obj) => {
+	const { data } = await $authHost.post('api/info/add', obj)
+	return data
+}
 export const createCategory = async arr => {
 	const { data } = await $authHost.post('api/category', arr)
 	return data

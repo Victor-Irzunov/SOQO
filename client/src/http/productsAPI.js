@@ -60,6 +60,8 @@ export const fetchInfo = async () => {
 	const { data } = await $host.get('api/info',)
 	return data
 }
+
+
 export const fetchCategory = async () => {
 	const { data } = await $host.get('api/category',)
 	return data

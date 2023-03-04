@@ -10,6 +10,7 @@ const Сharacteristic = observer(() => {
 	const [data, setData] = useState([])
 	const [dataTitleInfo, setDataTitleInfo] = useState([])
 	const [isActive, setIsActive] = useState(false)
+	const [isUpdate, setIsUpdate] = useState(false)
 	const [messages, setMessages] = useState(false)
 	const { dataApp } = useContext(Context)
 
@@ -18,25 +19,26 @@ const Сharacteristic = observer(() => {
 		fetchInfo()
 			.then(data => {
 				setData(data)
-			}).catch(error => {
+			})
+			.catch(error => {
 				message.error(error)
 			})
 		fetchInfoTitle()
-			.then(data=>setDataTitleInfo(data))
-	}, [messages, dataApp.isInfoTitle])
+			.then(data => setDataTitleInfo(data))
+	}, [messages, dataApp.isInfoTitle, isUpdate])
 
 	return (
 		<div>
 			<p className='mb-4 text-base'>Добавить характеристики</p>
-			<FormInfo data={data} setMessages={setMessages}  />
+			<FormInfo data={data} setMessages={setMessages} />
 			<Button
 				type='text'
 				className='font-bold mb-8'
 				onClick={() => setIsActive(i => !i)}
-			>Смотреть описание</Button>
+			>Смотреть характеристики</Button>
 			<div>
 				{isActive &&
-					<ListInfo data={data} setMessages={setMessages} dataTitleInfo={dataTitleInfo} />
+					<ListInfo data={data} setMessages={setMessages} dataTitleInfo={dataTitleInfo} setIsUpdate={setIsUpdate} />
 				}
 			</div>
 		</div>
