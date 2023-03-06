@@ -71,12 +71,16 @@ const FormProduct = () => {
 	const onFinish = async values => {
 		console.log('Success:', values)
 
+		const formData = new FormData()
+
 		const arrInfo = []
 		const keys = Object.keys(values.info)
 		keys.forEach(el => {
-			arrInfo.push({ title: el, description: values.info[el].content, titleInfoId: values.info[el].id })
+			if (values.info[el].content) {
+				arrInfo.push({ title: el, description: values.info[el].content, titleInfoId: values.info[el].id })
+			}
 		})
-		const formData = new FormData()
+
 		formData.append('info', JSON.stringify(arrInfo))
 		formData.append('category', values.category)
 		formData.append('count', values.count)
@@ -349,11 +353,11 @@ const FormProduct = () => {
 					label="Описание"
 					name='info'
 					tooltip="Необходимо"
-					rules={[
-						{
-							required: true,
-						},
-					]}
+				// rules={[
+				// 	{
+				// 		required: true,
+				// 	},
+				// ]}
 				>
 					{
 						dataInfo.length > 0 ?
@@ -371,12 +375,12 @@ const FormProduct = () => {
 										<Form.Item
 											name={['info', `${el.name}`, 'content']}
 											noStyle
-											rules={[
-												{
-													required: true,
-													message: 'Выберите характеристику',
-												},
-											]}
+										// rules={[
+										// 	{
+										// 		required: true,
+										// 		message: 'Выберите характеристику',
+										// 	},
+										// ]}
 										>
 											<Radio.Group buttonStyle="solid">
 												{el.content.map((item, idx) => {
@@ -392,6 +396,8 @@ const FormProduct = () => {
 							<Empty />
 					}
 				</Form.Item>
+
+
 				<Form.Item
 					name="newProd"
 					valuePropName="checked"

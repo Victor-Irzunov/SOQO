@@ -27,7 +27,7 @@ class ProductController {
 				hit,
 			} = req.body
 
-			// console.log('💊💊💊req.body: ', req.body)
+			console.log('💊💊💊req.body: ', req.body)
 			const { img, imgMini } = req.files
 
 			let groupData = 0

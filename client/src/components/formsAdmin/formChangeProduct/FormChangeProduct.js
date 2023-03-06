@@ -80,14 +80,16 @@ const FormChangeProduct = ({ product, setProduct }) => {
 		const arrInfo = []
 		const keys = Object.keys(values.info)
 		keys.forEach(el => {
-			arrInfo.push(
-				{
-					title: el,
-					description: values.info[el].content,
-					titleInfoId: values.info[el].id,
-					id: values.info[el].infoId,
-					productId: product.id
-				})
+			if (values.info[el].content) {
+				arrInfo.push(
+					{
+						title: el,
+						description: values.info[el].content,
+						titleInfoId: values.info[el].id,
+						id: values.info[el].infoId,
+						productId: product.id
+					})
+			}
 		})
 
 		const formData = new FormData()
@@ -398,12 +400,12 @@ const FormChangeProduct = ({ product, setProduct }) => {
 										<Form.Item
 											name={['info', `${el.name}`, 'content']}
 											noStyle
-											rules={[
-												{
-													required: true,
-													message: 'Выберите характеристику',
-												},
-											]}
+										// rules={[
+										// 	{
+										// 		required: true,
+										// 		message: 'Выберите характеристику',
+										// 	},
+										// ]}
 										>
 											<Radio.Group buttonStyle="solid">
 												{el.content.map((item, idx) => {

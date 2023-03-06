@@ -37,7 +37,7 @@ const ListInfo = ({ data, setMessages, dataTitleInfo,setIsUpdate }) => {
 										})}
 										<Button
 											type='text'
-											className='text-green-600 font-light text-xs'
+											className='text-green-600 font-light text-xs pl-0'
 											onClick={() => {
 												setIsActive(i => !i)
 												setIsId(el.id)
@@ -50,7 +50,7 @@ const ListInfo = ({ data, setMessages, dataTitleInfo,setIsUpdate }) => {
 											className='text-red-600 font-light text-xs'
 											onClick={() => deleteFu(elem.id)}
 										>
-											удалить
+											удалить всё
 										</Button>
 										{
 											isActive && el.id === isId ?
