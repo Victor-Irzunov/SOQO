@@ -42,6 +42,7 @@ const ProductPage = observer(() => {
 		fetchOneProduct(id)
 			.then(data => {
 				if (data) {
+					console.log('data-: ', data)
 					setProduct(data)
 					setEditH1(data.name)
 					dataProducts.setDataOneProduct(data)
@@ -57,7 +58,7 @@ const ProductPage = observer(() => {
 			if (product.groupId) {
 				fetchProductsPohozhie({ groupId: product.groupId, id: product.id })
 					.then(data => {
-					console.log('fetchProductsPohozhie data:',data)
+					// console.log('fetchProductsPohozhie data:',data)
 					setProductData(data)
 				})
 			} else {
@@ -139,14 +140,14 @@ const ProductPage = observer(() => {
 				{Object.keys(product).length
 					?
 					<>
-						<div className='flex w-1/4 sm:w-full xs:w-full xx:w-full xy:w-full justify-start'>
+						<div className='flex  sm:w-full xs:w-full xx:w-full xy:w-full xz:w-full justify-start'>
 							<div className='flex items-center'>
 								<Rate allowHalf value={product.rating} disabled />
 								<span className="ml-3 mr-3">
 									<Badge style={{ backgroundColor: '#52c41aa8', }} count={product.rating} />
 								</span>
 								<p
-									className='text-slate-400 mt-1.5 underline cursor-pointer'
+									className='text-slate-400 mt-1.5 sm:text-base xz:text-xs xy:text-xs underline cursor-pointer'
 									onClick={() => clickScroll(1500)}
 								>
 									{product.feedbacks && product.feedbacks.length} {review}
@@ -246,17 +247,25 @@ const ProductPage = observer(() => {
 										</Button>
 										<span>по Минску и Беларуси</span>
 									</div>
-									<Button type='text' size='small'>Гарантия: 6 месяцев</Button>
+									<Button type='text' size='small'>Гарантия:{' '}
+										{product.info.map(i => {
+											if (i.title === "Гарантия") {
+												return (
+													i.description
+												)
+											}
+										})}
+									</Button>
 								</div>
 								<Divider className='mt-3 mb-2' />
-								<div className='flex pt-2 justify-evenly'>
+								<div className='flex pt-2 justify-evenly sm:flex-row xz:flex-col'>
 									<div className='flex items-center'>
 										<CarOutlined style={{ fontSize: '1.7em', color: 'gray' }} className='mt-1' />
-										<Button type='link'>Доставка по Минске</Button>
+										<Button type='link' className='xz:text-xs md:text-base'>Доставка по Минску</Button>
 									</div>
 									<div className='flex items-center'>
 										<Image src={delivery} width="1.8em" />
-										<Button type='link'>Доставка по Беларуси</Button>
+										<Button type='link' className='xz:text-xs md:text-base'>Доставка по Беларуси</Button>
 									</div>
 								</div>
 							</Col>

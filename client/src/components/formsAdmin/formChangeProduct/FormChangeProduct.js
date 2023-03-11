@@ -107,6 +107,7 @@ const FormChangeProduct = ({ product, setProduct }) => {
 		formData.append('ucenka', values.ucenka)
 		formData.append('stock', values.stock)
 		formData.append('hit', values.hit)
+		// formData.append('garanitiya', values.garanitiya)
 
 		for (let k in fileList) {
 			const pic = await resizeFile(fileList[k].originFileObj, 1000, 600)
@@ -175,6 +176,7 @@ const FormChangeProduct = ({ product, setProduct }) => {
 					ucenka: product.ucenka,
 					stock: product.stock,
 					hit: product.hit,
+					// garanitiya: product.garanitiya
 				}}
 				onFinish={onFinish}
 				onFinishFailed={onFinishFailed}
@@ -306,6 +308,13 @@ const FormChangeProduct = ({ product, setProduct }) => {
 					/>
 				</Form.Item>
 
+				{/* <Form.Item
+					label="Гарантия"
+					name="garanitiya"
+				>
+					<InputNumber
+					/>
+				</Form.Item> */}
 
 				<Form.Item
 					label="Цена"

@@ -25,9 +25,10 @@ class ProductController {
 				ucenka,
 				stock,
 				hit,
+				// garanitiya,
 			} = req.body
 
-			console.log('💊💊💊req.body: ', req.body)
+			// console.log('💊💊💊req.body: ', req.body)
 			const { img, imgMini } = req.files
 
 			let groupData = 0
@@ -81,6 +82,7 @@ class ProductController {
 				ucenka,
 				stock,
 				hit,
+				// garanitiya,
 				categoryId: category,
 				groupId: groupData || +group || null
 			})
@@ -127,10 +129,6 @@ class ProductController {
 					include: [{ model: models.Category }, { model: models.Type }],
 				})
 			}
-
-
-
-
 
 
 			if (categoryId && !typeId && !priceFrom && !priceBefore) {
@@ -243,9 +241,10 @@ class ProductController {
 	}
 
 	async getOne(req, res, next) {
+		console.log('--------🦺---------')
 		try {
 			const { id } = req.params
-
+			console.log('🦺-🦺-🦺-id:' , id)
 			const data = await models.Product.findOne({
 				where: { id },
 				include: [
@@ -266,6 +265,7 @@ class ProductController {
 					}
 				],
 			})
+			console.log('🦺-🦺-🦺-data:' , data)
 			return res.status(200).json(data)
 		} catch (e) {
 			console.log('🦺-------err: ', e.message)
@@ -450,8 +450,9 @@ class ProductController {
 				ucenka,
 				stock,
 				hit,
+				// garanitiya,
 			} = req.body
-			console.log('💊req.body:', req.body)
+			// console.log('💊req.body:', req.body)
 
 			let img, imgMini
 			if (req.files) {
@@ -510,6 +511,7 @@ class ProductController {
 					ucenka,
 					stock,
 					hit,
+					// garanitiya,
 				})
 			} else {
 				newProduct.set({
@@ -525,6 +527,7 @@ class ProductController {
 					ucenka: ucenka,
 					stock: stock,
 					hit: hit,
+					// garanitiya,
 				})
 			}
 

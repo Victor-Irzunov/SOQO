@@ -40,6 +40,9 @@ const Product = sequelize.define('product', {
 	count: {
 		type: DataTypes.INTEGER, allowNull: false
 	},
+	garanitiya: {
+		type: DataTypes.INTEGER, defaultValue: 2
+	},
 	rating: {
 		type: DataTypes.FLOAT(10, 1), defaultValue: 0
 	},

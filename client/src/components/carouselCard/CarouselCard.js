@@ -141,10 +141,6 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 							setMinHeigth({ ...minHeigth, descriptionLength: el.description.length })
 						}
 
-
-						console.log('el.discountPercentage:', el.discountPercentage)
-
-
 						return (
 							<Badge.Ribbon key={el.id} text={el.discountPercentage ? `скидка ${el.discountPercentage}%` : <FireOutlined />}>
 								<Card
@@ -319,8 +315,7 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 															</div>
 														</div>
 													</Link>
-
-
+													
 													<div className='flex justify-between items-center'>
 														<div className='flex justify-between items-center pt-2'>
 															<BadgeIconVesy

@@ -300,6 +300,8 @@ const FormProduct = () => {
 				>
 					<InputNumber addonAfter="руб." />
 				</Form.Item>
+
+
 				<Form.Item
 					label="Процент скидки"
 					name="discountPercentage"
@@ -308,6 +310,22 @@ const FormProduct = () => {
 						addonAfter="%"
 					/>
 				</Form.Item>
+
+				{/* <Form.Item
+					label="Гарантия"
+					name="garanitiya"
+					rules={[
+						{
+							required: true,
+							message: 'Введите гарантию!',
+						},
+					]}
+				>
+					<InputNumber
+					/>
+				</Form.Item> */}
+
+
 				<Form.Item
 					label="Количество"
 					name="count"

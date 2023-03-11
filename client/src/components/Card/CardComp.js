@@ -176,7 +176,8 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 												}
 											</div>
 											<div className=' text-right'>
-												{(user.isAuth ? dataProducts.dataBasket.some(elem => elem.productId === el.id) : dataApp.basketArr.some(elem => elem.id === el.id)) ?
+												{(user.isAuth
+													? dataProducts.dataBasket.some(elem => elem.productId === el.id) : dataApp.basketArr.some(elem => elem.id === el.id)) ?
 													<Link to='/korzina'>
 														<Tooltip title="Товар в корзине">
 															<Button
