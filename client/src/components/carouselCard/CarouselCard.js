@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react'
-import { Card, Rate, Button, Image, Badge, message, Tooltip, Empty } from 'antd'
+import React, { useState, useContext, useRef, useEffect } from 'react'
+import { Card, Rate, Button, Image, Badge, message, Tooltip } from 'antd'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css"
 import {
@@ -59,13 +59,24 @@ const responsive = {
 	}
 }
 
+
+
 const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 	const cyrillicToTranslit = new CyrillicToTranslit()
 	const { dataApp, user, dataProducts } = useContext(Context)
 	const { addList } = useCookieList(null)
 	const [dataModal, setDataModal] = useState({})
 	const [isModalOpen, setIsModalOpen] = useState(false)
+	// const [imgHeigth, setImgHeigth] = useState(0)
+	const divRef = useRef()
 
+	// useEffect(() => {
+	// 	if (imgHeigth < divRef.current.offsetHeight) {
+	// 		setImgHeigth(divRef.current.offsetHeight)
+	// 	}
+	// },[])
+	// console.log('divRef:', divRef.current.offsetHeight)
+	// console.log('imgHeigth:',imgHeigth)
 
 	let location = useLocation()
 	const [minHeigth, setMinHeigth] = useState({
@@ -123,9 +134,8 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 								</Link>
 						}
 					</div>
-				
-				
 			}
+
 			<Carousel
 				arrows={false}
 				customButtonGroup={<ButtonGroup product={product} />}
@@ -253,6 +263,7 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 						if (el.description.length > minHeigth2.descriptionLength) {
 							setMinHeigth2({ ...minHeigth2, descriptionLength: el.description.length })
 						}
+						
 						return (
 							<Badge.Ribbon
 								key={el.id} text={`${hit ? 'хит' : 'новое'}`}
@@ -261,20 +272,21 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 								<Card
 									bordered={false}
 									hoverable={true}
-									cover={<Image src={process.env.REACT_APP_API_URL + JSON.parse(el.img)[0].image}
-									/>}
+									// cover={<Image src={process.env.REACT_APP_API_URL + JSON.parse(el.img)[0].image}
+									// />}
 									style={{
 										background: '#fff',
 										marginLeft: '1em',
 										overflow: 'hidden',
 									}}
 									className='shadow-xl'
+									
 								>
 									<div className=''>
-										{/* <div className='w-full min-h-[180px]'>
+										<div className={`w-full min-h-[180px]`} ref={divRef}>
 											<Image src={process.env.REACT_APP_API_URL + JSON.parse(el.img)[0].image}
 											/>
-										</div> */}
+										</div>
 										<div className='px-4 pb-4 pt-0'>
 											{el.categories.length
 												?
@@ -315,7 +327,7 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 															</div>
 														</div>
 													</Link>
-													
+
 													<div className='flex justify-between items-center'>
 														<div className='flex justify-between items-center pt-2'>
 															<BadgeIconVesy

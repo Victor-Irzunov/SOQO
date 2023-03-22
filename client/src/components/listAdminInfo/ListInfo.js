@@ -8,7 +8,7 @@ import FormAddInfo from '../formsAdmin/formAddInfo/FormAddInfo'
 const ListInfo = ({ data, setMessages, dataTitleInfo,setIsUpdate }) => {
 	const [isActive, setIsActive] = useState(false)
 	const [isId, setIsId] = useState('')
-
+	const [idTitle, setIdTitle] = useState('')
 
 	const deleteFu = id => {
 		deleteInfo(id)
@@ -40,7 +40,8 @@ const ListInfo = ({ data, setMessages, dataTitleInfo,setIsUpdate }) => {
 											className='text-green-600 font-light text-xs pl-0'
 											onClick={() => {
 												setIsActive(i => !i)
-												setIsId(el.id)
+												setIsId(elem.id)
+												setIdTitle(elem.id)
 											}}
 										>
 											добавить
@@ -53,10 +54,15 @@ const ListInfo = ({ data, setMessages, dataTitleInfo,setIsUpdate }) => {
 											удалить всё
 										</Button>
 										{
-											isActive && el.id === isId ?
+											isActive && elem.id === idTitle ?
 												(
 													<>
-														<FormAddInfo id={el.id} setIsActive={setIsActive} setIsId={setIsId} setIsUpdate={setIsUpdate} />
+														<FormAddInfo
+															id={isId}
+															setIsActive={setIsActive}
+															setIsId={setIsId}
+															setIsUpdate={setIsUpdate}
+														/>
 														<Button
 															type='text'
 															className='text-blue-600 font-light text-xs'

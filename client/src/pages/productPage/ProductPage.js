@@ -37,8 +37,11 @@ const ProductPage = observer(() => {
 	const loca = location.state?.location
 	const [productData, setProductData] = useState([])
 
+console.log('location:',location)
 
 	useEffect(() => {
+			
+console.log('location:',location)
 		fetchOneProduct(id)
 			.then(data => {
 				if (data) {

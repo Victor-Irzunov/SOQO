@@ -25,7 +25,7 @@ const MainPage = observer(() => {
       })
     getHitProduct()
       .then(data => {
-        console.log('data: ', data)
+        // console.log('data: ', data)
         setCardItem2(data)
       })
     getSliderImg()

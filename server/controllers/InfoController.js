@@ -53,7 +53,7 @@ class InfoController {
 	async addOneContentToArrInfo(req, res, next) {
 		try {
 			const { id, content } = req.body
-			console.log('🦺 req.body: ', req.body)
+			console.log('🦺 addOneContentToArrInfo req.body: ', req.body)
 
 			const data = await models.Info.findOne({ where: { id } })
 			console.log('🦺 data: ', data)
