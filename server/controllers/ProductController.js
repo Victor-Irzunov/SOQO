@@ -25,6 +25,7 @@ class ProductController {
 				ucenka,
 				stock,
 				hit,
+				description_big,
 				// garanitiya,
 			} = req.body
 
@@ -82,7 +83,7 @@ class ProductController {
 				ucenka,
 				stock,
 				hit,
-				// garanitiya,
+				description_big,
 				categoryId: category,
 				groupId: groupData || +group || null
 			})
@@ -450,7 +451,7 @@ class ProductController {
 				ucenka,
 				stock,
 				hit,
-				// garanitiya,
+				description_big,
 			} = req.body
 			// console.log('💊req.body:', req.body)
 
@@ -500,6 +501,7 @@ class ProductController {
 					price,
 					name,
 					description,
+					description_big,
 					discountPercentage,
 					count,
 					img: JSON.stringify(fileName),
@@ -518,6 +520,7 @@ class ProductController {
 					price,
 					name,
 					description,
+					description_big,
 					discountPercentage,
 					count,
 					typeId: type,

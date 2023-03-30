@@ -107,6 +107,7 @@ const FormChangeProduct = ({ product, setProduct }) => {
 		formData.append('ucenka', values.ucenka)
 		formData.append('stock', values.stock)
 		formData.append('hit', values.hit)
+		formData.append('description_big', values.description_big)
 		// formData.append('garanitiya', values.garanitiya)
 
 		for (let k in fileList) {
@@ -176,6 +177,7 @@ const FormChangeProduct = ({ product, setProduct }) => {
 					ucenka: product.ucenka,
 					stock: product.stock,
 					hit: product.hit,
+					description_big: product.description_big
 					// garanitiya: product.garanitiya
 				}}
 				onFinish={onFinish}
@@ -201,10 +203,10 @@ const FormChangeProduct = ({ product, setProduct }) => {
 					<Form.Item
 						name="group"
 						label='Введите номер группы'
-						rules={[{
-							required: true,
-							message: 'Введите номер группы!',
-						},]}
+						// rules={[{
+						// 	required: true,
+						// 	message: 'Введите номер группы!',
+						// },]}
 					>
 						<InputNumber />
 					</Form.Item>
@@ -296,7 +298,7 @@ const FormChangeProduct = ({ product, setProduct }) => {
 				</Form.Item>
 
 				<Form.Item
-					label="Описание товара"
+					label="Описание товара мал."
 					name="description"
 					rules={[{
 						required: true,
@@ -308,6 +310,22 @@ const FormChangeProduct = ({ product, setProduct }) => {
 					/>
 				</Form.Item>
 
+				<Form.Item
+					label="Описание товара большое."
+					name="description_big"
+					rules={[{
+						required: true,
+						message: 'Введите описание!'
+					},]}
+				>
+					<TextArea
+						autoSize={{
+							minRows: 4,
+						}}
+						allowClear
+						showCount
+					/>
+				</Form.Item>
 				{/* <Form.Item
 					label="Гарантия"
 					name="garanitiya"

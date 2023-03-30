@@ -16,8 +16,7 @@ const FilterAll = (
 			expandIconPosition='start'
 			style={{ paddingLeft: 0 }}
 		>
-			<Panel header="Цена" key="4"
-			>
+			<Panel header="Цена" key="4">
 				<FormPrice
 					sendFormFilter={sendFormFilter}
 					inputValueFrom={inputValueFrom}

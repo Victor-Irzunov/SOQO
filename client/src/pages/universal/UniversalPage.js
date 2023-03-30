@@ -82,7 +82,6 @@ const UniversalPage = observer(({ assortiment }) => {
 	}, [arrLocalPath])
 
 	useEffect(() => {
-
 		if (assortiment) {
 			fetchProducts(page, pageSize)
 				.then(data => {
@@ -98,9 +97,6 @@ const UniversalPage = observer(({ assortiment }) => {
 					})
 			}
 		}
-
-
-
 	}, [
 		page,
 		pageSize,
@@ -136,7 +132,7 @@ const UniversalPage = observer(({ assortiment }) => {
 				setTotalItem(data.count)
 			})
 			.finally(() => {
-				setInputValueFrom(15)
+				setInputValueFrom(5)
 				setInputValueBefore(null)
 			})
 	}

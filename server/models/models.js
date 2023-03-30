@@ -34,6 +34,9 @@ const Product = sequelize.define('product', {
 	description: {
 		type: DataTypes.STRING, allowNull: false
 	},
+	description_big: {
+		type: DataTypes.TEXT('long')
+	},
 	discountPercentage: {
 		type: DataTypes.INTEGER, defaultValue: 0
 	},
@@ -47,7 +50,7 @@ const Product = sequelize.define('product', {
 		type: DataTypes.FLOAT(10, 1), defaultValue: 0
 	},
 	img: {
-		type: DataTypes.JSON                //allowNull - запрещает 0(пустым)
+		type: DataTypes.JSON
 	},
 	imgMini: {
 		type: DataTypes.JSON

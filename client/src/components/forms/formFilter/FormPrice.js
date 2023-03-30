@@ -3,19 +3,20 @@ import React from 'react'
 import { CloseCircleOutlined } from '@ant-design/icons'
 const style = {
 	display: 'inline-block',
-	height: 250,
+	height: 350,
 	marginBottom: 20,
 }
 const marks = {
 	5: '5',
-	50: '50',
 	100: '100',
-	150: '150',
 	200: '200',
-	250: '250',
 	300: '300',
-	350: '350',
-	400: '400',
+	600: '600',
+	800: '800',
+	1000: '1000',
+	1200: '1200',
+	1500: '1500',
+	2000:'2000'
 }
 const FormPrice = (
 	{ inputValueFrom, setInputValueFrom,
@@ -60,8 +61,9 @@ const FormPrice = (
 											vertical
 											marks={marks}
 											min={5}
-											max={400}
-											step={0.1}
+											max={2000}
+											step={5}
+											
 											onChange={onChangeFrom}
 											value={typeof inputValueFrom === 'number' ? inputValueFrom : 0}
 										/>
@@ -71,8 +73,8 @@ const FormPrice = (
 							<Col span={24}>
 								<InputNumber
 									min={5}
-									max={400}
-									step={0.1}
+									max={2000}
+									step={5}
 									style={{
 										margin: '0 5px 0 5px',
 									}}
@@ -94,10 +96,10 @@ const FormPrice = (
 											vertical
 											marks={marks}
 											min={inputValueFrom}
-											max={400}
+											max={2000}
 											onChange={onChangeBefore}
 											value={typeof inputValueBefore === 'number' ? inputValueBefore : 0}
-											step={0.1}
+											step={5}
 										/>
 									</div>
 								</Form.Item>
@@ -105,8 +107,8 @@ const FormPrice = (
 							<Col span={24}>
 								<InputNumber
 									min={inputValueFrom}
-									max={400}
-									step={0.1}
+									max={2000}
+									step={5}
 									value={inputValueBefore}
 									onChange={onChangeBefore}
 								/>

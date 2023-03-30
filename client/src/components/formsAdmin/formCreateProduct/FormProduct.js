@@ -95,6 +95,7 @@ const FormProduct = () => {
 		formData.append('ucenka', values.ucenka)
 		formData.append('stock', values.stock)
 		formData.append('hit', values.hit)
+		formData.append('description_big', values.description_big)
 		for (let k in fileList) {
 			const pic = await resizeFile(fileList[k].originFileObj, 2800, 1200, values.quality)
 			formData.append('img', pic)
@@ -276,8 +277,10 @@ const FormProduct = () => {
 						}
 					/>
 				</Form.Item>
+
+
 				<Form.Item
-					label="Описание товара"
+					label="Описание товара мал."
 					name="description"
 					rules={[{
 						required: true,
@@ -288,6 +291,25 @@ const FormProduct = () => {
 						autoSize allowClear showCount
 					/>
 				</Form.Item>
+
+				<Form.Item
+					label="Описание товара большое."
+					name="description_big"
+					rules={[{
+						required: true,
+						message: 'Введите описание!'
+					},]}
+				>
+					<TextArea
+						 autoSize={{
+							minRows: 4,
+						}}
+						allowClear
+						showCount
+					/>
+				</Form.Item>
+
+
 				<Form.Item
 					label="Цена"
 					name="price"
