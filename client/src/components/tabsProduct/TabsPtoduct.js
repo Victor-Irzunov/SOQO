@@ -71,7 +71,7 @@ const ListProperty = observer(() => {
 	const { dataProducts } = useContext(Context)
 	const [editP, setEditP] = useState('')
 	useEffect(() => {
-		setEditP(dataProducts.dataOneProduct.description)
+		setEditP(dataProducts.dataOneProduct.description_big)
 	}, [dataProducts.dataOneProduct])
 	return (
 		<>
@@ -116,7 +116,6 @@ const TabsPtoduct = ({ product }) => {
 		if (key === 3) {
 			getQuestionResponse(product.id)
 				.then(data => {
-					console.log('get data: ', data)
 					setDataQuestRes(data)
 			})
 		}
