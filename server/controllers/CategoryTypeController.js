@@ -7,7 +7,7 @@ class CategoryTypeController {
 
 
 
-	async getAll(req, res) {
+	async getAll(req, res, next) {
 		try {
 			const data = await models.Category.findAll({
 				include: [{
@@ -22,7 +22,7 @@ class CategoryTypeController {
 		}
 	}
 
-	async deleteOne(req, res) {
+	async deleteOne(req, res, next) {
 		try {
 			const { id } = req.params
 			await models.CategoryType.destroy({ where: { id: id } })

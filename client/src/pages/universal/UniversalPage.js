@@ -314,9 +314,10 @@ const UniversalPage = observer(({ assortiment }) => {
 									</Button>
 								</Empty>
 						}
-						<ContentUniversalPage categoryId={categoryId} typeId={typeId} />
+					
 					</Content>
 				</Layout>
+				<ContentUniversalPage categoryId={categoryId} typeId={typeId} />
 			</section>
 		</>
 	)

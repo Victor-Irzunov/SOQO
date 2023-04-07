@@ -1,4 +1,4 @@
-import { $authHost } from "./index"
+import { $authHost,$host } from "./index"
 
 export const createProduct = async (product) => {
 	const { data } = await $authHost.post('api/product', product)
@@ -129,5 +129,31 @@ export const deleteOneStock = async (id) => {
 
 export const addImgBannerPage = async (obj) => {
 	const { data } = await $authHost.post('api/img/banner', obj)
+	return data
+}
+
+export const createUniqueContent = async (obj) => {
+	const { data } = await $authHost.post('api/unique/content', obj)
+	return data
+}
+export const getOneUniqueContent = async ({ categoryId, typeId }) => {
+	const { data } = await $host.get('api/unique/content', {
+		params: {
+			categoryId,
+			typeId
+		}
+	})
+	return data
+}
+export const getOneUniqueContentById = async (id) => {
+	const { data } = await $host.get('api/unique/content/' + id )
+	return data
+}
+export const changeOneUniqueContent = async (obj) => {
+	const { data } = await $authHost.put('api/unique/content', obj )
+	return data
+}
+export const deleteOneUniqueContent = async (id) => {
+	const { data } = await $authHost.delete('api/unique/content/'+  id )
 	return data
 }

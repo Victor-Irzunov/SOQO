@@ -17,6 +17,7 @@ import questionRouter from "./questionRouter.js"
 import contentRouter from "./contentRouter.js"
 import searchRouter from './searchRouter.js'
 import stocksRouter from './stocksRouter.js'
+import uniqueContentRouter from './uniqueContentRouter.js'
 
 
 
@@ -43,6 +44,7 @@ router.use('/content', contentRouter)
 
 router.use('/poisk', searchRouter)
 router.use('/stocks', stocksRouter)
+router.use('/unique', uniqueContentRouter)
 
 
 

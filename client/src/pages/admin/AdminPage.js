@@ -8,7 +8,7 @@ import {
 	PartitionOutlined, ApartmentOutlined,
 	CloseSquareOutlined, InfoCircleOutlined,
 	EditOutlined, CloseOutlined, PercentageOutlined,
-	FileImageOutlined,
+	FileImageOutlined,FileAddOutlined, HighlightOutlined
 } from '@ant-design/icons'
 import FormType from '../../components/formsAdmin/formType/FormType'
 import FormCategory from '../../components/formsAdmin/formCategory/FormCategory'
@@ -30,6 +30,8 @@ import FormStocksPages from '../../components/formsAdmin/formStocksPages/FormSto
 import FomrGetOneStocksPage from '../../components/formsAdmin/formStocksPages/changeStocksPage/FomrGetOneStocksPage'
 import FormBannerImgPage from '../../components/formsAdmin/formBannerImgPage/FormBannerImgPage'
 import FormDeleteBannerPage from '../../components/formsAdmin/formBannerImgPage/formDeleteBannerPage/FormDeleteBannerPage'
+import FormContentUnique from '../../components/formsAdmin/formContentUnique/FormContentUnique'
+import FormGetOneUnique from '../../components/formsAdmin/formContentUnique/FormGetOneUnique'
 const { Panel } = Collapse
 const AdminPage = () => {
 	const [dataOrder, setDataOrder] = useState([])
@@ -110,6 +112,12 @@ const AdminPage = () => {
 					</Panel>
 					<Panel header='Удалить банер категории или подкатегории' extra={<CloseSquareOutlined className='text-xl text-orange-500 ml-1' />} key="18" className='p-2'>
 						<FormDeleteBannerPage />
+					</Panel>
+					<Panel header='Добавить уникальный контент' extra={<FileAddOutlined className='text-xl text-cyan-700 ml-1' />} key="19" className='p-2'>
+						<FormContentUnique />
+					</Panel>
+					<Panel header='Изменить уникальный контент' extra={<HighlightOutlined className='text-xl text-cyan-700 ml-1' />} key="20" className='p-2'>
+						<FormGetOneUnique />
 					</Panel>
 				</Collapse>
 			</div>

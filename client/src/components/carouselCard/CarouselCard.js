@@ -257,7 +257,6 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 					})
 					:
 					cardItem.map(el => {
-						console.log('el:', el)
 						if (el.name.length > minHeigth2.nameLength) {
 							setMinHeigth2({ ...minHeigth2, nameLength: el.name.length })
 						}

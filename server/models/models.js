@@ -98,6 +98,24 @@ const Rating = sequelize.define('rating', {
 		type: DataTypes.STRING
 	},
 })
+
+
+const ContentUnique = sequelize.define('uniqueContent', {
+	id: {
+		type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true
+	},
+	title: {
+		type: DataTypes.STRING, defaultValue: null
+	},
+	link: {
+		type: DataTypes.STRING, defaultValue: null
+	},
+	content: {
+		type: DataTypes.TEXT('long'), allowNull: false
+	},
+})
+
+
 const InfoPages = sequelize.define('infoPages', {
 	id: {
 		type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true
@@ -216,24 +234,9 @@ const ContentPage = sequelize.define('content_page', {
 	content: {
 		type: DataTypes.TEXT('long')
 	},
-	h2: {
+	video: {
 		type: DataTypes.STRING
-	},
-	contentH2: {
-		type: DataTypes.TEXT('long')
-	},
-	imgH2: {
-		type: DataTypes.JSON
-	},
-	h3: {
-		type: DataTypes.STRING
-	},
-	contentH3: {
-		type: DataTypes.TEXT('long')
-	},
-	imgH3: {
-		type: DataTypes.JSON
-	},
+	}
 })
 
 //-----------------
@@ -395,6 +398,11 @@ const Group = sequelize.define('group', {
 	},
 })
 
+Category.hasOne(ContentUnique)
+ContentUnique.belongsTo(Category)
+
+Type.hasOne(ContentUnique)
+ContentUnique.belongsTo(Type)
 
 Group.hasMany(Product)
 Product.belongsTo(Group)
@@ -504,5 +512,6 @@ export const models = {
 	ContentPage,
 	StocksPage,
 	BannerImgPage,
+	ContentUnique,
 }
 

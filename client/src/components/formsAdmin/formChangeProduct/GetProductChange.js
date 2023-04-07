@@ -5,13 +5,18 @@ import {
 } from 'antd'
 import { fetchOneProduct } from '../../../http/productsAPI'
 import FormChangeProduct from './FormChangeProduct'
+
 function GetProductChange() {
 	const [product, setProduct] = useState({})
 	const [form] = Form.useForm()
+
+
 	const onFinish = values => {
+		setProduct({})
 		fetchOneProduct(values.id)
 			.then(data => {
 				if (data) {
+					console.log('data:', data)
 					setProduct(data)
 				}
 				// form.resetFields()
