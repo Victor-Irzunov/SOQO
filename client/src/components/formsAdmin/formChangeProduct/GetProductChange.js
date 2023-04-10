@@ -3,7 +3,7 @@ import {
 	Button, InputNumber,
 	Form, Space
 } from 'antd'
-import { fetchOneProduct } from '../../../http/productsAPI'
+import { fetchOneProductById } from '../../../http/productsAPI'
 import FormChangeProduct from './FormChangeProduct'
 
 function GetProductChange() {
@@ -13,7 +13,7 @@ function GetProductChange() {
 
 	const onFinish = values => {
 		setProduct({})
-		fetchOneProduct(values.id)
+		fetchOneProductById(values.id)
 			.then(data => {
 				if (data) {
 					console.log('data:', data)

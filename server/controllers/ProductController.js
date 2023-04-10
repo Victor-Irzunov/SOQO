@@ -2,6 +2,7 @@ import { models } from "../models/models.js"
 import { ApiError } from '../error/ApiError.js'
 import { v4 as uuidv4 } from 'uuid'
 import path from 'path'
+import fs from 'fs'
 import { URL } from 'url'
 import { Op } from "sequelize"
 
@@ -17,6 +18,7 @@ class ProductController {
 				description,
 				discountPercentage,
 				name,
+				nameLink,
 				price,
 				type,
 				newProd,
@@ -30,6 +32,8 @@ class ProductController {
 			} = req.body
 
 			// console.log('💊💊💊req.body: ', req.body)
+
+
 			const { img, imgMini } = req.files
 
 			let groupData = 0
@@ -53,7 +57,6 @@ class ProductController {
 					fileName.push({ image: name })
 					img.mv(path.resolve(__dirname, '..', 'static', name))
 				}
-
 			}
 			const fileNameMini = []
 			if (imgMini) {
@@ -73,6 +76,7 @@ class ProductController {
 			const product = await models.Product.create({
 				price,
 				name,
+				nameLink,
 				description,
 				discountPercentage,
 				count,
@@ -144,7 +148,6 @@ class ProductController {
 				})
 			}
 			if (categoryId && typeId && !priceFrom && !priceBefore) {
-				// console.log('💊💊💊💊💊💊💊-categoryId && typeId && !priceFrom && !priceBefore-💊💊💊💊💊💊💊')
 				data = await models.Product.findAndCountAll({
 					limit, offset, where: { categoryId, typeId },
 					include: [{ model: models.Category }, { model: models.Type }],
@@ -152,7 +155,6 @@ class ProductController {
 			}
 			// ---------------------
 			if (categoryId && !typeId && priceFrom && !priceBefore) {
-				// console.log('💊💊💊💊💊💊💊-categoryId && !typeId && priceFrom && !priceBefore-💊💊💊💊💊💊💊')
 				data = await models.Product.findAndCountAll({
 					limit, offset,
 					where: {
@@ -166,7 +168,6 @@ class ProductController {
 				})
 			}
 			if (categoryId && typeId && priceFrom && !priceBefore) {
-				// console.log('💊💊💊💊💊💊💊-categoryId && typeId && priceFrom && !priceBefore-💊💊💊💊💊💊💊')
 				data = await models.Product.findAndCountAll({
 					limit, offset,
 					where: {
@@ -180,7 +181,6 @@ class ProductController {
 			}
 
 			if (categoryId && !typeId && priceFrom && priceBefore) {
-				// console.log('💊💊💊💊💊💊💊-categoryId && !typeId && priceFrom && priceBefore-💊💊💊💊💊💊💊')
 				data = await models.Product.findAndCountAll({
 					limit, offset,
 					where: {
@@ -194,7 +194,6 @@ class ProductController {
 			}
 
 			if (categoryId && typeId && priceFrom && priceBefore) {
-				// console.log('💊💊💊💊💊💊💊-categoryId && typeId && priceFrom && priceBefore-💊💊💊💊💊💊💊')
 				data = await models.Product.findAndCountAll({
 					limit, offset,
 					where: {
@@ -242,10 +241,39 @@ class ProductController {
 	}
 
 	async getOne(req, res, next) {
-		console.log('--------🦺---------')
+		try {
+			const { nameLink } = req.query
+			// console.log('🦺-🦺-🦺-nameLink:', nameLink)
+			const data = await models.Product.findOne({
+				where: { nameLink },
+				include: [
+					{
+						model: models.Category,
+					},
+					{
+						model: models.Type
+					},
+					{
+						model: models.ProductInfo, as: 'info'
+					},
+					{
+						model: models.Feedback,
+						include: {
+							model: models.Rating
+						}
+					}
+				],
+			})
+			return res.status(200).json(data)
+		} catch (e) {
+			console.log('🦺-------err: ', e.message)
+			next(ApiError.internal(e.message))
+		}
+	}
+	async getOneById(req, res, next) {
 		try {
 			const { id } = req.params
-			console.log('🦺-🦺-🦺-id:' , id)
+			// console.log('🦺-🦺-🦺-nameLink:', nameLink)
 			const data = await models.Product.findOne({
 				where: { id },
 				include: [
@@ -266,7 +294,6 @@ class ProductController {
 					}
 				],
 			})
-			console.log('🦺-🦺-🦺-data:' , data)
 			return res.status(200).json(data)
 		} catch (e) {
 			console.log('🦺-------err: ', e.message)
@@ -276,7 +303,6 @@ class ProductController {
 
 	async getAllProductInBasketNoUser(req, res, next) {
 		try {
-
 			const dataArr = req.query
 			if (Object.keys(dataArr).length !== 0) {
 				const arrNumberId = dataArr.arr.map(el => {
@@ -311,11 +337,9 @@ class ProductController {
 		}
 	}
 
-
 	async getPohozhie(req, res, next) {
 		try {
 			const { groupId, id } = req.query
-			// console.log('💊💊💊---------req.query:', req.query)
 			const data = await models.Product.findAll({
 				where: {
 					id: {
@@ -344,7 +368,48 @@ class ProductController {
 	async deleteOne(req, res, next) {
 		try {
 			const { id } = req.params
+			const product = await models.Product.findOne({ where: { id } })
+			// console.log('💊💊product: ', product)
+			const s = JSON.parse(product.img)
+			const s2 = JSON.parse(product.imgMini)
+			const a = [...s, ...s2]
+
+			const __dirname = decodeURI(new URL('.', import.meta.url).pathname)
+			const directoryPath = path.resolve(__dirname, '..', 'static')
+
+			fs.readdir(directoryPath, (err, files) => {
+				if (err) throw err;
+				files.forEach(file => {
+					a.forEach(el => {
+						if (file === el.image) {
+							fs.unlink(path.join(directoryPath, file), err => {
+								if (err) throw err;
+							})
+						}
+					})
+				})
+			})
+		
+			const data = await models.Product.findAll(
+				{
+					where:
+					{
+						typeId: product.typeId,
+						categoryId: product.categoryId
+					}
+				})
+			if (data.length <= 1) {
+				await models.CategoryType.destroy({
+					where: {
+						typeId: product.typeId,
+						categoryId: product.categoryId
+					}
+				})
+			}
+			await models.ProductInfo.destroy({where: {productId: id}})
 			await models.Product.destroy({ where: { id: id } })
+			await models.BasketProduct.destroy({ where: { productId: id } })
+
 			return res.json({ message: `Продукт удален` })
 		}
 		catch (e) {
@@ -376,7 +441,6 @@ class ProductController {
 		}
 	}
 
-
 	async getHitProduct(req, res, next) {
 		try {
 			const data = await models.Product.findAll(
@@ -402,9 +466,6 @@ class ProductController {
 		}
 	}
 
-
-
-	
 	async getAllProductsOneType(req, res, next) {
 		try {
 			const { id } = req.params
@@ -443,6 +504,7 @@ class ProductController {
 				description,
 				discountPercentage,
 				name,
+				nameLink,
 				price,
 				type,
 				newProd,
@@ -494,12 +556,12 @@ class ProductController {
 					k.mv(path.resolve(__dirname, '..', 'static', name))
 				}
 			}
-
 			const newProduct = await models.Product.findOne({ where: { id } })
 			if (fileName.length) {
 				newProduct.set({
 					price,
 					name,
+					nameLink,
 					description,
 					description_big,
 					discountPercentage,
@@ -519,6 +581,7 @@ class ProductController {
 				newProduct.set({
 					price,
 					name,
+					nameLink,
 					description,
 					description_big,
 					discountPercentage,
@@ -533,9 +596,7 @@ class ProductController {
 					// garanitiya,
 				})
 			}
-
 			newProduct.save()
-
 			let infos = JSON.parse(info)
 			await models.ProductInfo.bulkCreate(
 				infos,
@@ -544,7 +605,6 @@ class ProductController {
 				}
 			)
 			return res.json({ message: `Продукт изменён` })
-
 		}
 		catch (e) {
 			console.log('🦺-------err: ', e.message)

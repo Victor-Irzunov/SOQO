@@ -22,7 +22,7 @@ const ProductPage = observer(() => {
 	const { dataApp, dataProducts, user } = useContext(Context)
 	const cyrillicToTranslit = new CyrillicToTranslit()
 	let location = useLocation()
-	// const localPath = location.pathname.split('/').join(' ')
+	const localPath = location.pathname.split('/').join(' ')
 	const arrLocalPath = location.pathname.split('/').filter(function (el) {
 		return (el != null && el != "" || el === 0)
 	})
@@ -32,14 +32,18 @@ const ProductPage = observer(() => {
 	const [product, setProduct] = useState({})
 	const [imgArr, setImgArr] = useState([])
 	const [review, setReview] = useState('')
-	const { addList,deleteOneList } = useCookieList(null)
+	const { addList, deleteOneList } = useCookieList(null)
 	const id = location.state?.id
 	const loca = location.state?.location
 	const [productData, setProductData] = useState([])
 
+	// console.log('location:', location)
+	// console.log('localPath:', localPath)
+	// console.log('arrLocalPath:', arrLocalPath)
+
 
 	useEffect(() => {
-		fetchOneProduct(id)
+		fetchOneProduct(arrLocalPath[2])
 			.then(data => {
 				if (data) {
 					console.log('data-: ', data)
@@ -48,7 +52,7 @@ const ProductPage = observer(() => {
 					dataProducts.setDataOneProduct(data)
 					declOfNum(data.feedbacks.length, ['отзывов', 'отзыва', 'отзыв'])
 					setImgArr(fuImg(data))
-					
+
 				}
 			})
 	}, [id, dataProducts])
@@ -58,8 +62,8 @@ const ProductPage = observer(() => {
 			if (product.groupId) {
 				fetchProductsPohozhie({ groupId: product.groupId, id: product.id })
 					.then(data => {
-					setProductData(data)
-				})
+						setProductData(data)
+					})
 			} else {
 				setProductData([])
 			}
@@ -276,7 +280,7 @@ const ProductPage = observer(() => {
 				<div className='mt-28' id='box' />
 				{Object.keys(product).length ?
 					<>
-						<PohozhieTovary product={product}  />
+						<PohozhieTovary product={product} />
 						<TabsPtoduct product={product} />
 					</>
 					:

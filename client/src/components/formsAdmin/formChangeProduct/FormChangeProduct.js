@@ -18,6 +18,7 @@ import {
 } from '../../../http/productsAPI'
 import { InfoCircleOutlined, CopyOutlined } from '@ant-design/icons'
 import { updateOneProduct } from '../../../http/adminAPI'
+import CyrillicToTranslit from 'cyrillic-to-translit-js'
 
 
 import Resizer from "react-image-file-resizer"
@@ -49,6 +50,7 @@ const FormChangeProduct = ({ product, setProduct }) => {
 	const [group, setGroup] = useState(2)
 	const [groupId, setGroupId] = useState(null)
 	const [title, setTitle] = useState('')
+	const cyrillicToTranslit = new CyrillicToTranslit()
 
 	useEffect(() => {
 		fetchInfo()
@@ -99,6 +101,7 @@ const FormChangeProduct = ({ product, setProduct }) => {
 		formData.append('description', values.description)
 		formData.append('discountPercentage', values.discountPercentage || 0)
 		formData.append('name', values.name)
+		formData.append('nameLink', cyrillicToTranslit.transform(values.name.split(' ').join('-')))
 		formData.append('price', values.price)
 		formData.append('type', values.type)
 		formData.append('newProd', values.newProd)

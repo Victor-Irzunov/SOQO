@@ -12,14 +12,26 @@ export const deleteOneProduct = async (id) => {
 	const { data } = await $authHost.delete('api/product/' + id)
 	return data
 }
-export const createType = async type => {
-	const { data } = await $authHost.post('api/type', type)
+
+
+export const createType = async (obj) => {
+	const { data } = await $authHost.post('api/type', obj)
 	return data
 }
 export const deleteeType = async id => {
 	const { data } = await $authHost.delete('api/type/' + id)
 	return data
 }
+export const changeType = async (obj) => {
+	const { data } = await $authHost.put('api/type', obj)
+	return data
+}
+export const getOneType = async (id) => {
+	const { data } = await $host.get('api/type/'+ id)
+	return data
+}
+
+
 
 export const createInfoTitle = async type => {
 	const { data } = await $authHost.post('api/infotitle', type)

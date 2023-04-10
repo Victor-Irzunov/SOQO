@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import { Helmet } from "react-helmet"
 import {
 	Typography, Layout, Space, Button,
-	BackTop, Empty, Drawer,
+	BackTop, Empty, Drawer, Image,
 } from 'antd'
 import {
 	UpCircleOutlined,
@@ -201,21 +201,29 @@ const UniversalPage = observer(({ assortiment }) => {
 				}
 
 				<br />
-				<Space className='mt-6 mb-6'>
-					<span className='text-slate-400'>Ещё категории:
+				
+				<p className='text-slate-400'>Ещё категории:</p>
+				<Space className='mt-6 mb-6' wrap>
 						{type.map(el => {
+							
 							if (el.link !== arrLocalPath[1]) {
 								return (
 									<Link to={`/${arrLocalPath[0]}/${el.link}`} key={el.id} >
-										<Button type='link'>
-											<span className='underline'>{el.name}</span>
-										</Button>
+								
+										<div className='bg-white rounded-lg w-28 text-center p-1 flex justify-between items-center'>
+											<Image preview={false} alt={el.alt} src={process.env.REACT_APP_API_URL + JSON.parse(el.img)[0].img } />
+											
+												<span className='underline uppercase text-[8px] ml-2 leading-3'>{el.name}</span>
+											</div>
+											
 									</Link>
 								)
 							}
 						})}
-					</span>
+
 				</Space>
+
+
 				<br />
 				<Space>
 					<Button
@@ -314,7 +322,7 @@ const UniversalPage = observer(({ assortiment }) => {
 									</Button>
 								</Empty>
 						}
-					
+
 					</Content>
 				</Layout>
 				<ContentUniversalPage categoryId={categoryId} typeId={typeId} />

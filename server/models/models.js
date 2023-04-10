@@ -31,6 +31,9 @@ const Product = sequelize.define('product', {
 	name: {
 		type: DataTypes.STRING, allowNull: false
 	},
+	nameLink: {
+		type: DataTypes.STRING, allowNull: false
+	},
 	description: {
 		type: DataTypes.STRING, allowNull: false
 	},
@@ -136,6 +139,12 @@ const Type = sequelize.define('type', {
 		type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true
 	},
 	name: {
+		type: DataTypes.STRING
+	},
+	img: {
+		type: DataTypes.JSON
+	},
+	alt: {
 		type: DataTypes.STRING
 	},
 	link: {
