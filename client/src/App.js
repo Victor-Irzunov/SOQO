@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react'
 import './App.css'
-import { Spin, ConfigProvider, Affix,theme } from 'antd'
+import { Spin, ConfigProvider, Affix, theme } from 'antd'
 import { MailOutlined } from '@ant-design/icons'
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import UserStore from './store/UserStore'
@@ -113,11 +113,11 @@ const App = observer(() => {
 
   return (
     <ConfigProvider
-     
+
       theme={{
         token: {
           colorPrimary: '#292D51',
-          colorLink:'#292D51',
+          colorLink: '#292D51',
         },
         // components: {
         //   Radio: {
@@ -137,11 +137,11 @@ const App = observer(() => {
             <Header />
             {
               question.length && user.userData.role === "ADMIN" ?
-              <Affix offsetTop={60} style={{ position: 'absolute', right: '40px', zIndex: '100' }}>
-                <MailOutlined
-                  className='text-4xl animate-bounce text-green-600'
-                  onClick={showDrawer}
-                />
+                <Affix offsetTop={60} style={{ position: 'absolute', right: '40px', zIndex: '100' }}>
+                  <MailOutlined
+                    className='text-4xl animate-bounce text-green-600'
+                    onClick={showDrawer}
+                  />
                 </Affix>
                 :
                 undefined
@@ -172,7 +172,7 @@ const App = observer(() => {
                 <Route path='/poisk' element={<SearchPage />} />
                 <Route path='/assortiment/:title' element={<ViewAllPage />} />
                 <Route path='/dogovor' element={<DogovorPage />} />
-               
+
                 <Route path='/aktsii' element={<StoksPage />} />
                 <Route path='/sbros-parolya' element={<ResetPasswordPage />} />
                 <Route path='*' element={<ErrorPage />} />

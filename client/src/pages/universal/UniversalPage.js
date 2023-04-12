@@ -72,6 +72,7 @@ const UniversalPage = observer(({ assortiment }) => {
 							setTypeId(elem.id)
 							setTypeTitle(elem.name)
 							setEditH1(elem.name)
+							setType(el.types)
 						}
 					})
 				} else {
@@ -80,6 +81,8 @@ const UniversalPage = observer(({ assortiment }) => {
 			})
 		}
 	}, [arrLocalPath])
+
+	console.log('type:', type)
 
 	useEffect(() => {
 		if (assortiment) {
@@ -202,7 +205,7 @@ const UniversalPage = observer(({ assortiment }) => {
 
 				<br />
 				
-				<p className='text-slate-400'>Ещё категории:</p>
+				<p className={`text-slate-400 ${!type.length ? 'hidden': ''}`}>Ещё категории:</p>
 				<Space className='mt-6 mb-6' wrap>
 						{type.map(el => {
 							
