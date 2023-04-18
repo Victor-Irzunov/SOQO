@@ -283,7 +283,7 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 									
 								>
 									<div className=''>
-										<div className={`w-full min-h-[180px]`} ref={divRef}>
+										<div className={`w-full max-h-[370px]`} ref={divRef}>
 											<Image src={process.env.REACT_APP_API_URL + JSON.parse(el.img)[0].image}
 											/>
 										</div>
