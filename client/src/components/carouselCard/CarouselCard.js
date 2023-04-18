@@ -164,7 +164,7 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 									className='shadow-xl'
 								>
 									<div className=''>
-										<div className='w-full min-h-[180px]'>
+										<div className='w-full h-[380px]'>
 											<Image src={process.env.REACT_APP_API_URL + JSON.parse(el.img)[0].image}
 												width='100%'
 											/>
@@ -283,11 +283,11 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 									
 								>
 									<div className=''>
-										<div className={`w-full max-h-[370px]`} ref={divRef}>
+										<div className={`h-[370px] overflow-hidden`} ref={divRef}>
 											<Image src={process.env.REACT_APP_API_URL + JSON.parse(el.img)[0].image}
 											/>
 										</div>
-										<div className='px-4 pb-4 pt-0'>
+										<div className='px-4 pb-4 pt-2'>
 											{el.categories.length
 												?
 												<>
@@ -296,10 +296,10 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 													}}
 														state={{ id: el.id, location: location.pathname }}
 													>
-														<div className={`${minHeigth2.nameLength > 28 ? 'min-h-[50px]' : 'mb-1'}`}>
+														<div className={`${minHeigth2.nameLength > 26 ? 'min-h-[50px]' : 'mb-1'}`}>
 															<p className='font-semibold text-lg xm:text-base'>{el.name}</p>
 														</div>
-														<div className={`${minHeigth2.descriptionLength > 40 ? 'min-h-[3em]' : 'mb-1'} ${minHeigth2.descriptionLength > 70 ? 'min-h-[4.1em]' : 'mb-1'}`}>
+														<div className={`${minHeigth2.descriptionLength > 40 ? 'min-h-[55px]' : 'mb-1'} ${minHeigth2.descriptionLength > 70 ? 'min-h-[65px]' : 'mb-1'}`}>
 															<p className='text-xs xm:text-xs'>{el.description}</p>
 														</div>
 
