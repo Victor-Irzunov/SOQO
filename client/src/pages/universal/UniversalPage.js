@@ -204,11 +204,11 @@ const UniversalPage = observer(({ assortiment }) => {
 
 				<br />
 
-				<p className={`text-slate-400 ${type.length === 1 && type[0].link === arrLocalPath[1] ? 'hidden' : ''} ${type.length === 0 ? 'hidden': ''}`}
+				<p className={`text-slate-400 ${type.length === 1 && type[0].link === arrLocalPath[1] ? 'hidden' : ''} ${type.length === 0 ? 'hidden' : ''}`}
 				>
 					Ещё категории:
 				</p>
-				<Space className='mt-6 mb-6' wrap>
+				<Space className='mt-6 mb-6' size={screens.lg ? 'large' : 'small'} wrap>
 					{type.map(el => {
 
 						if (el.link !== arrLocalPath[1]) {
@@ -216,10 +216,17 @@ const UniversalPage = observer(({ assortiment }) => {
 							return (
 								<Link to={`/${arrLocalPath[0]}/${el.link}`} key={el.id} >
 
-									<div className='bg-white rounded-md lg:w-36 xz:w-28 h-20 text-center px-1.5 py-1 flex justify-between items-center'>
-										<Image preview={false} alt={el.alt} src={process.env.REACT_APP_API_URL + JSON.parse(el.img)[0].img} />
-
-										<span className='underline uppercase lg:text-[10px] xz:text-[8px] ml-1 lg:leading-4 xz:leading-3'>{el.name}</span>
+									<div
+										className=' hover:shadow-lg hover:bg-white w-28 overflow-hidden rounded-md  px-1.5 py-1 flex flex-col'
+									>
+										<Image
+											preview={false}
+											alt={el.alt} src={process.env.REACT_APP_API_URL + JSON.parse(el.img)[0].img}
+											style={{ objectFit: 'cover', }}
+										/>
+										<span className='uppercase lg:text-[10px] h-12 xz:text-[8px] mt-2 lg:leading-4 xz:leading-3'>
+											{el.name}
+										</span>
 									</div>
 
 								</Link>

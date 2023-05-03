@@ -62,7 +62,7 @@ const FormGetType = () => {
 
 			{
 				Object.keys(type).length ?
-					<FormChangeType type={type} />
+					<FormChangeType type={type} setType={setType} />
 					:
 					undefined
 			}

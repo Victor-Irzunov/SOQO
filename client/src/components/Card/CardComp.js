@@ -43,6 +43,7 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 	return (
 		<Row gutter={[0, 0]}>
 			{itemCard && itemCard.map((el, idx) => {
+				console.log('el:', el)
 				if (el.name.length > minHeigth.nameLength) {
 					setMinHeigth({ ...minHeigth, nameLength: el.name.length})
 				}

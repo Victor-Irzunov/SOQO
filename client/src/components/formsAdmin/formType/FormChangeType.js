@@ -23,7 +23,7 @@ const resizeFile = (file, size, size2) =>
 	})
 
 
-const FormChangeType = ({type}) => {
+const FormChangeType = ({ type,setType }) => {
 	const [form] = Form.useForm()
 	// const [dataType, setDataType] = useState([])
 	const cyrillicToTranslit = new CyrillicToTranslit()
@@ -35,15 +35,9 @@ const FormChangeType = ({type}) => {
 		return link
 	}
 
-	// useEffect(() => {
-	// 	fetchType()
-	// 		.then(data => {
-	// 			setDataType(data)
-	// 		})
-	// 		.catch(err => {
-	// 			message.error(err.message)
-	// 		})
-	// }, [isUpdate])
+	useEffect(() => {
+		setIsActive(i => !i)
+	}, [type])
 
 
 	const onFinish = async (values) => {
@@ -61,13 +55,15 @@ const FormChangeType = ({type}) => {
 				formData.append('img', pic)
 			}
 		}
-	
+
 
 		changeType(formData)
 			.then(data => {
 				if (data) {
 					message.success(data.message)
-					setIsUpdate(i => !i)
+					setIsActive(i => !i)
+					form.resetFields()
+					setType({})
 				}
 			})
 	}
@@ -76,7 +72,7 @@ const FormChangeType = ({type}) => {
 		console.log('Failed:', errorInfo)
 	}
 
-	
+
 
 	return (
 		<>
@@ -103,10 +99,10 @@ const FormChangeType = ({type}) => {
 					label="Тип"
 					name="name"
 					hasFeedback
-					// rules={[{
-					// 	required: true,
-					// 	message: 'Введите тип!',
-					// },]}
+				// rules={[{
+				// 	required: true,
+				// 	message: 'Введите тип!',
+				// },]}
 				>
 					<Input />
 				</Form.Item>
@@ -115,33 +111,34 @@ const FormChangeType = ({type}) => {
 					label="Описание картинки"
 					name="alt"
 					hasFeedback
-					// rules={[{
-					// 	required: true,
-					// 	message: 'Введите тип!',
-					// },]}
+				// rules={[{
+				// 	required: true,
+				// 	message: 'Введите тип!',
+				// },]}
 				>
 					<Input />
 				</Form.Item>
 
 
 				{
-					<Image src={process.env.REACT_APP_API_URL + JSON.parse(type.img)[0].img}/>
-			}
+					<Image src={process.env.REACT_APP_API_URL + JSON.parse(type.img)[0].img} />
+				}
 
 				<Form.Item
 					label="Изменить картинку для данного типа"
 					name="img"
-					// rules={[
-					// 	{
-					// 		required: true,
-					// 		message: 'Загрузите картинку!',
-					// 	},
-					// ]}
+				// rules={[
+				// 	{
+				// 		required: true,
+				// 		message: 'Загрузите картинку!',
+				// 	},
+				// ]}
 				>
 					<Upload
 						listType="picture"
 						className="upload-list-inline"
 						maxCount={1}
+						beforeUpload={() => false}
 					>
 						<Button icon={<UploadOutlined />}>Загрузить</Button>
 					</Upload>
@@ -155,7 +152,7 @@ const FormChangeType = ({type}) => {
 				</Form.Item>
 			</Form>
 
-		
+
 
 		</>
 	)
