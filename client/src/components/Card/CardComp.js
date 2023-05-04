@@ -1,5 +1,5 @@
-import { Rate, Card, Row, Col, Button, Tooltip, Badge, Image, message } from 'antd'
-import React, { useContext, useEffect, useState } from 'react'
+import { Rate, Card, Row, Col, Button, Tooltip, Badge, Image, message, Typography } from 'antd'
+import React, { useContext, useState } from 'react'
 import { CheckOutlined, CloseOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import BadgeIconVesy from '../badgeIcon/badgeIconVesy/BadgeIconVesy'
@@ -11,6 +11,8 @@ import ModalCookies from '../modalCookies/ModalCookies'
 import { addBasketUserOneProduct } from '../../http/basketAPI'
 import basket from '../../images/carouselCard/cart4.svg'
 import { useScreens } from '../../Constants/constants'
+
+const { Paragraph, Text } = Typography
 
 const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 	const { dataApp, user, dataProducts } = useContext(Context)
@@ -76,7 +78,6 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 										style={{
 											display: 'none',
 										}}
-
 									>
 										<Image.PreviewGroup
 											preview={{
@@ -108,15 +109,26 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 											<div className={`${minHeigth.nameLength > 28 ? 'min-h-[4em]' : 'mb-1'}`}>
 												<p className='font-bold xm:text-lg xz:text-sm'>{el.name}</p>
 											</div>
-											<p
+											<div
 												className={
 													`${minHeigth.descriptionLength > 40 ? 'min-h-[3em]' : 'mb-1'}
 													 ${minHeigth.descriptionLength > 70 ? 'min-h-[4.5em]' : 'mb-1'}
 													  xm:text-sm xz:text-xs`
 												}
 											>
-												{el.description}
-											</p>
+												<Paragraph
+													ellipsis={true
+														? {
+															rows: 2,
+															// expandable: true,
+															symbol: '...',
+														}
+														: false
+													}
+												>
+													{el.description}
+												</Paragraph>
+											</div>
 											<p className='font-thin xm:text-xs xz:text-[9px] mb-1'>Aртикул:
 												{el.id}GR{el.groupId}
 											</p>
@@ -127,11 +139,11 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 													disabled
 													style={
 														screens.xs ? {
-															fontSize:'12px'
+															fontSize: '12px'
 														}
 															:
 															{
-																fontSize:''
+																fontSize: ''
 															}
 													}
 												/>
