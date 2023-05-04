@@ -10,10 +10,11 @@ import CyrillicToTranslit from 'cyrillic-to-translit-js'
 import ModalCookies from '../modalCookies/ModalCookies'
 import { addBasketUserOneProduct } from '../../http/basketAPI'
 import basket from '../../images/carouselCard/cart4.svg'
-
+import { useScreens } from '../../Constants/constants'
 
 const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 	const { dataApp, user, dataProducts } = useContext(Context)
+	const screens = useScreens()
 	const [visible, setVisible] = useState(false)
 	const [idPreviewGroup, setIdPreviewGroup] = useState(null)
 	const cyrillicToTranslit = new CyrillicToTranslit()
@@ -43,22 +44,16 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 	return (
 		<Row gutter={[0, 0]}>
 			{itemCard && itemCard.map((el, idx) => {
-				console.log('el:', el)
-				if (el.name.length > minHeigth.nameLength) {
-					setMinHeigth({ ...minHeigth, nameLength: el.name.length})
-				}
-				if (el.description.length > minHeigth.descriptionLength) {
-					setMinHeigth({...minHeigth, descriptionLength: el.description.length})
-				}
-
-				// console.log('el.discountPercentage:',el.discountPercentage)
+				if (el.name.length > minHeigth.nameLength) setMinHeigth({ ...minHeigth, nameLength: el.name.length })
+				if (el.description.length > minHeigth.descriptionLength) setMinHeigth({ ...minHeigth, descriptionLength: el.description.length })
 				const img = JSON.parse(el.img)
+
 				return (
 					<React.Fragment key={el.id}>
 						<Col
 							xl={8}
 							sm={12}
-							xs={24}
+							xs={12}
 							key={el.id}
 							md={12}
 						>
@@ -66,7 +61,7 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 								className='hover:border-[#292D51] relative'
 								key={el.id}
 							>
-								<div className='overflow-hidden h-[360px] flex justify-center items-center'>
+								<div className='overflow-hidden xz:h-32 xm:h-[360px] flex justify-center items-center'>
 									<img
 										src={process.env.REACT_APP_API_URL + img[0].image}
 										onClick={
@@ -75,7 +70,7 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 												setIdPreviewGroup(el.id)
 											}
 										}
-										className='h-auto w-full'
+										className='xz:h-32 xm:h-[360px] w-auto object-fill'
 									/>
 									<div
 										style={{
@@ -111,16 +106,35 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 									>
 										<div className='flex flex-col justify-between'>
 											<div className={`${minHeigth.nameLength > 28 ? 'min-h-[4em]' : 'mb-1'}`}>
-												<p className='font-bold text-lg'>{el.name}</p>
+												<p className='font-bold xm:text-lg xz:text-sm'>{el.name}</p>
 											</div>
-											<p className={`${minHeigth.descriptionLength > 40 ? 'min-h-[3em]' : 'mb-1'} ${minHeigth.descriptionLength > 70 ? 'min-h-[4.5em]' : 'mb-1'} text-sm`}>
+											<p
+												className={
+													`${minHeigth.descriptionLength > 40 ? 'min-h-[3em]' : 'mb-1'}
+													 ${minHeigth.descriptionLength > 70 ? 'min-h-[4.5em]' : 'mb-1'}
+													  xm:text-sm xz:text-xs`
+												}
+											>
 												{el.description}
 											</p>
-											<p className='font-thin text-xs mb-1'>Aртикул:
+											<p className='font-thin xm:text-xs xz:text-[9px] mb-1'>Aртикул:
 												{el.id}GR{el.groupId}
 											</p>
 											<div>
-												<Rate allowHalf defaultValue={el.rating} disabled />
+												<Rate
+													allowHalf
+													defaultValue={el.rating}
+													disabled
+													style={
+														screens.xs ? {
+															fontSize:'12px'
+														}
+															:
+															{
+																fontSize:''
+															}
+													}
+												/>
 												<span className="ant-rate-text">
 													<Badge style={{ backgroundColor: '#1cac32' }} count={el.rating} />
 												</span>
@@ -132,9 +146,13 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 										<Badge
 											status="success"
 											text="в наличии"
+											style={{
+												fontSize: '8px'
+											}}
 										/>
+
 										<div className='mt-1 flex justify-between items-top'>
-											<p className='uppercase text-2xl font-semibold'>{(el.price - el.price * el.discountPercentage / 100).toFixed(2)} BYN</p>
+											<p className='uppercase xm:text-2xl xy:text-lg font-semibold'>{(el.price - el.price * el.discountPercentage / 100).toFixed(2)} BYN</p>
 											<div className='text-right'>
 												{
 													el.discountPercentage ?
@@ -176,7 +194,7 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 													</div>
 												}
 											</div>
-											<div className=' text-right'>
+											<div className='text-right'>
 												{(user.isAuth
 													? dataProducts.dataBasket.some(elem => elem.productId === el.id) : dataApp.basketArr.some(elem => elem.id === el.id)) ?
 													<Link to='/korzina'>
@@ -184,7 +202,8 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 															<Button
 																type="primary"
 																shape="round"
-																size="large"
+																size={screens.xs ? 'small' : "large"}
+																// size='small'
 																icon={<CheckOutlined />}
 																style={{ boxShadow: 'none' }}
 															/>
@@ -194,10 +213,23 @@ const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 													<Tooltip title="Добавить в корзину">
 
 														<div
-															className='py-1 px-4 bg-[#292D51] rounded-3xl'
+															className='py-1 xm:px-4 xz:px-3 bg-[#292D51] rounded-3xl'
 															onClick={() => addBasket(el)}
 														>
-															<Image src={basket} preview={false} className='' width='32px' />
+															<Image
+																src={basket}
+																preview={false}
+																className=''
+																style={
+																	screens.xs ?
+																		{
+																			width: '16px'
+																		}
+																		: {
+																			width: '32px'
+																		}
+																}
+															/>
 														</div>
 													</Tooltip>
 												}

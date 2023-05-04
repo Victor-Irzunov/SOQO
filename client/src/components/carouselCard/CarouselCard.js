@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef, useEffect } from 'react'
+import React, { useState, useContext, useRef } from 'react'
 import { Card, Rate, Button, Image, Badge, message, Tooltip } from 'antd'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css"
@@ -17,6 +17,7 @@ import { Context } from '../../App'
 import { addBasketUserOneProduct } from '../../http/basketAPI'
 import basket from '../../images/carouselCard/basket2.svg'
 import { observer } from "mobx-react-lite"
+import { useScreens } from '../../Constants/constants';
 
 const ButtonGroup = ({ next, previous, product, ...rest }) => {
 	const { carouselState: { currentSlide } } = rest
@@ -55,7 +56,7 @@ const responsive = {
 	},
 	miniMobile: {
 		breakpoint: { max: 575, min: 0 },
-		items: 1
+		items: 2
 	}
 }
 
@@ -69,6 +70,7 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 	const [isModalOpen, setIsModalOpen] = useState(false)
 	// const [imgHeigth, setImgHeigth] = useState(0)
 	const divRef = useRef()
+	const screens = useScreens()
 
 	// useEffect(() => {
 	// 	if (imgHeigth < divRef.current.offsetHeight) {
@@ -113,27 +115,27 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 	return (
 		<div className='relative pt-6 pb-16 px-1.5 overflow-hidden '>
 			{cardItem &&
-					<div className='flex justify-between mb-8'>
-						<h2 className='text-[#292D51] text-2xl ml-6'>{title}</h2>
-						{
-							hit ?
-								<Link to={{
-									pathname: `/assortiment/${cyrillicToTranslit.transform('хит-продаж')}`,
-								}}
-									state={{ isNew: false, title: title }}
-								>
-									<p className='text-[#292D51] mt-3 mr-3'>смотреть все</p>
-								</Link>
-								:
-								<Link to={{
-									pathname: `/assortiment/${cyrillicToTranslit.transform('новое-поступление')}`,
-								}}
-									state={{ isNew: true, title: title }}
-								>
-									<p className='text-[#292D51] mt-3 mr-3'>смотреть все</p>
-								</Link>
-						}
-					</div>
+				<div className='flex justify-between mb-8'>
+					<h2 className='text-[#292D51] text-2xl ml-6'>{title}</h2>
+					{
+						hit ?
+							<Link to={{
+								pathname: `/assortiment/${cyrillicToTranslit.transform('хит-продаж')}`,
+							}}
+								state={{ isNew: false, title: title }}
+							>
+								<p className='text-[#292D51] mt-3 mr-3'>смотреть все</p>
+							</Link>
+							:
+							<Link to={{
+								pathname: `/assortiment/${cyrillicToTranslit.transform('новое-поступление')}`,
+							}}
+								state={{ isNew: true, title: title }}
+							>
+								<p className='text-[#292D51] mt-3 mr-3'>смотреть все</p>
+							</Link>
+					}
+				</div>
 			}
 
 			<Carousel
@@ -164,9 +166,11 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 									className='shadow-xl'
 								>
 									<div className=''>
-										<div className='w-full h-[380px]'>
-											<Image src={process.env.REACT_APP_API_URL + JSON.parse(el.img)[0].image}
-												width='100%'
+										<div className='overflow-hidden xz:h-32 xm:h-[360px] flex justify-center items-center'>
+											<img
+												src={process.env.REACT_APP_API_URL + JSON.parse(el.img)[0].image}
+												className='xz:h-32 xm:h-[360px]  w-auto object-fill '
+
 											/>
 										</div>
 										<div className='p-2'>
@@ -263,7 +267,7 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 						if (el.description.length > minHeigth2.descriptionLength) {
 							setMinHeigth2({ ...minHeigth2, descriptionLength: el.description.length })
 						}
-						
+
 						return (
 							<Badge.Ribbon
 								key={el.id} text={`${hit ? 'хит' : 'новое'}`}
@@ -280,14 +284,21 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 										overflow: 'hidden',
 									}}
 									className='shadow-xl'
-									
+
 								>
 									<div className=''>
-										<div className={`h-[370px] overflow-hidden`} ref={divRef}>
+										{/* <div className={`h-[370px] overflow-hidden`} ref={divRef}>
 											<Image src={process.env.REACT_APP_API_URL + JSON.parse(el.img)[0].image}
 											/>
+										</div> */}
+										<div className='overflow-hidden xz:h-32 xm:h-[360px] flex justify-center items-center'>
+											<img
+												src={process.env.REACT_APP_API_URL + JSON.parse(el.img)[0].image}
+												className='xz:h-32 xm:h-[360px]  w-auto object-fill '
+
+											/>
 										</div>
-										<div className='px-4 pb-4 pt-2'>
+										<div className='xz:px-2 xm:px-4 pb-4 pt-2'>
 											{el.categories.length
 												?
 												<>
@@ -297,7 +308,7 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 														state={{ id: el.id, location: location.pathname }}
 													>
 														<div className={`${minHeigth2.nameLength > 26 ? 'min-h-[50px]' : 'mb-1'}`}>
-															<p className='font-semibold text-lg xm:text-base'>{el.name}</p>
+															<p className='font-semibold xm:text-lg xz:text-sm'>{el.name}</p>
 														</div>
 														<div className={`${minHeigth2.descriptionLength > 40 ? 'min-h-[55px]' : 'mb-1'} ${minHeigth2.descriptionLength > 70 ? 'min-h-[65px]' : 'mb-1'}`}>
 															<p className='text-xs xm:text-xs'>{el.description}</p>
@@ -307,7 +318,21 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 															{el.id}GR{el.groupId}
 														</p>
 														<div className='flex'>
-															<Rate allowHalf value={el.rating} disabled />
+															
+															<Rate
+																allowHalf
+																value={el.rating}
+																disabled
+																style={
+																	screens.xs ? {
+																		fontSize:'12px'
+																	}
+																		:
+																		{
+																			fontSize:''
+																		}
+																}
+															/>
 															<span className="mt-1.5 ml-3">
 																<Badge style={{ backgroundColor: '#52c41aa8', }} count={el.rating} />
 															</span>

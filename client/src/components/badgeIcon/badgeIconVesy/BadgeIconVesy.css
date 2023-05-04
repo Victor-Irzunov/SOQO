@@ -12,3 +12,9 @@
 	fill: #1cac32 !important;
 	transform: scale(1.2);
 }
+@media screen and (max-width: 476px){
+	.icon-vesy{
+	width: 20px !important;
+	heigth: 20px !important;
+}
+}

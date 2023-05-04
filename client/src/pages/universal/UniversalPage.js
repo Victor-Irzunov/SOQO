@@ -217,7 +217,7 @@ const UniversalPage = observer(({ assortiment }) => {
 								<Link to={`/${arrLocalPath[0]}/${el.link}`} key={el.id} >
 
 									<div
-										className=' hover:shadow-lg hover:bg-white w-28 overflow-hidden rounded-md  px-1.5 py-1 flex flex-col'
+										className=' hover:shadow-lg hover:bg-white xm:w-28 xz:w-16 rounded-md  px-1.5 py-1 flex mx-2 flex-col'
 									>
 										<Image
 											preview={false}
@@ -314,7 +314,7 @@ const UniversalPage = observer(({ assortiment }) => {
 							onClose={onClose}
 						/>
 					</Drawer>
-					<Content className='p-2 xs:px-16 xx:px-11 xy:px-7 xm:px-2 bg-white rounded-xl'>
+					<Content className='p-2 xz:px-1 xx:px-1 xy:px-1 xm:px-2 bg-white rounded-xl'>
 						{
 							totalItem
 								?
