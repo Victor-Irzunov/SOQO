@@ -12,7 +12,7 @@ import { addBasketUserOneProduct } from '../../http/basketAPI'
 import basket from '../../images/carouselCard/cart4.svg'
 import { useScreens } from '../../Constants/constants'
 
-const { Paragraph, Text } = Typography
+const { Paragraph } = Typography
 
 const CardComp = ({ itemCard, page, location, deleteOneElCookies }) => {
 	const { dataApp, user, dataProducts } = useContext(Context)

@@ -7,6 +7,7 @@ import { fetchProductNoUser } from '../../http/productsAPI'
 import { getAllBasketUser } from '../../http/basketAPI'
 import { Helmet } from "react-helmet"
 const { Title } = Typography
+
 const BasketPage = observer(() => {
 	const { dataApp, dataProducts, user } = useContext(Context)
 	const [data, setData] = useState([])

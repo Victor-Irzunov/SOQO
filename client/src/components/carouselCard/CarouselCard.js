@@ -1,5 +1,5 @@
 import React, { useState, useContext, useRef } from 'react'
-import { Card, Rate, Button, Image, Badge, message, Tooltip } from 'antd'
+import { Card, Rate, Button, Image, Badge, message, Tooltip, Typography } from 'antd'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css"
 import {
@@ -17,7 +17,9 @@ import { Context } from '../../App'
 import { addBasketUserOneProduct } from '../../http/basketAPI'
 import basket from '../../images/carouselCard/basket2.svg'
 import { observer } from "mobx-react-lite"
-import { useScreens } from '../../Constants/constants';
+import { useScreens } from '../../Constants/constants'
+
+const { Paragraph } = Typography
 
 const ButtonGroup = ({ next, previous, product, ...rest }) => {
 	const { carouselState: { currentSlide } } = rest
@@ -97,6 +99,8 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 		})
 	}
 
+	console.log('sc:', screens)
+
 	const addBasket = el => {
 		if (!user.isAuth) {
 			addList('BasketProduct', el.id)
@@ -144,6 +148,9 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 				responsive={responsive}
 				className=''
 			>
+
+
+
 				{product ?
 					product.map((el) => {
 						if (el.name.length > minHeigth.nameLength) {
@@ -259,7 +266,13 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 							</Badge.Ribbon>
 						)
 					})
+
+
+
 					:
+
+
+
 					cardItem.map(el => {
 						if (el.name.length > minHeigth2.nameLength) {
 							setMinHeigth2({ ...minHeigth2, nameLength: el.name.length })
@@ -308,28 +321,56 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 														state={{ id: el.id, location: location.pathname }}
 													>
 														<div className={`${minHeigth2.nameLength > 26 ? 'min-h-[50px]' : 'mb-1'}`}>
-															<p className='font-semibold xm:text-lg xz:text-sm'>{el.name}</p>
+															<p className='font-semibold xm:text-base xz:text-xs'>
+																{el.name}
+															</p>
 														</div>
-														<div className={`${minHeigth2.descriptionLength > 40 ? 'min-h-[55px]' : 'mb-1'} ${minHeigth2.descriptionLength > 70 ? 'min-h-[65px]' : 'mb-1'}`}>
-															<p className='text-xs xm:text-xs'>{el.description}</p>
+
+
+														{/* ${minHeigth2.descriptionLength > 70 ? 'min-h-[65px]' : 'mb-1'}`} */}
+														{/* ${minHeigth2.descriptionLength > 40 ? 'min-h-[55px]' : 'mb-1'} */}
+														<div className={`mb-1`}>
+															<div className='xm:text-xs'>
+																<Paragraph
+																	ellipsis={true
+																		? {
+																			rows: 2,
+																			// expandable: true,
+																			symbol: '...',
+																		}
+																		: false
+																	}
+																	style={
+																		screens.sm ?
+																			{
+																				fontSize: ''
+																			}
+																			:
+																{
+																		fontSize: '10px'
+																	}}
+																>
+																	{el.description}
+																</Paragraph>
+															</div>
 														</div>
 
 														<p className='font-thin text-[11px] mb-1 mt-1'>Aртикул:
 															{el.id}GR{el.groupId}
 														</p>
 														<div className='flex'>
-															
+
 															<Rate
 																allowHalf
 																value={el.rating}
 																disabled
 																style={
 																	screens.xs ? {
-																		fontSize:'12px'
+																		fontSize: '12px'
 																	}
 																		:
 																		{
-																			fontSize:''
+																			fontSize: ''
 																		}
 																}
 															/>
@@ -379,7 +420,16 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 
 																	<Image src={basket}
 																		preview={false}
-																		width='36px'
+																		style={
+																			screens.sm ?
+																				{
+																					width: '36px'
+																				}
+																				:
+																				{
+																					width: '28px'
+																				}
+																		}
 																		onClick={() => addBasket(el)}
 																	/>
 																</Tooltip>

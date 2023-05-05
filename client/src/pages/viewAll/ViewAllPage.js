@@ -44,7 +44,7 @@ export const ViewAllPage = () => {
 						{title}
 					</h1>
 				</div>
-				<div className='mt-24 bg-white rounded-xl py-6 px-10'>
+				<div className='mt-24 bg-white rounded-xl py-6 xm:px-10 xz:px-1'>
 
 					<CardComp itemCard={itemCard} location={location} />
 				</div>

@@ -140,8 +140,8 @@ const BasketCard = observer((
 						count = el.countBasket
 					}
 					return (
-						<div key={el.id} className='mb-4 flex justify-between bg-white border'>
-							<div className='p-2 w-1/2'>
+						<div key={el.id} className='mb-4 flex xz:flex-col xy:flex-row justify-between bg-white border'>
+							<div className='p-2 xy:w-1/2 xz:w-full'>
 								<div className='flex'>
 									<Image
 										preview={false}
@@ -161,7 +161,7 @@ const BasketCard = observer((
 									</div>
 								</div>
 							</div>
-							<div className='flex justify-center items-center xs:mr-1 xx:mr-1 xy:mr-1'>
+							<div className='flex justify-center items-center xz:pb-5 xy:pb-0 xs:mr-1 xx:mr-1 xy:mr-1'>
 								<ButtonGroup>
 									<Button
 										onClick={() => minusBasket(el.id)}
@@ -187,7 +187,7 @@ const BasketCard = observer((
 									</Button>
 								</ButtonGroup>
 							</div>
-							<div className='border-l w-44 flex items-center sm:px-5 xs:px-2 xx:px-2 xy:pl-2 bg-gray-100 relative'>
+							<div className='border-l xy:w-44 xz:w-full flex items-center sm:px-5 xs:px-2 xx:px-2 xz:py-3 xz:px-4 xy:pl-2 bg-gray-100 relative'>
 								<div className=''>
 									<p className='font-extralight'>Цена:</p>
 									<p className='text-2xl xs:text-xl xx:text-lg xy:text-base mt-2'>
