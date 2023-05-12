@@ -108,6 +108,7 @@ const UniversalPage = observer(({ assortiment }) => {
 		isReset
 	])
 	useEffect(() => {
+		setDataImg({})
 		if (categoryId && !typeId) {
 			getImgBannerPage({ categoryId, typeId: null })
 				.then(data => {
@@ -117,6 +118,7 @@ const UniversalPage = observer(({ assortiment }) => {
 				})
 		}
 		if (categoryId && typeId) {
+			setDataImg({})
 			getImgBannerPage({ categoryId, typeId })
 				.then(data => {
 					if (data) {
@@ -170,7 +172,7 @@ const UniversalPage = observer(({ assortiment }) => {
 	return (
 		<>
 			<Helmet>
-				<title>{editH1}{typeTitle ? ` | ${typeTitle}` : ''}</title>
+				<title>{editH1} в Минске | Магазин китайской сантехники SOQO</title>
 				<meta name="description" content={editH1} />
 			</Helmet>
 			<BackTop />
@@ -217,7 +219,7 @@ const UniversalPage = observer(({ assortiment }) => {
 								<Link to={`/${arrLocalPath[0]}/${el.link}`} key={el.id} >
 
 									<div
-										className=' hover:shadow-lg hover:bg-white xm:w-28 xz:w-16 rounded-md  px-1.5 py-1 flex mx-2 flex-col'
+										className=' hover:shadow-lg xm:w-28 xz:w-16 rounded-md  px-1.5 py-1 flex mx-2 flex-col'
 									>
 										<Image
 											preview={false}

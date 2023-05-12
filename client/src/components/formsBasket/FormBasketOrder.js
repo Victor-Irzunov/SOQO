@@ -373,8 +373,8 @@ const FormBasketOrder = observer(({ next, setPriceDostavki, }) => {
 					<Space direction="vertical" className='mb-10'>
 						<Radio value={'Наличными при получении'}>Наличными при получении</Radio>
 						<Radio value={'Банковской картой при получении'}>Банковской картой при получении</Radio>
-						<Radio value={'Оплата картой онлайн'}>Оплата картой онлайн</Radio>
-						<Radio value={'Оплата через ЕРИП'}>Оплата через ЕРИП</Radio>
+						{/* <Radio value={'Оплата картой онлайн'}>Оплата картой онлайн</Radio>
+						<Radio value={'Оплата через ЕРИП'}>Оплата через ЕРИП</Radio> */}
 					</Space>
 				</Radio.Group>
 			</Form.Item>

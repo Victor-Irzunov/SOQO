@@ -119,7 +119,7 @@ class ImgController {
 	async getImg(req, res, next) {
 		try {
 			const { categoryId, typeId } = req.query
-			console.log('🦺-------------🦺categoryId', categoryId)
+			// console.log('🦺-------------🦺categoryId', categoryId)
 			let data
 			if (!typeId) {
 				data = await models.BannerImgPage.findOne({
@@ -134,6 +134,7 @@ class ImgController {
 					}
 				})
 			}
+			console.log('------data:', data)
 			return res.status(201).json(data)
 		}
 		catch (e) {
