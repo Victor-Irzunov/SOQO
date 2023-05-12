@@ -13,16 +13,7 @@ import parse from 'html-react-parser'
 
 export const ContentUniversalPage = ({ typeId, categoryId }) => {
 	const { user } = useContext(Context)
-	// const [editH2, setEditH2] = useState(textMenPage.h2)
-	// const [editH3, setEditH3] = useState(textMenPage.h3)
-	// const [editContent, setEditContent] = useState(textMenPage.p)
-	// const [editContentH2, setEditContentH2] = useState(textMenPage.p2)
-	// const [editContentH3, setEditContentH3] = useState(textMenPage.p3)
 	const [data, setData] = useState({})
-
-	// console.log('typeId: ', typeId)
-	// console.log('categoryId: ', categoryId)
-
 
 	useEffect(() => {
 		setData({})
@@ -40,81 +31,15 @@ export const ContentUniversalPage = ({ typeId, categoryId }) => {
 	}, [categoryId, typeId])
 
 	return (
-		// <div className='mt-32'>
-		// 	<Paragraph
-		// 		editable={
-		// 			user.userData.role === "ADMIN" &&
-		// 			{
-		// 				onChange: setEditContent,
-		// 			}
-		// 		}
-		// 	>
-		// 		{editContent}
-		// 	</Paragraph>
 
-
-		// 	<Typography.Title
-		// 		editable={
-		// 			user.userData.role === "ADMIN" &&
-		// 			{
-		// 				onChange: setEditH2,
-		// 			}
-		// 		}
-		// 		level={2}
-		// 	>
-		// 		{editH2}
-		// 	</Typography.Title>
-
-		// 	<Paragraph
-		// 		editable={
-		// 			user.userData.role === "ADMIN" &&
-		// 			{
-		// 				onChange: setEditContentH2,
-		// 			}
-		// 		}
-		// 	>
-		// 		{editContentH2}
-		// 	</Paragraph>
-
-
-		// 	<Typography.Title
-		// 		level={3}
-
-		// 		editable={
-		// 			user.userData.role === "ADMIN" &&
-		// 			{
-		// 				onChange: setEditH3,
-		// 			}}
-		// 	>
-		// 		{editH3}
-		// 	</Typography.Title>
-
-		// 	<Paragraph
-		// 		editable={
-		// 			user.userData.role === "ADMIN" &&
-		// 			{
-		// 				onChange: setEditContentH3,
-		// 			}}
-		// 	>
-		// 		{editContentH3}
-		// 	</Paragraph>
-		// </div>
 		<article className='mt-32 mb-24'>
 			{Object.keys(data).length && data.link !== 'undefined' ?
-				// 	<video src={data.link}
-				// 	autoPlay
-				// 	playsInline
-				// 	muted
-				// 	loop
-				// 	defaultMuted
-				// 	className='rounded-lg m-auto'
-				// />
 				<iframe width="100%" height="415" src={data.link} className='mb-20' title={data.title ? data.title : ''} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 				:
 				undefined
 			}
 			{Object.keys(data).length ?
-				<div className='relative'>
+				<div className='relative text-justify'>
 					{parse(data.content)}
 					{
 						user.userData.role === "ADMIN" &&
