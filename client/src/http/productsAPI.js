@@ -28,7 +28,7 @@ export const fetchOneProduct = async (nameLink) => {
 	return data
 }
 export const fetchOneProductById = async (id) => {
-	const { data } = await $host.get('api/product/'+ id)
+	const { data } = await $host.get('api/product/' + id)
 	return data
 }
 
@@ -47,9 +47,12 @@ export const getHitProduct = async () => {
 	const { data } = await $host.get('api/product/hit')
 	return data
 }
+export const getAkciiProducts = async () => {
+	const { data } = await $host.get('api/product/akcii/products')
+	return data
+}
 
-
-export const fetchProductsPohozhie = async ({groupId, id}) => {
+export const fetchProductsPohozhie = async ({ groupId, id }) => {
 	const { data } = await $host.get('api/product/pohozhie', {
 		params: {
 			groupId, id
@@ -85,7 +88,7 @@ export const categoryType = async () => {
 	return data
 }
 export const getAllProductOneType = async (id) => {
-	const { data } = await $host.get('api/product/one/type/'+ id)
+	const { data } = await $host.get('api/product/one/type/' + id)
 	return data
 }
 

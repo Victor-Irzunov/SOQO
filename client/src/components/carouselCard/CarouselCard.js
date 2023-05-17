@@ -64,7 +64,7 @@ const responsive = {
 
 
 
-const CarouselCard = observer(({ product, cardItem, title, hit }) => {
+const CarouselCard = observer(({ product, cardItem, title, hit, stok, news }) => {
 	const cyrillicToTranslit = new CyrillicToTranslit()
 	const { dataApp, user, dataProducts } = useContext(Context)
 	const { addList } = useCookieList(null)
@@ -99,7 +99,6 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 		})
 	}
 
-	console.log('sc:', screens)
 
 	const addBasket = el => {
 		if (!user.isAuth) {
@@ -122,22 +121,33 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 				<div className='flex justify-between mb-8'>
 					<h2 className='text-[#292D51] text-2xl ml-6'>{title}</h2>
 					{
-						hit ?
-							<Link to={{
-								pathname: `/assortiment/${cyrillicToTranslit.transform('хит-продаж')}`,
-							}}
-								state={{ isNew: false, title: title }}
-							>
-								<p className='text-[#292D51] mt-3 mr-3'>смотреть все</p>
-							</Link>
-							:
-							<Link to={{
-								pathname: `/assortiment/${cyrillicToTranslit.transform('новое-поступление')}`,
-							}}
-								state={{ isNew: true, title: title }}
-							>
-								<p className='text-[#292D51] mt-3 mr-3'>смотреть все</p>
-							</Link>
+						hit &&
+						<Link to={{
+							pathname: `/assortiment/${cyrillicToTranslit.transform('хит-продаж')}`,
+						}}
+							state={{ isNew: false, title: title }}
+						>
+							<p className='text-[#292D51] mt-3 mr-3'>смотреть все</p>
+						</Link>
+					}
+					{
+						stok &&
+						<Link to={{
+							pathname: `/assortiment/${cyrillicToTranslit.transform('акции')}`,
+						}}
+							state={{ isNew: true, title: title }}
+						>
+							<p className='text-[#292D51] mt-3 mr-3'>смотреть все</p>
+						</Link>
+					}
+					{news &&
+						<Link to={{
+							pathname: `/assortiment/${cyrillicToTranslit.transform('новое-поступление')}`,
+						}}
+							state={{ isNew: true, title: title }}
+						>
+							<p className='text-[#292D51] mt-3 mr-3'>смотреть все</p>
+						</Link>
 					}
 				</div>
 			}
@@ -266,13 +276,7 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 							</Badge.Ribbon>
 						)
 					})
-
-
-
 					:
-
-
-
 					cardItem.map(el => {
 						if (el.name.length > minHeigth2.nameLength) {
 							setMinHeigth2({ ...minHeigth2, nameLength: el.name.length })
@@ -283,7 +287,7 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 
 						return (
 							<Badge.Ribbon
-								key={el.id} text={`${hit ? 'хит' : 'новое'}`}
+								key={el.id} text={`${hit && 'хит' || news && 'новое' || stok && 'акции'}`}
 								className='uppercase'
 							>
 								<Card
@@ -300,7 +304,7 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 
 								>
 									<div className=''>
-										{/* <div className={`h-[370px] overflow-hidden`} ref={divRef}>
+										{/* <div className={`h - [370px] overflow - hidden`} ref={divRef}>
 											<Image src={process.env.REACT_APP_API_URL + JSON.parse(el.img)[0].image}
 											/>
 										</div> */}
@@ -316,7 +320,7 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 												?
 												<>
 													<Link to={{
-														pathname: `/${el.categories[0].link}/${el.types[0].link}/${cyrillicToTranslit.transform(el.name.split(' ').join('-'))}`,
+														pathname: `/ ${el.categories[0].link} / ${el.types[0].link} / ${cyrillicToTranslit.transform(el.name.split(' ').join('-'))}`,
 													}}
 														state={{ id: el.id, location: location.pathname }}
 													>
@@ -346,9 +350,9 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 																				fontSize: ''
 																			}
 																			:
-																{
-																		fontSize: '10px'
-																	}}
+																			{
+																				fontSize: '10px'
+																			}}
 																>
 																	{el.description}
 																</Paragraph>
@@ -440,15 +444,15 @@ const CarouselCard = observer(({ product, cardItem, title, hit }) => {
 												:
 												undefined
 											}
-										</div>
-									</div>
-								</Card>
-							</Badge.Ribbon>
+										</div >
+									</div >
+								</Card >
+							</Badge.Ribbon >
 						)
 					})
 				}
-			</Carousel>
-		</div>
+			</Carousel >
+		</div >
 	)
 })
 export default CarouselCard

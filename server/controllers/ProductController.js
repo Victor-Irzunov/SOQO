@@ -465,6 +465,31 @@ class ProductController {
 			next(ApiError.internal(e.message))
 		}
 	}
+	async getAkciiProduct(req, res, next) {
+		console.log('----------------------------------------------------')
+		try {
+			const data = await models.Product.findAll(
+				{
+					where: {
+						stock: true
+					},
+					include: [
+						{
+							model: models.Category,
+						},
+						{
+							model: models.Type
+						},
+					]
+				}
+			)
+			console.log('💊💊💊💊💊💊data:', data)
+			return res.json(data)
+		}
+		catch (e) {
+			next(ApiError.internal(e.message))
+		}
+	}
 
 	async getAllProductsOneType(req, res, next) {
 		try {

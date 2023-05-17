@@ -8,7 +8,7 @@ import HisotyStore from '../../components/historyeStore/HisotyStore'
 // import SubscriptionMain from '../../components/subscriptionMain/SubscriptionMain'
 import { observer } from "mobx-react-lite"
 import { Context } from '../../App'
-import { getHitProduct, getNewProduct } from '../../http/productsAPI'
+import { getAkciiProducts, getHitProduct, getNewProduct } from '../../http/productsAPI'
 import { getSliderImg } from '../../http/imgAPI'
 import { MainPageInfoBlock } from '../../components/mainPageInfoBlock/MainPageInfoBlock'
 
@@ -16,6 +16,7 @@ const MainPage = observer(() => {
   const { dataApp } = useContext(Context)
   const [cardItem, setCardItem] = useState([])
   const [cardItem2, setCardItem2] = useState([])
+  const [cardItem3, setCardItem3] = useState([])
   const [imgData, setImgData] = useState([])
 
   useEffect(() => {
@@ -27,6 +28,11 @@ const MainPage = observer(() => {
       .then(data => {
         // console.log('data: ', data)
         setCardItem2(data)
+      })
+    getAkciiProducts()
+      .then(data => {
+        console.log('data: ', data)
+        setCardItem3(data)
       })
     getSliderImg()
       .then(data => {
@@ -47,7 +53,8 @@ const MainPage = observer(() => {
       <section className='container'>
         <CarouselComp imgData={imgData} />
         <MainCard cardItem={cardItem2} title={'Хиты продаж'} hit={true} />
-        <MainCard cardItem={cardItem} title={'Новое поступление'} />
+        <MainCard cardItem={cardItem} title={'Новое поступление'} news={true} />
+        <MainCard cardItem={cardItem3} title={'Акции магазина'} stok={true} />
         <MainPageInfoBlock />
         <HisotyStore />
       </section>
