@@ -320,7 +320,7 @@ const CarouselCard = observer(({ product, cardItem, title, hit, stok, news }) =>
 												?
 												<>
 													<Link to={{
-														pathname: `/${el.categories[0].link} /${el.types[0].link}/${cyrillicToTranslit.transform(el.name.split(' ').join('-'))}`,
+														pathname: `/${el.categories[0].link}/${el.types[0].link}/${cyrillicToTranslit.transform(el.name.split(' ').join('-'))}`,
 													}}
 														state={{ id: el.id, location: location.pathname }}
 													>
