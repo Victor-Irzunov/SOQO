@@ -16,9 +16,14 @@ export const ViewAllPage = () => {
 	const [title, setTitle] = useState('Новое поступление')
 
 	useEffect(() => {
+		console.log('location.pathname::: ', location.pathname);
+
+
+
 		if (location.pathname == '/assortiment/novoe-postuplenie') {
 			getNewProduct()
 				.then(data => {
+					console.log('data::: ', data);
 					setItemCard(data)
 				})
 		}
@@ -26,6 +31,7 @@ export const ViewAllPage = () => {
 			setTitle('Хиты продаж')
 			getHitProduct()
 				.then(data => {
+					console.log('data::: ', data);
 					setItemCard(data)
 				})
 		}
@@ -33,6 +39,7 @@ export const ViewAllPage = () => {
 			setTitle('Акции магазина')
 			getAkciiProducts()
 				.then(data => {
+					console.log('data:',data)
 					setItemCard(data)
 				})
 		}
