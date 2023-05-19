@@ -38,7 +38,7 @@ import { ViewAllPage } from './pages/viewAll/ViewAllPage'
 import { StoksPage } from './pages/stocks/StoksPage'
 import { ResetPasswordPage } from './pages/resetPasswordPage/ResetPasswordPage'
 import { DogovorPage } from './pages/dogovor/DogovorPage'
-
+import { Helmet } from 'react-helmet'
 
 // ConfigProvider.config({
 //   theme: {
@@ -119,11 +119,6 @@ const App = observer(() => {
           colorPrimary: '#292D51',
           colorLink: '#292D51',
         },
-        // components: {
-        //   Radio: {
-        //     colorPrimary: '#00b96b',
-        //   },
-        // },
       }}
       locale={locale}
     >
@@ -134,6 +129,10 @@ const App = observer(() => {
       }}>
         <BrowserRouter>
           <div className="app">
+            <Helmet>
+              <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+            </Helmet>
+            
             <Header />
             {
               question.length && user.userData.role === "ADMIN" ?

@@ -466,7 +466,6 @@ class ProductController {
 		}
 	}
 	async getAkciiProduct(req, res, next) {
-		console.log('----------------------------------------------------')
 		try {
 			const data = await models.Product.findAll(
 				{
@@ -483,7 +482,7 @@ class ProductController {
 					]
 				}
 			)
-			console.log('💊💊💊💊💊💊data:', data)
+			// console.log('💊💊💊💊💊💊data:', data)
 			return res.json(data)
 		}
 		catch (e) {
