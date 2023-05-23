@@ -338,7 +338,7 @@ const FormBasketOrder = observer(({ next, setPriceDostavki, }) => {
 			</Form.Item>
 
 
-			<Form.Item
+			{/* <Form.Item
 				label="Выберите время"
 				name="time"
 				rules={[{ required: true, message: 'Выберите время для доставки!' }]}
@@ -348,7 +348,7 @@ const FormBasketOrder = observer(({ next, setPriceDostavki, }) => {
 					<Radio.Button value="14-18">14-18</Radio.Button>
 					<Radio.Button value="18-22">18-22</Radio.Button>
 				</Radio.Group>
-			</Form.Item>
+			</Form.Item> */}
 
 
 			<Divider
