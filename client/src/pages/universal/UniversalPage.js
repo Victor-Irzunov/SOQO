@@ -219,7 +219,7 @@ const UniversalPage = observer(({ assortiment }) => {
 								<Link to={`/${arrLocalPath[0]}/${el.link}`} key={el.id} >
 
 									<div
-										className=' hover:shadow-lg xm:w-28 xz:w-16 rounded-md  px-1.5 py-1 flex mx-2 flex-col'
+										className='xm:w-28 xz:w-16 rounded-md  px-1.5 py-1 flex mx-2 flex-col'
 									>
 										<Image
 											preview={false}
