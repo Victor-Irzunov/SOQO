@@ -1,8 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Helmet } from "react-helmet"
 import {
-	Typography, Layout, Space, Button,
-	BackTop, Empty, Drawer, Image,
+	Layout, Space, Button,
+	FloatButton, Empty, Drawer, Image,
 } from 'antd'
 import {
 	UpCircleOutlined,
@@ -22,13 +22,11 @@ import { fetchProducts } from '../../http/productsAPI'
 import { useScreens } from '../../Constants/constants'
 import { ContentUniversalPage } from '../../components/contentUniversalPage/ContentUniversalPage'
 import { getImgBannerPage } from '../../http/imgAPI'
-
 const { Sider, Content } = Layout
 
 const UniversalPage = observer(({ assortiment }) => {
 	const { dataApp } = useContext(Context)
 	const [editH1, setEditH1] = useState('')
-
 	const screens = useScreens()
 	let [searchParams, setSearchParams] = useSearchParams()
 	const [open, setOpen] = useState(false);
@@ -37,7 +35,6 @@ const UniversalPage = observer(({ assortiment }) => {
 	const arrLocalPath = location.pathname.split('/').filter(function (el) {
 		return (el != null && el != "" || el === 0)
 	})
-
 	const [itemCard, setItemCard] = useState([])
 	const [totalItem, setTotalItem] = useState(1)
 	const [page, setPage] = useState(1)
@@ -45,7 +42,6 @@ const UniversalPage = observer(({ assortiment }) => {
 	const [categoryId, setCategoryId] = useState(null)
 	const [typeId, setTypeId] = useState(null)
 	const [type, setType] = useState([])
-	// const [isType, setIsType] = useState(false)
 	const [typeTitle, setTypeTitle] = useState('')
 	const [isReset, setIsReset] = useState(false)
 	const [isBtnSortRatng, setIsBtnSortRatng] = useState(false)
@@ -53,8 +49,10 @@ const UniversalPage = observer(({ assortiment }) => {
 	const [inputValueFrom, setInputValueFrom] = useState(5)
 	const [inputValueBefore, setInputValueBefore] = useState(null)
 	const [dataImg, setDataImg] = useState({})
-	const params = searchParams.get('page')
 
+	const [isLoading, setIsLoading] = useState(true)
+
+	const params = searchParams.get('page')
 	useEffect(() => {
 		if (!params) setPage(1)
 		if (params && page !== params) setPage(+params)
@@ -109,11 +107,13 @@ const UniversalPage = observer(({ assortiment }) => {
 	])
 	useEffect(() => {
 		setDataImg({})
+		setIsLoading(true)
 		if (categoryId && !typeId) {
 			getImgBannerPage({ categoryId, typeId: null })
 				.then(data => {
 					if (data) {
 						setDataImg(data)
+						setIsLoading(false)
 					}
 				})
 		}
@@ -123,6 +123,7 @@ const UniversalPage = observer(({ assortiment }) => {
 				.then(data => {
 					if (data) {
 						setDataImg(data)
+						setIsLoading(false)
 					}
 
 				})
@@ -168,44 +169,64 @@ const UniversalPage = observer(({ assortiment }) => {
 	const onClose = () => {
 		setOpen(false)
 	}
-
 	return (
 		<>
 			<Helmet>
 				<title>{editH1} в Минске | Магазин китайской сантехники SOQO</title>
 				<meta name="description" content={editH1} />
 			</Helmet>
-			<BackTop />
+			<FloatButton.BackTop />
 			<section className='container'>
 				<div className='mt-6 mb-3 flex justify-between items-center flex-wrap'>
-					<Typography.Title
-						level={1}
+					<h1
 						className=''
-						style={screens.xs && {
+						style={screens.xs ? {
 							fontSize: '2em',
-						}}
+						}
+							:
+							{ fontSize: '4em' }
+						}
 					>
 						{editH1}
-					</Typography.Title>
+					</h1>
 					<span className='text-slate-400 pl-2 font-light text-xs'>количество товаров: {totalItem} шт</span>
 				</div>
 
-				{Object.keys(dataImg).length ?
-					(<div
+				{!isLoading && Object.keys(dataImg).length && (
+					<link
+						rel="preload"
+						href={process.env.REACT_APP_API_URL + JSON.parse(dataImg.img)[0].img}
+						as="image"
+					/>
+				)}
+
+				{Object.keys(dataImg).length ? (
+					<div
 						className='w-full mb-6 rounded-xl overflow-hidden'
+						style={{
+							position: 'relative',
+							width: '100%',
+							height: 0,
+							paddingBottom: '42%', // Замените на нужное вам соотношение сторон
+						}}
 					>
 						<img
 							src={process.env.REACT_APP_API_URL + JSON.parse(dataImg.img)[0].img}
-							className='bg-center bg-cover w-full'
-
+							alt="Изображение"
+							style={{
+								position: 'absolute',
+								top: 0,
+								left: 0,
+								width: '100%',
+								height: '100%',
+								objectFit: 'cover',
+							}}
 						/>
-					</div>)
-					:
-					undefined
-				}
+					</div>
+				) : null}
+
 
 				<br />
-
 				<p className={`text-slate-400 ${type.length === 1 && type[0].link === arrLocalPath[1] ? 'hidden' : ''} ${type.length === 0 ? 'hidden' : ''}`}
 				>
 					Ещё категории:
@@ -235,10 +256,7 @@ const UniversalPage = observer(({ assortiment }) => {
 							)
 						}
 					})}
-
 				</Space>
-
-
 				<br />
 				<Space>
 					<Button
@@ -337,7 +355,6 @@ const UniversalPage = observer(({ assortiment }) => {
 									</Button>
 								</Empty>
 						}
-
 					</Content>
 				</Layout>
 				<ContentUniversalPage categoryId={categoryId} typeId={typeId} />

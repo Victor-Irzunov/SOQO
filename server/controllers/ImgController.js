@@ -134,7 +134,7 @@ class ImgController {
 					}
 				})
 			}
-			console.log('------data:', data)
+			// console.log('------data:', data)
 			return res.status(201).json(data)
 		}
 		catch (e) {

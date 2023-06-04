@@ -20,8 +20,7 @@
   <title>Купить сантехнику в Минске | Завод сантехники SOQO</title>
 
 
-  <!-- Google Tag Manager -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-704700828"></script>
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=AW-704700828"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
@@ -29,9 +28,7 @@
 
     gtag('config', 'AW-704700828');
   </script>
-  <!-- End Google Tag Manager -->
 
-  <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PC6FEDPT6V"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -39,9 +36,8 @@
   gtag('js', new Date());
 
   gtag('config', 'G-PC6FEDPT6V');
-</script>
+</script> -->
 
-  <!-- Yandex.Metrika counter -->
 <script async type="text/javascript" >
   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
   m[i].l=1*new Date();
@@ -58,7 +54,40 @@
   });
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/93723752" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
+
+  <!-- Google Tag Manager -->
+  <script>
+    function loadTagManager() {
+      var script = document.createElement('script');
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=AW-704700828';
+      script.onload = loadGoogleTag;
+      document.head.appendChild(script);
+    }
+
+    function loadGoogleTag() {
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'AW-704700828');
+    }
+
+    // Загрузка Google Tag Manager при прокрутке страницы
+    window.addEventListener('scroll', function () {
+      if (!window.tagManagerLoaded) {
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop >= 500) {
+          window.tagManagerLoaded = true;
+          loadTagManager();
+        }
+      }
+    });
+  </script>
+  <!-- End Google Tag Manager -->
+
+
+
+
+
 
 </head>
 

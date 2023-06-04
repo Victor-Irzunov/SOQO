@@ -31,7 +31,6 @@ const MainPage = observer(() => {
       })
     getAkciiProducts()
       .then(data => {
-        console.log('data: ', data)
         setCardItem3(data)
       })
     getSliderImg()

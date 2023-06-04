@@ -84,7 +84,7 @@ function Footer() {
               {menuInfoPages.length ?
                 menuInfoPages.map(el => {
                   return (
-                    <li key={el.id} className='no-underline list-none'>
+                    <li key={el.key} className='no-underline list-none'>
                       {el.label}
                     </li>
                   )

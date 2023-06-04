@@ -135,10 +135,11 @@ const ProductPage = observer(() => {
 				>
 					<ArrowLeftOutlined /> назад
 				</Button>
-				<Typography.Title
+				<h1 className='xz:text-xl xy:text-2xl xm:text-4xl'
+					
 				>
 					{editH1}
-				</Typography.Title>
+				</h1>
 
 				{Object.keys(product).length
 					?
@@ -171,11 +172,13 @@ const ProductPage = observer(() => {
 								</Button>
 
 							</Col>
-							<Col xl={10} className='p-2 mt-10'>
+							<Col xl={10} xs={24} className='p-2 mt-10'>
 								<div className=''>
 									<div className='flex justify-between'>
 										<div>
-											<p className='font-thin text-sm'>Артикул: {product.id}GR{product.groupId}</p>
+											<p className='font-thin text-sm'>
+												Артикул: {product.id}GR{product.groupId}
+											</p>
 										</div>
 										<div className='flex w-16 justify-between'>
 											<BadgeIconVesy
@@ -206,7 +209,7 @@ const ProductPage = observer(() => {
 												className='mr-3'
 											>
 												<Image src={process.env.REACT_APP_API_URL + JSON.parse(el.imgMini)[0].image}
-													width='45px' preview={false}
+													width='65px' preview={false}
 												/>
 											</Link>
 										)
@@ -216,7 +219,10 @@ const ProductPage = observer(() => {
 								<div className='border-b pb-6 pt-6'>
 									<p className='text-base text-slate-700 font-light pb-2'>Цена:</p>
 									<div className='flex justify-between'>
-										<p className='text-3xl'>{(product.price - product.price * product.discountPercentage / 100).toFixed(2)} BYN</p>
+										<p className='text-3xl'>
+											{(product.price - product.price * product.discountPercentage / 100).toFixed(2)} BYN
+										</p>
+
 										{product.discountPercentage ?
 											<div className='text-right'>
 												<p className='uppercase text-xl font-extralight line-through decoration-from-font'>{(product.price).toFixed(2)} BYN</p>
