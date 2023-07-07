@@ -34,7 +34,7 @@ import { getAllQuestionResponseAdmin } from './http/questionAPI'
 import { DrawerNewQuestions } from './components/drawerNewQuestions/DrawerNewQuestions'
 import 'antd/dist/reset.css'
 import { SearchPage } from './pages/search/SearchPage'
-// import { ViewAllPage } from './pages/viewAll/ViewAllPage'
+import { ViewAllPage } from './pages/viewAll/ViewAllPage'
 // import { StoksPage } from './pages/stocks/StoksPage'
 // import { ResetPasswordPage } from './pages/resetPasswordPage/ResetPasswordPage'
 // import { DogovorPage } from './pages/dogovor/DogovorPage'
@@ -51,7 +51,7 @@ const ResultComp = lazy(() => import('./components/result/ResultComp'))
 const OrderHistory = lazy(() => import('./pages/orderHistory/OrderHistory'))
 const CourierPage = lazy(() => import('./pages/kurer/CourierPage'))
 const UniversalList = lazy(() => import('./pages/universalList/UniversalList'))
-const ViewAllPage = lazy(() => import('./pages/viewAll/ViewAllPage'))
+// const ViewAllPage = lazy(() => import('./pages/viewAll/ViewAllPage'))
 const StoksPage = lazy(() => import('./pages/stocks/StoksPage'))
 const ResetPasswordPage = lazy(() => import('./pages/resetPasswordPage/ResetPasswordPage'))
 
@@ -224,9 +224,9 @@ const App = observer(() => {
                 <Route path='/:category/:type/:title' element={<ProductPage />} />
                 <Route path='/poisk' element={<SearchPage />} />
                 <Route path='/assortiment/:title' element={
-                  <Suspense fallback={<p>loading...</p>}>
+                
                     <ViewAllPage />
-                  </Suspense>
+                
                 } />
                 <Route path='/dogovor' element={
                   <Suspense fallback={<p>loading...</p>}>

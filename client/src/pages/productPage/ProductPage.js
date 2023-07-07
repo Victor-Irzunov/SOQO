@@ -172,7 +172,7 @@ const ProductPage = observer(() => {
 								</Button>
 
 							</Col>
-							<Col xl={10} xs={24} className='p-2 mt-10'>
+							<Col xl={10} xs={24} className='p-2 xz:mt-2 xm:mt-10'>
 								<div className=''>
 									<div className='flex justify-between'>
 										<div>
