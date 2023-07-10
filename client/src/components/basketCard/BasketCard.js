@@ -49,16 +49,20 @@ const BasketCard = observer((
 					dataApp.basketArr.forEach(elem => {
 						if (el.id === elem.id) {
 							totalCost += el.price * elem.count
-							if (el.discountPercentage) discount += +(el.price * elem.count) * el.discountPercentage / 100
-							sendData.push({ poductId: el.id, price: el.price, count: elem.count })
+							if (el.discountPercentage) {
+								discount += +(el.price * elem.count) * el.discountPercentage / 100
+							}
+							sendData.push({ poductId: el.id, price: el.price, priceMinusDiscount: +(el.price * elem.count) * el.discountPercentage / 100, count: elem.count })
 						}
 					})
 				})
 			} else {
 				data.forEach(el => {
 					totalCost += el.price * el.countBasket
-					if (el.discountPercentage) discount += +(el.price * el.countBasket) * el.discountPercentage / 100
-					sendData.push({ poductId: el.id, price: el.price, count: el.countBasket })
+					if (el.discountPercentage) {
+						discount += +(el.price * el.countBasket) * el.discountPercentage / 100
+					}
+					sendData.push({ poductId: el.id, price: el.price, priceMinusDiscount: +(el.price * el.countBasket) * el.discountPercentage / 100, count: el.countBasket })
 				})
 			}
 			let total = totalCost - discount

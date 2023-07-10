@@ -360,6 +360,9 @@ const BasketOrder = sequelize.define('basket_order', {
 	price: {
 		type: DataTypes.FLOAT(10, 2), allowNull: false
 	},
+	priceMinusDiscount: {
+		type: DataTypes.FLOAT(10, 2), allowNull: false
+	},
 	productId: {
 		type: DataTypes.INTEGER
 	},
@@ -382,6 +385,9 @@ const Order = sequelize.define('order', {
 		type: DataTypes.STRING, allowNull: false
 	},
 	address: {
+		type: DataTypes.STRING, allowNull: false
+	},
+	indeks: {
 		type: DataTypes.STRING, allowNull: false
 	},
 	oplata: {

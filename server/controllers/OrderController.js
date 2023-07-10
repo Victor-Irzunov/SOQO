@@ -13,7 +13,7 @@ class OrderController {
 				date, dostavka,
 				login, oplata,
 				tel, time, firstName,
-				lastName, otchestvo
+				lastName, otchestvo, indeks,
 			} = req.body
 			const [data, created] = await models.User.findOrCreate({ where: { login } })
 			const [dataCreateBasket, createdBasket] = await models.Basket.findOrCreate({ where: { userId: data.id } })
@@ -22,7 +22,7 @@ class OrderController {
 				delivery: dostavka,
 				city, address: street,
 				oplata, phone: tel,
-				comment, date, time
+				comment, date, time, indeks
 			})
 
 
@@ -30,6 +30,7 @@ class OrderController {
 				await models.BasketOrder.create({
 					productId: el.poductId,
 					count: el.count,
+					priceMinusDiscount: el.priceMinusDiscount,
 					price: el.price,
 					basketId: dataCreateBasket.id,
 					orderId: order.id,
@@ -43,9 +44,9 @@ class OrderController {
 
 			})
 
-			const userData = await models.UserData.findOne({ where: { userId: data.id } })
+			let userData = await models.UserData.findOne({ where: { userId: data.id } })
 			if (!userData) {
-				await models.UserData.create({
+				userData = await models.UserData.create({
 					fitstName: firstName, lastName,
 					otchestvo, email: login,
 					phone: tel, address: street, city,
@@ -62,7 +63,7 @@ class OrderController {
 				await userData.save()
 			}
 
-			const orderData = await models.BasketOrder.findOne({
+			const orderData = await models.BasketOrder.findAll({
 				where: { orderId: order.id },
 				include: [
 					{
@@ -73,7 +74,7 @@ class OrderController {
 					}
 				]
 			})
-			return res.status(201).json(orderData)
+			return res.status(201).json({orderData, userData})
 		}
 		catch (e) {
 			console.log('🦺-------err: ', e.message)

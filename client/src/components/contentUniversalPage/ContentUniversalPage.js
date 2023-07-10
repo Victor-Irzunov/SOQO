@@ -8,7 +8,6 @@ export const ContentUniversalPage = ({ typeId, categoryId }) => {
   const { user } = useContext(Context);
   const [data, setData] = useState({});
   const iframeRef = useRef(null);
-  console.log('iframeRef::: ', iframeRef);
   const [isIframeVisible, setIsIframeVisible] = useState(false);
 
   useEffect(() => {

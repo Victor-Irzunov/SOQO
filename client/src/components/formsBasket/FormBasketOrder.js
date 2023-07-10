@@ -55,6 +55,7 @@ const FormBasketOrder = observer(({ next, setPriceDostavki, }) => {
 		formData.append('firstName', values.fitstName)
 		formData.append('lastName', values.last_name)
 		formData.append('otchestvo', values.otchestvo)
+		formData.append('indeks', values.indeks)
 		formData.append('dataBasket', JSON.stringify([...dataProducts.sendData]))
 
 		orderUser(formData)
@@ -314,6 +315,12 @@ const FormBasketOrder = observer(({ next, setPriceDostavki, }) => {
 								message: 'Пожалуйста введите отчество!',
 							},
 						]}
+					>
+						<Input />
+					</Form.Item>
+					<Form.Item
+						label="Индекс"
+						name="indeks"
 					>
 						<Input />
 					</Form.Item>
